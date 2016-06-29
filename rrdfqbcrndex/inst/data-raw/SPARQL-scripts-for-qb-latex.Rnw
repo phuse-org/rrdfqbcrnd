@@ -1,0 +1,71 @@
+%% \VignetteIndexEntry{SPARQL scripts for RDF data cubes (latex version)}
+%% \VignetteEngine{knitr::knitr}
+%% \usepackage[utf8]{inputenc}
+%% \SweaveUTF8
+
+% knitr::knit("vignettes/SPARQL-scripts-for-qb.Rnw")
+
+%% \documentclass[10pt]{beamer}
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{listings}
+
+\title{SPARQL scripts for RDF data cubes}
+
+
+\author{Marc Andersen, mja@statgroup.dk}
+
+
+\begin{document}
+\lstset{language=SPARQL}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{green},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mauve},     % string literal style
+}
+First load the package.
+<<setup0, include=FALSE,echo=FALSE>>=
+library(rrdfqbcrnd0)
+@
+
+<<setup00, include=FALSE,echo=FALSE,eval=FALSE>>=
+knitr::knit("vignettes/SPARQL-scripts-for-qb-latex.Rnw")
+@
+
+<<setup01>>=
+cat("Empty statment to make the script pass the R build of vignette")
+@
+
+
+\section{SPARQL scripts}
+
+The package uses SPARQL scripts to access the RRDF triple store.  This
+is implemented by having a function generating the SPARQL script.
+This vignettes shows the contents of the scripts. Some of the scripts
+are parametrised by one or more paramteres. The parameter are shown
+with as \$p, \$q etc.
+
+<<results='asis'>>=
+forsparqlprefix<- GetForSparqlPrefix( "$myQbName" )
+sparql.rq<- GetAttributesSparqlQuery( forsparqlprefix )
+cat("\\begin{lstlisting}[language=SPARQL]",gsub("#", "\\\\#", sparql.rq),"\\end{lstlisting}",sep="\n")
+@
+
+\subsubsection{Using lstlisting with language=SPARQL}
+
+\begin{lstlisting}[language=SPARQL]
+select * 
+where {?s ?p ?o}
+\end{lstlisting}
+
+
+
+\end{document}
+

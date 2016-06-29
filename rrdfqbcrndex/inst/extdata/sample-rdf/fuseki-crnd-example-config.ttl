@@ -1,0 +1,51 @@
+#
+# fuseki configuration file for loading rrdfqbcrdn0 turtle files
+# Start fuseki using
+# (CFGFILE=${PWD}/fuseki-crnd-example-config.ttl ;cd /opt/apache-jena-fuseki-2.3.0; ./fuseki-server --config=${CFGFILE} ) 
+
+@prefix :        <#> .
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+
+[] rdf:type fuseki:Server ;
+   fuseki:services (
+     <#armexample>
+   ) .
+
+# Custom code.
+[] ja:loadClass "com.hp.hpl.jena.tdb.TDB" .
+
+# TDB
+tdb:DatasetTDB  rdfs:subClassOf  ja:RDFDataset .
+tdb:GraphTDB    rdfs:subClassOf  ja:Model .
+
+## ---------------------------------------------------------------
+## Updatable in-memory dataset.
+
+## ---------------------------------------------------------------
+<#armexample> rdf:type fuseki:Service ;
+    fuseki:name                     "arm" ;    # http://host:port/arm
+    fuseki:serviceQuery             "query" ;    # SPARQL query service
+    fuseki:serviceReadGraphStore    "get" ;      # SPARQL Graph store protocol (read only)
+    fuseki:dataset                   <#dataset> ;
+    # Configuration
+    .
+    
+
+# Dataset of default graph and one named graph.
+<#dataset> rdf:type ja:RDFDataset ;
+   ja:defaultGraph <#modelDft> ;
+   .
+
+<#modelDft> a ja:MemoryModel ;
+        ja:content [ ja:externalContent <file:adsl-map.ttl> ];
+        ja:content [ ja:externalContent <file:adsl.ttl> ];
+        ja:content [ ja:externalContent <file:DC-AE-sample.ttl> ];
+        ja:content [ ja:externalContent <file:DC-DEMO-sample.ttl> ];
+        ja:content [ ja:externalContent <file:DC-DM-sample.ttl> ];
+	.
+

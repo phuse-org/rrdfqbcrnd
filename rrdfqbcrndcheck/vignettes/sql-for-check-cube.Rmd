@@ -1,0 +1,112 @@
+---
+title: "SQL code for verifying results in RDF data cube"
+author: "mja@statgroup.dk"
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{SQL code for verifying results in RDF data cube}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+# Derive results in RDF data cube and compare with results in data cube
+
+## Setup
+Here all libraries are loaded; this should not be necessary.
+```{r}
+options(width=200) # long lines
+library(xlsx)
+library(foreign)
+library(rrdf)
+library(rrdfqb)
+library(rrdfqbcrnd0)
+library(rrdfqbcrndex)
+library(rrdfqbcrndcheck)
+```
+
+## Load the data
+The SAS dataset is loaded, and factors converted to character.
+```{r}
+obsFile<- system.file("extdata/sample-xpt", "adsl.xpt", package="rrdfqbcrndex")
+adsl<-read.xport(obsFile)
+ii <- sapply(adsl, is.factor)
+adsl[ii] <- lapply(adsl[ii], as.character)
+```
+
+The conversion to character can be avoided by using
+`library(SASxport)`, see
+(../../rrdfqbcrndex/inst/data-raw/create-dm-table-as-csv.Rmd).
+
+## Load the RDF data cube
+The RDF data cube is loaded.
+```{r}
+dataCubeFile<- system.file("extdata/sample-rdf", "DC-DEMO-sample.ttl", package="rrdfqbcrndex")
+store <- new.rdf()  # Initialize
+cat("Reading turtle definition from ", dataCubeFile, "\n")
+temp<- load.rdf(dataCubeFile, format="TURTLE", appendTo= store)
+summarize.rdf(store)
+```
+
+With a SPARQL query the mean values for the `WEIGHTBL` variable in RDF data cube the are extracted.
+```{r}
+rq<-'
+prefix crnd-measure: <http://www.example.org/dc/measure#> 
+prefix code:  <http://www.example.org/dc/code/> 
+prefix crnd-attribute: <http://www.example.org/dc/attribute#> 
+prefix ds:    <http://www.example.org/dc/demo/ds/> 
+prefix qb:    <http://purl.org/linked-data/cube#> 
+prefix crnd-dimension: <http://www.example.org/dc/dimension#> 
+select * where {
+?obs  a                         qb:Observation ;
+    qb:dataSet                  ds:dataset-DEMO ;
+        crnd-dimension:agegr1       code:agegr1-_ALL_ ;
+        crnd-dimension:ethnic       code:ethnic-_ALL_ ;
+        crnd-dimension:factor       code:factor-weightbl ;
+        crnd-dimension:procedure    code:procedure-mean ;
+        crnd-dimension:race         code:race-_ALL_ ;
+        crnd-dimension:sex          code:sex-_ALL_ ;
+        crnd-dimension:trt01a       ?trt01a ;
+    crnd-measure:measure        ?measure .
+}
+'
+knitr::kable(data.frame(sparql.rdf( store, rq)))
+```
+
+The SPARQL query about can be made more generic. 
+
+## Generate SQL statements
+From the RDF data cube loading in the store, the function `GetSQLFromCube` generates the SQL statements for reproducing the data cube.
+Only the first two select statements are shown.
+
+```{r}
+stmtSQL<- GetSQLFromCube( store, srcDsName="adsl" )
+cat(paste(unlist(strsplit(stmtSQL$summStatSQL,split="\n"))[1:3],collapse="\n"),"\n")
+```
+
+## Derive the descriptive statistics
+
+To show the full SQL expression use
+
+```{r,eval=FALSE}
+cat(stmtSQL$summStatSQL)
+```
+
+```{r}
+library(sqldf)
+adsl.summ.stat.res<- sqldf( stmtSQL$summStatSQL)
+names(adsl.summ.stat.res)<- tolower(gsub("(a|b)\\.","", names(adsl.summ.stat.res)))
+knitr::kable(adsl.summ.stat.res)
+```
+
+## Quick check
+Sometimes it is usefull to see that there is an actual derivation going on.
+The calculated mean values for the `WEIGHTBL` variable is
+```{r}
+knitr::kable(adsl.summ.stat.res[adsl.summ.stat.res$factor=="WEIGHTBL" & adsl.summ.stat.res$procedure=="mean",])
+```
+
+If `WEIGHTBL` is multiplied by 100, then mean should also be multiplied with 100:
+```{r}
+adsl$WEIGHTBL<- adsl$WEIGHTBL*100
+adsl.summ.stat.mod.res<- sqldf( stmtSQL$summStatSQL)
+knitr::kable(adsl.summ.stat.mod.res[adsl.summ.stat.mod.res$factor=="WEIGHTBL" & adsl.summ.stat.mod.res$procedure=="mean",])
+```

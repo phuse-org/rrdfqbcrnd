@@ -1,0 +1,54 @@
+measure,TRT01A,sex,SAFFL,procedure,factor,denominator,race,unit
+86,Placebo,_ALL_,Y,count,quantity,_ALL_,_ALL_,_NULL_
+84,Xanomeline High Dose,_ALL_,Y,count,quantity,_ALL_,_ALL_,_NULL_
+84,Xanomeline Low Dose,_ALL_,Y,count,quantity,_ALL_,_ALL_,_NULL_
+143,_ALL_,F,Y,count,quantity,_ALL_,_ALL_,_NULL_
+111,_ALL_,M,Y,count,quantity,_ALL_,_ALL_,_NULL_
+53,Placebo,F,Y,count,quantity,_ALL_,_ALL_,_NULL_
+33,Placebo,M,Y,count,quantity,_ALL_,_ALL_,_NULL_
+40,Xanomeline High Dose,F,Y,count,quantity,_ALL_,_ALL_,_NULL_
+44,Xanomeline High Dose,M,Y,count,quantity,_ALL_,_ALL_,_NULL_
+50,Xanomeline Low Dose,F,Y,count,quantity,_ALL_,_ALL_,_NULL_
+34,Xanomeline Low Dose,M,Y,count,quantity,_ALL_,_ALL_,_NULL_
+61.62790698,Placebo,F,Y,percent,proportion,SEX,_ALL_,_NULL_
+38.37209302,Placebo,M,Y,percent,proportion,SEX,_ALL_,_NULL_
+47.61904762,Xanomeline High Dose,F,Y,percent,proportion,SEX,_ALL_,_NULL_
+52.38095238,Xanomeline High Dose,M,Y,percent,proportion,SEX,_ALL_,_NULL_
+59.52380952,Xanomeline Low Dose,F,Y,percent,proportion,SEX,_ALL_,_NULL_
+40.47619048,Xanomeline Low Dose,M,Y,percent,proportion,SEX,_ALL_,_NULL_
+230,_ALL_,_ALL_,Y,count,quantity,_ALL_,WHITE,_NULL_
+23,_ALL_,_ALL_,Y,count,quantity,_ALL_,BLACK OR AFRICAN AMERICAN,_NULL_
+1,_ALL_,_ALL_,Y,count,quantity,_ALL_,AMERICAN INDIAN OR ALASKA NATIVE,_NULL_
+78,Placebo,_ALL_,Y,count,quantity,_ALL_,WHITE,_NULL_
+8,Placebo,_ALL_,Y,count,quantity,_ALL_,BLACK OR AFRICAN AMERICAN,_NULL_
+0,Placebo,_ALL_,Y,count,quantity,_ALL_,AMERICAN INDIAN OR ALASKA NATIVE,_NULL_
+74,Xanomeline High Dose,_ALL_,Y,count,quantity,_ALL_,WHITE,_NULL_
+9,Xanomeline High Dose,_ALL_,Y,count,quantity,_ALL_,BLACK OR AFRICAN AMERICAN,_NULL_
+1,Xanomeline High Dose,_ALL_,Y,count,quantity,_ALL_,AMERICAN INDIAN OR ALASKA NATIVE,_NULL_
+78,Xanomeline Low Dose,_ALL_,Y,count,quantity,_ALL_,WHITE,_NULL_
+6,Xanomeline Low Dose,_ALL_,Y,count,quantity,_ALL_,BLACK OR AFRICAN AMERICAN,_NULL_
+0,Xanomeline Low Dose,_ALL_,Y,count,quantity,_ALL_,AMERICAN INDIAN OR ALASKA NATIVE,_NULL_
+90.69767442,Placebo,_ALL_,Y,percent,proportion,RACE,WHITE,_NULL_
+9.302325581,Placebo,_ALL_,Y,percent,proportion,RACE,BLACK OR AFRICAN AMERICAN,_NULL_
+0,Placebo,_ALL_,Y,percent,proportion,RACE,AMERICAN INDIAN OR ALASKA NATIVE,_NULL_
+88.0952381,Xanomeline High Dose,_ALL_,Y,percent,proportion,RACE,WHITE,_NULL_
+10.71428571,Xanomeline High Dose,_ALL_,Y,percent,proportion,RACE,BLACK OR AFRICAN AMERICAN,_NULL_
+1.19047619,Xanomeline High Dose,_ALL_,Y,percent,proportion,RACE,AMERICAN INDIAN OR ALASKA NATIVE,_NULL_
+92.85714286,Xanomeline Low Dose,_ALL_,Y,percent,proportion,RACE,WHITE,_NULL_
+7.142857143,Xanomeline Low Dose,_ALL_,Y,percent,proportion,RACE,BLACK OR AFRICAN AMERICAN,_NULL_
+0,Xanomeline Low Dose,_ALL_,Y,percent,proportion,RACE,AMERICAN INDIAN OR ALASKA NATIVE,_NULL_
+75.20930233,Placebo,_ALL_,Y,mean,AGE,_NULL_,_ALL_,YEARS
+74.38095238,Xanomeline High Dose,_ALL_,Y,mean,AGE,_NULL_,_ALL_,YEARS
+75.66666667,Xanomeline Low Dose,_ALL_,Y,mean,AGE,_NULL_,_ALL_,YEARS
+8.590167127,Placebo,_ALL_,Y,stdev,AGE,_NULL_,_ALL_,YEARS
+7.886093849,Xanomeline High Dose,_ALL_,Y,stdev,AGE,_NULL_,_ALL_,YEARS
+8.2860506,Xanomeline Low Dose,_ALL_,Y,stdev,AGE,_NULL_,_ALL_,YEARS
+52,Placebo,_ALL_,Y,min,AGE,_NULL_,_ALL_,YEARS
+56,Xanomeline High Dose,_ALL_,Y,min,AGE,_NULL_,_ALL_,YEARS
+51,Xanomeline Low Dose,_ALL_,Y,min,AGE,_NULL_,_ALL_,YEARS
+76,Placebo,_ALL_,Y,median,AGE,_NULL_,_ALL_,YEARS
+76,Xanomeline High Dose,_ALL_,Y,median,AGE,_NULL_,_ALL_,YEARS
+77.5,Xanomeline Low Dose,_ALL_,Y,median,AGE,_NULL_,_ALL_,YEARS
+89,Placebo,_ALL_,Y,max,AGE,_NULL_,_ALL_,YEARS
+88,Xanomeline High Dose,_ALL_,Y,max,AGE,_NULL_,_ALL_,YEARS
+88,Xanomeline Low Dose,_ALL_,Y,max,AGE,_NULL_,_ALL_,YEARS

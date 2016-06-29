@@ -1,0 +1,217 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# for this file
+@prefix cswg: <http://www.example.org/phuse/wg#> .
+@prefix repr: <http://www.example.org/phuse/reportingprocess#> .
+ 
+
+# * CS WG Projects & Deliverables
+cswg:WG a rdfs:Class;
+    rdfs:label "CS WG Projects & Deliverables";
+    rdfs:seeAlso <http://www.phuse.org> ;
+    rdfs:seeAlso <http://>
+.
+
+cswg:DaLi a rdfs:Class;
+	  rdfs:label "Data Lifecycle"
+.
+
+cswg:RelatesTo a rdfs:Property;
+	  rdfs:label "describes the focus of the working groups in the lifecycle"@en;
+	  rdfs:domain cswg:WG;
+          rdfs:range cswg:DaLi
+.
+
+
+cswg:g01 rdfs:label "Study Data Standardization Plan"@en ;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d01 
+.
+
+cswg:g02 rdfs:label "Clinical Program Design in RDF"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d01, cswg:d02 
+.
+
+cswg:g03 rdfs:label "Study Design and Protocol in RDF"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d01, cswg:d02, cswg:d03 
+.
+
+cswg:g04 rdfs:label "Best Practices for Data Standards Implementation"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d04, cswg:d05, cswg:d06 
+.
+
+cswg:g05 rdfs:label "SEND Implementation User Group"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d04, cswg:d05, cswg:d06 
+.
+
+cswg:g06 rdfs:label "CDISC Foundational Standards in RDF"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d04, cswg:d05, cswg:d06 
+.
+
+cswg:g07 rdfs:label "Application of SEND for Data Analysis"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d06
+.
+
+cswg:g08 rdfs:label "Analysis Results & Metadata"@en; 
+         a cswg:WG;
+         cswg:RelatesTo cswg:d06, cswg:d07, cswg:d08, cswg:d09 
+.
+
+cswg:g09 rdfs:label "Standard Scripts for Analysis Programming"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d06, cswg:d07
+.
+
+cswg:g10 rdfs:label "SDRG & ADRG"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d09
+.
+cswg:g11 rdfs:label "Non-Clinical SDRG"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d09
+.
+cswg:g12 rdfs:label "Data Standards and Traceability"@en;
+         a cswg:WG;
+         cswg:RelatesTo cswg:d01, cswg:d02, cswg:d03, cswg:d04, cswg:d05, cswg:d06, cswg:d07, cswg:d08, cswg:d09 
+.
+
+# Define a collection - to get the ordering
+
+cswg:CSWGCollection cswg:DisplayOrder 
+     (cswg:g01 cswg:g02 cswg:g03 cswg:g04 cswg:g05 
+      cswg:g06 cswg:g07 cswg:g08 cswg:g09 cswg:g10 
+      cswg:g11 cswg:g12 ) .
+
+# * Data Lifecycle
+cswg:d01 a cswg:DaLi ;
+        rdfs:label "Clinical Development Plan"@en
+.
+cswg:d02 a cswg:DaLi ;
+        rdfs:label "Study Protocol"@en
+.
+cswg:d03 a cswg:DaLi ;
+        rdfs:label "Study Design"@en
+.
+cswg:d04 a cswg:DaLi ;
+        rdfs:label "Collected Data"@en
+.
+cswg:d05 a cswg:DaLi ;
+        rdfs:label "Tabulated Data"@en
+.
+cswg:d06 a cswg:DaLi ;
+        rdfs:label "Analysis Data"@en
+.
+cswg:d07 a cswg:DaLi ;
+        rdfs:label "Analysis Results & Displays"@en
+.
+cswg:d08 a cswg:DaLi ;
+        rdfs:label "CSR"@EN
+.
+cswg:d09 a cswg:DaLi ;
+        rdfs:label "Submission"@en
+.
+
+cswg:LifeCycleCollection cswg:DisplayOrder 
+     (cswg:d01 cswg:d02 cswg:d03 cswg:d04 cswg:d05 
+      cswg:d06 cswg:d07 cswg:d08 cswg:d09  ) .
+
+
+# ==============================================================
+#
+
+repr:RP a rdfs:Class;
+    rdfs:label "Reporting Process Step";
+    rdfs:seeAlso <http://www.phuse.org> ;
+    rdfs:seeAlso <http://www.pharmasug.org/download/sde/sf2015/PharmaSUG_SF2015SDE_07_Brega_Collins.pdf>
+.
+
+repr:FeedsTo a rdfs:Property;
+	  rdfs:label "the result of the process feeds into the the next step"@en;
+	  rdfs:domain repr:RP;
+          rdfs:range repr:RP 
+.
+
+repr:DisplayShape  a rdfs:Property;
+	  rdfs:label "The shape to use when displaying the process"@en;
+	  rdfs:domain repr:RP;
+          rdfs:range rdf:langString
+.
+
+    
+repr:r01 a repr:PR ;
+    rdfs:label "SDTM Datasets"@en ;
+    repr:FeedsTo repr:r02;
+    repr:DisplayShape "Magnetic Disk"@en 
+    .
+    
+repr:r02 a repr:PR ;
+    rdfs:label "Create Analysis Datasets"@en ;
+    repr:FeedsTo repr:r03;
+    repr:DisplayShape "Alternate Process"@en 
+    .
+    
+repr:r03 a repr:PR ;
+    rdfs:label "ADaM Datasets"@en ;
+    repr:FeedsTo repr:r04;
+    repr:DisplayShape "Magnetic Disk"@en 
+    .
+
+repr:r04 a repr:PR ;
+    rdfs:label "Analysis Programs"@en ;
+    repr:FeedsTo repr:r05;
+    repr:DisplayShape "Alternate Process"@en 
+    .
+    
+repr:r05 a repr:PR ;
+    rdfs:label "Tables, Listings, Graphs"@en ;
+    repr:DisplayShape "Multidocuments"@en 
+.
+
+repr:r06 a repr:PR ;
+    rdfs:label "Dataset specs"@en ;
+    repr:FeedsTo repr:r02, repr:r09;
+    repr:DisplayShape "Multidocuments"@en 
+.
+repr:r07 a repr:PR ;
+	rdfs:label "Codelist specs"@en ;
+   repr:FeedsTo repr:r04, repr:r09;
+    repr:DisplayShape "Multidocuments"@en
+.
+    
+repr:r08 a repr:PR ;
+    rdfs:label "Report specs"@en ;
+    repr:FeedsTo repr:r04, repr:r09;
+    repr:DisplayShape "Multidocuments"@en 
+.
+
+repr:r09 a repr:PR ;
+    rdfs:label "Prepare submission data & docs"@en ;
+    repr:FeedsTo repr:r10, repr:r11, repr:r12, repr:r13;
+    repr:DisplayShape "Alternate Process"@en 
+.
+repr:r10 a repr:PR ;
+    rdfs:label "Selected code"@en ;
+    repr:DisplayShape "Multidocuments"@en 
+.
+    
+repr:r11 a repr:PR ;
+    rdfs:label "Submission.xpt"@en ;
+    repr:DisplayShape "Magnetic Disk"@en 
+.
+
+repr:r12 a repr:PR ;
+    rdfs:label "Define.xml"@en ;
+    repr:DisplayShape "Multidocuments"@en
+.
+    
+repr:r13 a repr:PR ;
+    rdfs:label "Data Guide"@en ;
+    repr:DisplayShape "Multidocuments"@en 
+.

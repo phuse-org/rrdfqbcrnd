@@ -1,0 +1,33 @@
+Package: rrdfqbpresent
+Title: Present RDF data cube as two dimensional table
+Version: 0.2.5
+Authors@R: c(
+    person("Marc", "Andersen", email="mja@statgroup.dk", role=c("aut", "cre") )
+    )
+Depends: 
+    R (>= 3.0.2),
+    xlsx,
+    RCurl,
+    rJava,
+    rrdf(>= 2.0.4),
+    rrdfancillary,
+    rrdfcdisc,
+    rrdfqb,
+    rrdfqbcrnd0,
+    rrdfqbcrndex
+Imports: 
+    tools
+License: MIT + file LICENSE
+LazyData: true
+Suggests: 
+    knitr,
+    testthat,
+    foreign,
+    shiny,
+    XML,
+    rmarkdown
+VignetteBuilder: knitr
+BuildVignettes: no
+Author: Marc Andersen [aut, cre]
+Maintainer: Marc Andersen <mja@statgroup.dk>
+RoxygenNote: 5.0.1

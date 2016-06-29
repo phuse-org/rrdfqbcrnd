@@ -1,0 +1,41 @@
+## @knitr DEMOobservations-R-data
+## Usage: arq --data adsl.ttl --data DC-DEMO-sample.ttl --query DEMOobservations-R-data-part-1.rq
+## The query determines the variables that are used for selection, and the names for the properties
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  
+prefix skos: <http://www.w3.org/2004/02/skos/core#>  
+prefix prov: <http://www.w3.org/ns/prov#>  
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
+prefix dcat: <http://www.w3.org/ns/dcat#>  
+prefix owl: <http://www.w3.org/2002/07/owl#>  
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>  
+prefix qb: <http://purl.org/linked-data/cube#>  
+prefix pav: <http://purl.org/pav>  
+prefix dct: <http://purl.org/dc/terms/>  
+prefix mms: <http://rdf.cdisc.org/mms#>  
+prefix cts: <http://rdf.cdisc.org/ct/schema#>  
+prefix rrdfqbcrnd0: <http://www.example.org/rrdfqbcrnd0/>  
+prefix code: <http://www.example.org/dc/code/>  
+prefix dccs: <http://www.example.org/dc/demo/dccs/>  
+prefix ds: <http://www.example.org/dc/demo/ds/>  
+prefix crnd-dimension: <http://www.example.org/dc/dimension#>  
+prefix crnd-attribute: <http://www.example.org/dc/attribute#>  
+prefix crnd-measure: <http://www.example.org/dc/measure#>  
+
+select ?obs ?D2RQPropertyBridge ?Rselectionvalue
+# ?Rselectionoperator ?DataSetRefD2RQ  ?rrdfqbcrnd0codeType ?rrdfqbcrnd0Rcolumnname 
+where {
+  ?obs ?propdim ?dimvalue .
+  ?propdim a qb:DimensionProperty .
+  ?propdim qb:codeList ?codelist .
+  ?dimvalue rrdfqbcrnd0:R-selectionoperator ?Rselectionoperator . 
+  optional { ?dimvalue rrdfqbcrnd0:R-selectionvalue  ?Rselectionvalue . }
+  ?codelist rrdfqbcrnd0:DataSetRefD2RQ ?DataSetRefD2RQ .
+  ?DataSetRefD2RQ rrdfqbcrnd0:D2RQ-PropertyBridge ?D2RQPropertyBridge .
+  ?codelist rrdfqbcrnd0:codeType ?rrdfqbcrnd0codeType .
+  ?codelist rrdfqbcrnd0:R-columnname ?rrdfqbcrnd0Rcolumnname .
+  
+  # works for one observations - assumes correct also for more observations
+  values (?obs) {(ds:obs007)}
+  filter (?rrdfqbcrnd0Rcolumnname != "procedure" && ?rrdfqbcrnd0Rcolumnname != "factor"
+	  && ?Rselectionoperator = "==" )
+  }

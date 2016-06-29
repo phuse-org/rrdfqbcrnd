@@ -1,0 +1,5 @@
+prefix,namespace
+code,http://www.example.org/dc/code/
+dccs,http://www.example.org/dc/dm/dccs/
+ds,http://www.example.org/dc/dm/dataset/
+prop,http://www.example.org/dc/dm/prop/

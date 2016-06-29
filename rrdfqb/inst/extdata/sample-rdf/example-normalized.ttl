@@ -1,0 +1,315 @@
+@prefix sdmx-subject: <http://purl.org/linked-data/sdmx/2009/subject#> .
+@prefix sdmx-metadata: <http://purl.org/linked-data/sdmx/2009/metadata#> .
+@prefix eg:    <http://example.org/ns#> .
+@prefix void:  <http://rdfs.org/ns/void#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix org:   <http://www.w3.org/ns/org#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix qb:    <http://purl.org/linked-data/cube#> .
+@prefix sdmx-measure: <http://purl.org/linked-data/sdmx/2009/measure#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdmx-code: <http://purl.org/linked-data/sdmx/2009/code#> .
+@prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> .
+@prefix interval: <http://reference.data.gov.uk/def/intervals/> .
+@prefix sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix ex-geo: <http://example.org/geo#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix admingeo: <http://data.ordnancesurvey.co.uk/ontology/admingeo/> .
+@prefix sdmx-dimension: <http://purl.org/linked-data/sdmx/2009/dimension#> .
+
+eg:organization  a  foaf:Agent , org:Organization ;
+        rdfs:label  "Example org"@en .
+
+sdmx-dimension:sex  a  qb:DimensionProperty .
+
+eg:o31  a                           qb:Observation ;
+        eg:lifeExpectancy           77.1 ;
+        eg:refArea                  ex-geo:newport_00pr ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:o44  a                           qb:Observation ;
+        eg:lifeExpectancy           79.4 ;
+        eg:refArea                  ex-geo:merthyr_tdfil_00ph ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:slice3  a                qb:Slice ;
+        eg:refPeriod        <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:observation      eg:o34 , eg:o33 , eg:o32 , eg:o31 ;
+        qb:sliceStructure   eg:sliceByRegion ;
+        sdmx-dimension:sex  sdmx-code:sex-M .
+
+eg:o51  a                           qb:Observation ;
+        eg:lifeExpectancy           77.0 ;
+        eg:refArea                  ex-geo:newport_00pr ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:o23  a                           qb:Observation ;
+        eg:lifeExpectancy           81.3 ;
+        eg:refArea                  ex-geo:monmouthshire_00pp ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:o64  a                           qb:Observation ;
+        eg:lifeExpectancy           79.6 ;
+        eg:refArea                  ex-geo:merthyr_tdfil_00ph ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:sliceByRegion  a           qb:SliceKey ;
+        rdfs:comment          "Slice by grouping regions together, fixing sex and time values"@en ;
+        rdfs:label            "slice by region"@en ;
+        qb:componentProperty  sdmx-dimension:sex , eg:refPeriod .
+
+eg:o43  a                           qb:Observation ;
+        eg:lifeExpectancy           81.5 ;
+        eg:refArea                  ex-geo:monmouthshire_00pp ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:refPeriod  a             qb:DimensionProperty , rdf:Property ;
+        rdfs:label          "reference period"@en ;
+        rdfs:range          interval:Interval ;
+        rdfs:subPropertyOf  sdmx-dimension:refPeriod ;
+        qb:concept          sdmx-concept:refPeriod .
+
+eg:slice2  a                qb:Slice ;
+        eg:refPeriod        <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:observation      eg:o24 , eg:o23 , eg:o22 , eg:o21 ;
+        qb:sliceStructure   eg:sliceByRegion ;
+        sdmx-dimension:sex  sdmx-code:sex-F .
+
+eg:refArea  a               qb:DimensionProperty , rdf:Property ;
+        rdfs:label          "reference area"@en ;
+        rdfs:range          admingeo:UnitaryAuthority ;
+        rdfs:subPropertyOf  sdmx-dimension:refArea ;
+        qb:concept          sdmx-concept:refArea .
+
+eg:o22  a                           qb:Observation ;
+        eg:lifeExpectancy           83.3 ;
+        eg:refArea                  ex-geo:cardiff_00pt ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+sdmx-attribute:unitMeasure
+        a       qb:AttributeProperty .
+
+eg:o63  a                           qb:Observation ;
+        eg:lifeExpectancy           81.7 ;
+        eg:refArea                  ex-geo:monmouthshire_00pp ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:o42  a                           qb:Observation ;
+        eg:lifeExpectancy           83.7 ;
+        eg:refArea                  ex-geo:cardiff_00pt ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:o14  a                           qb:Observation ;
+        eg:lifeExpectancy           75.5 ;
+        eg:refArea                  ex-geo:merthyr_tdfil_00ph ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:dsd-le3  a         qb:DataStructureDefinition ;
+        qb:component  [ qb:attribute            sdmx-attribute:unitMeasure ;
+                        qb:componentAttachment  qb:DataSet ;
+                        qb:componentProperty    sdmx-attribute:unitMeasure ;
+                        qb:componentRequired    true
+                      ] ;
+        qb:component  [ qb:componentProperty  eg:lifeExpectancy ;
+                        qb:measure            eg:lifeExpectancy
+                      ] ;
+        qb:component  [ qb:componentAttachment  qb:Slice ;
+                        qb:componentProperty    sdmx-dimension:sex ;
+                        qb:dimension            sdmx-dimension:sex ;
+                        qb:order                3
+                      ] ;
+        qb:component  [ qb:componentAttachment  qb:Slice ;
+                        qb:componentProperty    eg:refPeriod ;
+                        qb:dimension            eg:refPeriod ;
+                        qb:order                2
+                      ] ;
+        qb:component  [ qb:componentProperty  eg:refArea ;
+                        qb:dimension          eg:refArea ;
+                        qb:order              1
+                      ] ;
+        qb:sliceKey   eg:sliceByRegion .
+
+eg:slice1  a                qb:Slice ;
+        eg:refPeriod        <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:observation      eg:o14 , eg:o13 , eg:o12 , eg:o11 ;
+        qb:sliceStructure   eg:sliceByRegion ;
+        sdmx-dimension:sex  sdmx-code:sex-M .
+
+eg:o21  a                           qb:Observation ;
+        eg:lifeExpectancy           80.7 ;
+        eg:refArea                  ex-geo:newport_00pr ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:o62  a                           qb:Observation ;
+        eg:lifeExpectancy           83.4 ;
+        eg:refArea                  ex-geo:cardiff_00pt ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:o34  a                           qb:Observation ;
+        eg:lifeExpectancy           75.5 ;
+        eg:refArea                  ex-geo:merthyr_tdfil_00ph ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:dataset-le3  a                   qb:DataSet ;
+        rdfs:comment                "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en ;
+        dct:description             "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en ;
+        dct:issued                  "2010-08-11"^^xsd:date ;
+        dct:publisher               eg:organization ;
+        dct:subject                 ex-geo:wales , sdmx-subject:1.4 , sdmx-subject:3.2 ;
+        dct:title                   "Life expectancy"@en ;
+        qb:slice                    eg:slice1 , eg:slice6 , eg:slice4 , eg:slice5 , eg:slice2 , eg:slice3 ;
+        qb:structure                eg:dsd-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> .
+
+eg:slice6  a                qb:Slice ;
+        eg:refPeriod        <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:observation      eg:o64 , eg:o63 , eg:o62 , eg:o61 ;
+        qb:sliceStructure   eg:sliceByRegion ;
+        sdmx-dimension:sex  sdmx-code:sex-F .
+
+eg:lifeExpectancy  a        qb:MeasureProperty , rdf:Property ;
+        rdfs:label          "life expectancy"@en ;
+        rdfs:range          xsd:decimal ;
+        rdfs:subPropertyOf  sdmx-measure:obsValue .
+
+eg:o41  a                           qb:Observation ;
+        eg:lifeExpectancy           80.9 ;
+        eg:refArea                  ex-geo:newport_00pr ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:o13  a                           qb:Observation ;
+        eg:lifeExpectancy           76.6 ;
+        eg:refArea                  ex-geo:monmouthshire_00pp ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:o54  a                           qb:Observation ;
+        eg:lifeExpectancy           74.9 ;
+        eg:refArea                  ex-geo:merthyr_tdfil_00ph ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:o61  a                           qb:Observation ;
+        eg:lifeExpectancy           81.5 ;
+        eg:refArea                  ex-geo:newport_00pr ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .
+
+eg:o33  a                           qb:Observation ;
+        eg:lifeExpectancy           76.5 ;
+        eg:refArea                  ex-geo:monmouthshire_00pp ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:slice5  a                qb:Slice ;
+        eg:refPeriod        <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:observation      eg:o54 , eg:o53 , eg:o52 , eg:o51 ;
+        qb:sliceStructure   eg:sliceByRegion ;
+        sdmx-dimension:sex  sdmx-code:sex-M .
+
+eg:o12  a                           qb:Observation ;
+        eg:lifeExpectancy           78.7 ;
+        eg:refArea                  ex-geo:cardiff_00pt ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:o53  a                           qb:Observation ;
+        eg:lifeExpectancy           76.6 ;
+        eg:refArea                  ex-geo:monmouthshire_00pp ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:o32  a                           qb:Observation ;
+        eg:lifeExpectancy           78.6 ;
+        eg:refArea                  ex-geo:cardiff_00pt ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:slice4  a                qb:Slice ;
+        eg:refPeriod        <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+        qb:observation      eg:o44 , eg:o43 , eg:o42 , eg:o41 ;
+        qb:sliceStructure   eg:sliceByRegion ;
+        sdmx-dimension:sex  sdmx-code:sex-F .
+
+eg:o11  a                           qb:Observation ;
+        eg:lifeExpectancy           76.7 ;
+        eg:refArea                  ex-geo:newport_00pr ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:o52  a                           qb:Observation ;
+        eg:lifeExpectancy           78.7 ;
+        eg:refArea                  ex-geo:cardiff_00pt ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-M .
+
+eg:o24  a                           qb:Observation ;
+        eg:lifeExpectancy           79.1 ;
+        eg:refArea                  ex-geo:merthyr_tdfil_00ph ;
+        eg:refPeriod                <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+        qb:dataSet                  eg:dataset-le3 ;
+        sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
+        sdmx-dimension:sex          sdmx-code:sex-F .

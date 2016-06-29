@@ -1,0 +1,3 @@
+all:
+	groovy build.groovy
+

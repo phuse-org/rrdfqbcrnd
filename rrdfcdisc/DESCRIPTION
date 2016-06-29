@@ -1,0 +1,33 @@
+Package: rrdfcdisc
+Title: R-RDF CDISC standards (rrdf.cdisc.org)
+    Development
+Version: 0.2.5
+Authors@R: c(
+    person("Marc", "Andersen", email="mja@statgroup.dk", role=c("aut", "cre") ),
+    person("Tim", "Williams", email="tim.williams@ucb.com", role=c("aut", "cre") )
+    )
+Description: Creates RDF version of CDISC standards from rrdf.cdisc.org
+Depends:
+    R (>= 3.0.2),
+    RCurl,
+    rrdf(>= 2.0.4),
+    devtools,
+    rrdfancillary
+Imports:
+    tools
+License: MIT + file LICENSE
+LazyData: true
+Suggests:
+    knitr,
+    testthat,
+    foreign,
+    shiny,
+    XML
+VignetteBuilder: knitr
+BuildVignettes: yes
+Packaged: 2015-01-11 10:37:02 UTC; ma
+Author: Marc Andersen [aut, cre],
+    Tim Williams [aut, cre]
+Maintainer: Marc Andersen <mja@statgroup.dk>,
+    Tim Williams <tim.williams@ucb.com>
+RoxygenNote: 5.0.1

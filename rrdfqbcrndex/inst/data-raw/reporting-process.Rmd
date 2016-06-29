@@ -1,0 +1,235 @@
+---
+title: "Reporting process"
+author: "mja@statgroup.dk"
+date: "`r Sys.Date()`"
+always_allow_html: yes
+output:
+  html_document:
+    toc: true
+    theme: united
+  md_document:
+    variant: markdown_github
+---
+
+
+# Introduction
+
+This note shows how to use `RDF` to describe the reporting process, and present it graphically.
+
+The reporting processes are taken from:
+
+* Brega, John, and Colins, Linda. ‘Beyond OpenCDISC: Using Define.xml Metadata to Ensure End-to-End Submission Integrity.’ Gilead offices, Foster City, CA, 2015. (http://www.pharmasug.org/download/sde/sf2015/PharmaSUG_SF2015SDE_07_Brega_Collins.pdf)
+* Williams, Tim. ‘Diagram of the SW Initiatives?’ CS Working Group: End to End Connectivity, 7 April 2015. https://phuse.teamworkpm.net/notebooks/48268.
+
+The graphical presentation is made using the R-package `DiagrammeR` (https://github.com/rich-iannone/DiagrammeR). The R-package uses `mermaid` a javascript blibrary (https://github.com/knsv/mermaid), described as in the credits as
+> Many thanks to the d3 (http://d3js.org/) and dagre-d3 (https://github.com/cpettitt/dagre-d3) projects for providing the graphical layout and drawing libraries!
+> Thanks also to the js-sequence-diagram (http://bramp.github.io/js-sequence-diagrams) project for usage of the grammar for the sequence diagrams.
+
+It may be nesccesary to install the latest version of R-package `DiagrammeR` from GitHub 
+```{r,eval=FALSE}
+devtools::install_github('rich-iannone/DiagrammeR')
+```
+
+This is under development
+
+mja@statgroup.dk 16-jan-2015.
+
+
+## Setup
+
+```{r}
+library(rrdfancillary)
+devtools::load_all(pkg="../..")
+```
+
+```{r, eval=TRUE}
+
+library("DiagrammeR")
+library(rrdf)
+
+pretty.print.rq<- function(rqstring) {
+    ## print sparql query with line numbers - use full for finding errors
+    ## when using knitr in Rmd files use highlight instead
+rqlines<- unlist(strsplit(rqstring,"\n"))
+cat(paste( format(seq(rqlines),format="f",digits=floor(log10(length(rqlines)+1))), rqlines, sep=": ", collapse="\n"),"\n")
+}
+
+```
+
+
+# Get the process description
+
+The process description is converted into RDF. Please comment - this
+is my first attempt to model a process in RDF. It is done from
+scratch - I am aware of there are more sophiscated ways to do it, and
+would appreciate learning more on that approach.
+
+
+```{r, eval=TRUE}
+modelTTLFile<- system.file("extdata/sample-rdf", "clinical-data-process-model.ttl", package="rrdfqbcrndex")
+model<- load.rdf(modelTTLFile,"TURTLE")
+# identify the prefixes in the turtle file
+# The prefixes are part of the RRDF model, but I do not know how to extract it from the model.
+ttlfile<- readLines(modelTTLFile)
+prefix.text<- gsub("@prefix ([^:]+:) +([^>]+>) *\\. *$", "PREFIX \\1 \\2", ttlfile[grep("^@prefix .+$", ttlfile)])
+```
+
+# Reporting process from "Using Define.xml Metadata to Ensure End-to-End Submission Integrity", slide 15
+
+The process steps with labels and shapes are stored in a data frame.
+```{r, eval=TRUE}
+RP.names.rq<- paste0( paste0(prefix.text, collapse="\n"), "
+select ?rstep ?rsteplabel ?rstepshape
+where {
+    ?rstep a repr:PR .
+    optional { ?rstep  rdfs:label ?rsteplabel }
+    optional { ?rstep repr:DisplayShape ?rstepshape }
+    .
+    }
+order by ?rstep
+", collapse="\n" )
+
+pretty.print.rq(RP.names.rq)
+RP.names<- data.frame(sparql.rdf(model, RP.names.rq),stringsAsFactors=FALSE)
+knitr::kable(RP.names)
+```
+
+For later use, get an overview of the shapes used for reporing.
+```{r, eval=TRUE}
+RP.shapes.rq<- paste0( paste0(prefix.text, collapse="\n"), "
+select distinct ?rstepshape
+where {
+    ?rstep a repr:PR ;
+           repr:DisplayShape ?rstepshape
+    .
+    }
+", collapse="\n" )
+
+pretty.print.rq(RP.shapes.rq)
+
+RP.shapes<- data.frame(sparql.rdf(model, RP.shapes.rq),stringsAsFactors=FALSE)
+knitr::kable(RP.shapes)
+```
+
+Now get the links between the steps.
+```{r, eval=TRUE}
+RP.feedsto.rq<-  paste0( paste0(prefix.text, collapse="\n"), "
+select ?rstepfrom ?rstepto
+where {
+?rstepfrom repr:FeedsTo ?rstepto 
+    .
+    }
+", collapse="\n" )
+pretty.print.rq(RP.feedsto.rq)
+RP.feedsto<- data.frame(sparql.rdf(model, RP.feedsto.rq),stringsAsFactors=FALSE)
+knitr::kable(RP.feedsto)
+```
+
+Finally, generate the `mermaid` commands for showing the process.
+```{r, eval=TRUE}
+mermaid.commands<- paste(
+           "graph TB", 
+           paste( RP.names$rstep,"(", RP.names$rsteplabel, ")", sep="", collapse=" \n" ),
+          paste( RP.feedsto$rstepfrom, "-->", RP.feedsto$rstepto, sep="", collapse=" \n" ),
+          "\n",
+          sep=" \n", collapse=" \n")
+cat(mermaid.commands,"\n")
+```
+
+Then display the graph.
+```{r, eval=TRUE}
+DiagrammeR( mermaid.commands )
+```
+
+# Grid for "Diagram of the SW Initiatives"
+
+The ordering of the rows and columns in the grid is described in the turtle file by a collection.
+The Jena extension `list:index` is used to get the position in the collection.
+See (http://stackoverflow.com/questions/17523804/is-it-possible-to-get-the-position-of-an-element-in-an-rdf-collection-in-sparql/17530689#17530689).
+
+
+```{r, eval=TRUE}
+wg.names.rq<- paste0( paste0(prefix.text, collapse="\n"), "
+PREFIX list: <http://jena.hpl.hp.com/ARQ/list#>
+select ?wg ?wglabel ?wgdisplayorder
+where {
+    ?wg a cswg:WG ;
+    rdfs:label ?wglabel .
+    optional{
+    cswg:CSWGCollection cswg:DisplayOrder ?lswg .
+    ?lswg list:index (?wgdisplayorder ?wg)
+    }
+    }
+order by ?wgdisplayorder
+", collapse="\n" )
+
+pretty.print.rq(wg.names.rq)
+
+wg.names<- data.frame(sparql.rdf(model, wg.names.rq),stringsAsFactors=FALSE)
+
+lc.names.rq<- paste0( paste0(prefix.text, collapse="\n"), "
+PREFIX list: <http://jena.hpl.hp.com/ARQ/list#>
+select ?lc ?lclabel ?lcdisplayorder
+where {
+    ?lc a cswg:DaLi ;
+        rdfs:label ?lclabel .
+    optional{
+          cswg:LifeCycleCollection cswg:DisplayOrder ?lslc .
+          ?lslc list:index (?lcdisplayorder ?lc)
+          }
+    }
+order by ?lcdisplayorder
+", collapse="\n" )
+
+pretty.print.rq(lc.names.rq)
+
+lc.names<- data.frame(sparql.rdf(model, lc.names.rq),stringsAsFactors=FALSE)
+str(lc.names$lcdisplayorder)
+
+grid.rq<- paste0( paste0(prefix.text, collapse="\n"), "
+PREFIX list: <http://jena.hpl.hp.com/ARQ/list#>
+select ?wg ?wglabel ?wgdisplayorder ?lc ?lclabel ?lcdisplayorder ?cell
+where {
+{ select ?wg ?wglabel ?wgdisplayorder where {    ?wg a cswg:WG ;
+    rdfs:label ?wglabel .
+    optional{
+    cswg:CSWGCollection cswg:DisplayOrder ?lswg .
+    ?lswg list:index (?wgdisplayorder ?wg)
+    }
+    } }
+{ select ?lc ?lclabel ?lcdisplayorder where {
+    ?lc a cswg:DaLi ;
+        rdfs:label ?lclabel .
+    optional{
+          cswg:LifeCycleCollection cswg:DisplayOrder ?lslc .
+          ?lslc list:index (?lcdisplayorder ?lc)
+          }
+    }
+}
+bind( if( exists { ?wg cswg:RelatesTo ?lc }, '*', ' ' ) AS ?cell )
+    }
+order by ?wgdisplayorder ?lcdisplayorder 
+", collapse="\n" )
+
+pretty.print.rq(grid.rq)
+```
+
+Finally, create a grid and fill in the values into the grid
+
+```{r, eval=TRUE}
+grid<- data.frame(sparql.rdf(model, grid.rq),stringsAsFactors=FALSE)
+wglcgrid<- data.frame(matrix(c("?"), nrow= nrow(wg.names), ncol=nrow(lc.names)),
+           stringsAsFactors=FALSE, row.names=wg.names$wglabel)
+colnames(wglcgrid)<- lc.names$lclabel
+for (i in seq(nrow(grid)) ) {
+    wglcgrid[as.numeric(grid[i,"wgdisplayorder"])+1,as.numeric(grid[i,"lcdisplayorder"])+1] <- grid[i, "cell"]
+}
+knitr::kable(wglcgrid)
+```
+
+
+# How to make the HTML file
+
+```{r, eval=FALSE}
+rmarkdown::render("reporting-process.Rmd")
+```

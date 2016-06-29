@@ -1,0 +1,301 @@
+<html>
+<!-- 
+# Purpose: provide javascript for accessing SPARQL endpoint. 
+The functionality is nothing new - there exist much better interfaces.
+
+Usage: Enter SPARQL query in upper box, enter endpoint in lower
+box. Press "Click here".  In the results section click on a URI, and a
+SPARQL query for properties and objects relating to the URI is created
+in the query box.  Click again, and the query is executed.
+
+# Queries to try
+
+## Endpoint: http://pubmed.bio2rdf.org/sparql 
+
+Query: 
+ PREFIX v: <http://bio2rdf.org/pubmed_vocabulary:>
+ SELECT ?article ?article_title
+ {
+  ?article ?p ?author .
+  ?article rdfs:label ?article_title .
+  ?article a v:PubMedRecord .
+ } LIMIT 10
+
+Query: 
+select * where{
+?s ?p ?o 
+values (?s) {
+(<http://bio2rdf.org/pubmed:16015896>)
+}
+}
+
+## Local endpoint: http://localhost:3030/example/query
+
+Query:
+SELECT * WHERE {?s ?p ?o} LIMIT 10
+
+Query:
+prefix qb: <http://purl.org/linked-data/cube#>  
+prefix ds: <http://www.example.org/dc/demo/ds/>  
+
+SELECT *
+where { 
+?s a qb:Observation ; 
+   qb:dataSet <http://www.example.org/dc/demo/ds/dataset-DEMO> ;
+  ?p ?o .
+ }
+LIMIT 100
+
+# Dependencies
+
+# Local endpoint
+
+A configuration file for an apacha jena fuseki local endpoint is available at https://github.com/MarcJAndersen/rrdfqbcrnd0 in the directory rrdfqbcrnd0/inst/extdata/sample-rdf
+
+The configuration file also contains some additional information on starting Fuseki SPARQL endpoint.
+
+# Linux setup
+
+    cd rrdfqbcrnd0/inst/extdata/sample-rdf 
+    (CFGFILE=${PWD}/fuseki-crnd-example-config.ttl ;cd /opt/apache-jena-fuseki-2.0.0; ./fuseki-server --config=${CFGFILE} )  
+
+
+#  Windows setup
+
+    cd F:\s108-mja\GitHub\rrdfqbcrnd0\rrdfqbcrnd0\inst\extdata\sample-rdf 
+    set FUSEKI_HOME=c:\opt\apache-jena-fuseki-2.0.0 
+    java -Xmx1200M -jar %FUSEKI_HOME%\fuseki-server.jar --config=fuseki-crnd-example-config.ttl 
+
+The above paths are based on my setup - change accordingly to your setup. 
+I have a Fuseki installation in /opt/apache-jena-fuseki-2.0.0 respectively c:\opt\apache-jena-fuseki-2.0.0 .
+
+The location of RRDFQBCRND0 examples are rrdfqbcrnd0/inst/extdata/sample-rdf  (relative to root for RRDFQBCRND0) or 
+   F:\s108-mja\GitHub\rrdfqbcrnd0\rrdfqbcrnd0\inst\extdata\sample-rdf 
+
+# Jquery
+
+Jquery is used for mainly doing the AJAX call the SPARQL endpoint.
+The present version refers to jquery on the internet, and thus only
+works if there is access to the file.
+
+If you do not have access to the internet, put a local copy of jquery here.
+Aåpache jena fuseki has a local version of jquery in webapp/js/lib/.
+
+In my setup I use a quick trick to get access to jquery
+   ln -s /opt/apache-jena-fuseki-2.0.0/webapp/js/lib/jquery-1.10.2.min.js .
+
+
+-->
+
+<head>
+<title>Example SPARQL client in javascript</title>
+
+<script src="jquery-1.10.2.min.js"></script>
+
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+
+<style>
+.clickuri { cursor: pointer; color: orange; }
+.clickuri:hover,.clickuri.hover { text-decoration: underline; }
+table, th, td {
+   border: 1px solid black;
+} 
+</style>
+
+
+<script>
+var Ntable=0;
+
+function myError( jqXHR,  textStatus,  errorThrown ) {
+alert(textStatus+"\n"+errorThrown+"\n"+"Error in SPARQL query")
+}
+
+function myDefQueryOn(x) {
+console.log("Click "+x.innerHTML)
+document.getElementById("Sparqlquery").value=
+"select * where{\n"+
+"?s ?p ?o \n"+
+"values (?s) {\n"+
+"(<"+x.innerHTML+">)\n"+
+"}\n"+
+"}";
+}
+
+function ReplaceText(ID,text) {
+    // http://stackoverflow.com/questions/8302166/dynamic-creation-of-table-with-dom
+    //  maybe to complex implementation, as the SPAN in question is simple
+    // Could also use jquery constructs
+//    console.log(ID, text)
+    var span = document.getElementById(ID);
+    if ( span !== null ) {
+    while( span.firstChild ) {
+    span.removeChild( span.firstChild );
+    }
+    span.appendChild( document.createTextNode(text) );
+    }
+    }
+
+function myCallBack( data ) {
+
+console.log( "data: ", data );
+
+console.log( "data.head.vars: ", data.head.vars );
+console.log( "data.head.vars.length: ", data.head.vars.length );
+console.log( "data.results.bindings.length: ", data.results.bindings.length );
+
+
+var table = document.createElement('table');
+
+var myNodes= new Array();
+
+ReplaceText("QueryRows", data.results.bindings.length);
+ReplaceText("QueryCols", data.head.vars.length );
+									      
+											    
+for (var i = 0; i < data.results.bindings.length; i++ ){
+
+//  console.log("Row - i", i)
+
+  var tr = document.createElement('tr');   
+
+    for (var j=0; j < data.head.vars.length; j++){
+//      console.log("Column j", j )
+
+
+    var td = document.createElement('td');
+    var item=data.results.bindings[i][data.head.vars[j]];
+//    console.log("item", item.type, item.value)		      
+    if (item.type=="uri") {
+
+// see discussion http://stackoverflow.com/questions/134845/href-attribute-for-javascript-links-or-javascriptvoid0
+
+    var cell= document.createElement("div");
+    var att=document.createAttribute("class");
+    att.value="clickuri";
+    cell.setAttributeNode(att); 
+
+    var att2=document.createAttribute("onclick"); 
+    att2.value="myDefQueryOn(this)";
+    cell.setAttributeNode(att2);  
+
+    cell.appendChild( document.createTextNode(item.value) );
+    } else if  (item.type=="typed-literal") {
+    var cell= document.createTextNode(item.value);
+    }
+    else {
+    var cell = document.createTextNode(item.value);
+		      }
+//    console.log("cell: ", cell)		      
+    td.appendChild(cell);
+    tr.appendChild(td);
+    }
+    table.appendChild(tr);
+}
+
+console.log(table)
+		      
+Ntable++;
+if (Ntable>1) {
+var item=document.getElementById("ShowResult").childNodes[0];
+// console.log(item); 
+document.getElementById("ShowResult").replaceChild(table,item);
+}
+else {
+var tablearea = document.getElementById("ShowResult");
+tablearea.appendChild(table);
+		    }
+}		    
+
+function doSparql() {
+var myQuery= document.getElementById("Sparqlquery").value; 
+var myEndPoint= document.getElementById("SparqlEndPoint").value;
+console.log('myQuery: '+myQuery);
+// http://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_ajax_getjson
+// http://stackoverflow.com/questions/14220321/how-to-return-the-response-from-an-ajax-call
+// http://stackoverflow.com/questions/15764844/jquery-getjson-save-result-into-variable
+ReplaceText("QueryRows", "... query sending ..." );
+ReplaceText("QueryCols", "... standby ... " );
+var xtable = document.createElement('table');
+Ntable++;
+if ( Ntable > 1 ) {
+var item=document.getElementById("ShowResult").childNodes[0];
+// console.log(item); 
+document.getElementById("ShowResult").replaceChild(xtable,item);
+}
+else {
+var tablearea = document.getElementById("ShowResult");
+tablearea.appendChild(xtable);
+}
+// Inspiration from http://cburgmer.github.io/deniz/, http://api.jquery.com/jquery.getjson/
+// http://www.haykranen.nl/2011/02/25/jquery-1-5-and-jsonp-requests/
+      // .error deprecated - see http://api.jquery.com/jQuery.ajax/#jqXHR
+      // http://stackoverflow.com/questions/10784271/load-srj-files-with-jquerys-ajax-or-getjson
+var req = $.ajax({
+dataType: "jsonp",
+url: myEndPoint,
+data: {
+"query": myQuery,
+"output": "json"
+},
+success: myCallBack,
+error: myError,
+timeout: 5000      
+      });
+
+req.done(function (data, textStatus, xhr) {
+    console.log("done")
+    console.log(xhr.getResponseHeader('Link')); 
+    console.log(xhr.getResponseHeader('HTTP/1.1 400 Parse error')); 
+    alert( "success" );
+      }
+      );
+
+req.fail(function( jqXHR, textStatus, errorThrown) {
+alert("fail\n"+textStatus+"\n"+errorThrown+"\n"+"Error in SPARQL query")
+    console.log(jqXHR.getResponseHeader('Link')); 
+      console.log(jqXHR.getResponseHeader('HTTP/1.1 400 Parse error'));
+      console.log(jqXHR.responseText);
+});
+
+console.log('After .ajax');
+ReplaceText("QueryRows", "... query sent, waiting for result ..." );
+}
+      
+
+$( document ).ajaxError(function( event, request, settings ) {
+  $( "#msg" ).append( "<li>Error requesting page " + settings.url + "</li>" );
+      });
+      
+$(document).ready(function(){
+// document.getElementById('Help').hidden=true;
+
+      
+      });
+      
+</script>
+
+<title>SPARQL in HMTL</title>
+</head>
+
+<!-- <body onLoad="draw();"> -->
+<body>
+<h1>SPARQL Query result display as table</h1>
+<h3>Query</h3>
+<textarea id="Sparqlquery" cols="80" rows="15">
+SELECT * WHERE {?s ?p ?o} LIMIT 10
+</textarea>
+<h3>Endpoint</h3>
+<textarea id="SparqlEndPoint" cols="80" rows="1">
+http://localhost:3030/example/query
+</textarea>
+<p>
+<button type="button" onclick="doSparql()" style="color:orange">Click here for submitting query</button>
+<p>
+
+Query result number of rows <span id="QueryRows">(none)</span>, number of columns <span id="QueryCols">(none)</span><p>
+    
+<span id="ShowResult"></span>
+
+
+</body>
+</html>

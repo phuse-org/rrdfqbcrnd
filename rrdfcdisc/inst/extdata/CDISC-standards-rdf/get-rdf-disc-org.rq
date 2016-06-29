@@ -1,0 +1,24 @@
+CONSTRUCT { ?s ?p ?o }
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/resources/w3.org/skos.rdf>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/resources/dublincore.org/dcam.rdf>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/resources/dublincore.org/dcelements.rdf>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/resources/dublincore.org/dcterms.rdf>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/terminology-2013-06-28/glossary-terminology.owl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/terminology-2013-06-28/cdash-terminology.owl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/terminology-2013-06-28/sdtm-terminology.owl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/terminology-2013-06-28/qs-terminology.owl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/terminology-2013-06-28/send-terminology.owl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/terminology-2013-06-28/adam-terminology.owl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/std/sdtm-1-2.ttl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/std/all-standards.ttl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/std/cdash-1-1.ttl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/std/sdtmig-3-1-3.ttl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/std/sdtmig-3-1-2.ttl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/std/adamig-1-0.ttl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/std/sendig-3-0.ttl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/std/sdtm-1-3.ttl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/std/adam-2-1.ttl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/schemas/ct-schema.owl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/schemas/meta-model-schema.owl>
+FROM <https://github.com/phuse-org/rdf.cdisc.org/raw/master/schemas/cdisc-schema.owl>
+WHERE { ?s ?p ?o }

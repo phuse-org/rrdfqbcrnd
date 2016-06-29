@@ -1,0 +1,150 @@
+---
+title: "Package overview"
+author: "mja@statgroup.dk"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    theme: united
+  pdf_document:
+    toc: true
+    highlight: zenburn
+  md_document:
+    variant: markdown_github
+---
+
+# Introduction
+
+This vignette shows the structure of the `rrdfqbcrnd0` package.
+
+The graphical presentation is made using the R-package `DiagrammeR`
+(https://github.com/rich-iannone/DiagrammeR). The R-package uses
+`mermaid` a javascript blibrary (https://github.com/knsv/mermaid),
+described as in the credits as
+
+> Many thanks to the d3 (http://d3js.org/) and dagre-d3
+> (https://github.com/cpettitt/dagre-d3) projects for providing the
+> graphical layout and drawing libraries!  Thanks also to the
+> js-sequence-diagram (http://bramp.github.io/js-sequence-diagrams)
+> project for usage of the grammar for the sequence diagrams.
+
+Note: the html file must be made using `rmarkdown::render`.
+
+This is under development
+
+mja@statgroup.dk 
+
+
+## Setup
+
+```{r}
+knitr::read_chunk("setup.R")
+```
+```{r setup}
+```
+```{r, eval=TRUE}
+# install.packages("DiagrammeR")
+# install.packages("mvbutils")
+library(DiagrammeR)
+library(mvbutils)
+library(rrdf) # apparantly needed 
+## library(rrdfqbcrnd0) # should not go here 
+
+pretty.print.rq<- function(rqstring) {
+    ## print sparql query with line numbers - use full for finding errors
+    ## when using knitr in Rmd files use highlight instead
+rqlines<- unlist(strsplit(rqstring,"\n"))
+cat(paste( format(seq(rqlines),format="f",digits=floor(log10(length(rqlines)+1))), rqlines, sep=": ", collapse="\n"),"\n")
+}
+
+```
+
+# Get package information
+
+```{r, eval=TRUE}
+foodweb(where=("package:rrdfqbcrnd0"), cex=0.8, charlim=60,color.lines=FALSE)
+
+funs<- foodweb(where=("package:rrdfqbcrnd0"), cex=0.8, charlim=60,color.lines=FALSE)
+
+model <- new.rdf(ontology=FALSE)
+funmat<- funs$funmat
+funcPREFIX<- "http://example.org/rrdfqbcrnd0/"
+for (r in seq(nrow(funmat))) {
+        add.data.triple(model,
+                   subject=paste0(funcPREFIX, rownames(funmat)[r]),
+                   predicate=paste0(funcPREFIX, "functionName"),
+                   data=rownames(funmat)[r]
+                   )
+    
+    for (c in seq(ncol(funmat))) {
+        if (funmat[r,c]==1) {
+        add.triple(model,
+                   subject=paste0(funcPREFIX, rownames(funmat)[r]),
+                   predicate=paste0(funcPREFIX, "calls"),
+                   object=paste0(funcPREFIX, colnames(funmat)[c])
+                   )
+    }
+    }
+    }        
+
+```
+
+# Make the package overview
+
+First get the labels for the functions.
+```{r, eval=TRUE}
+prefix.text<- "PREFIX prog: <http://example.org/rrdfqbcrnd0/>"
+RP.labels.rq<-  paste0( paste0(prefix.text, collapse="\n"), "
+select ?rfunc ?rfunclabel
+where {
+?rfunc prog:functionName ?rfunclabel
+    .
+    }
+", collapse="\n" )
+pretty.print.rq(RP.labels.rq)
+RP.labels<- data.frame(sparql.rdf(model, RP.labels.rq),stringsAsFactors=FALSE)
+knitr::kable(RP.labels)
+```
+
+Now get the links between the functions.
+```{r, eval=TRUE}
+RP.calls.rq<-  paste0( paste0(prefix.text, collapse="\n"), "
+select ?rfunc ?rcaller
+where {
+?rfunc prog:calls ?rcaller
+    .
+    }
+", collapse="\n" )
+pretty.print.rq(RP.calls.rq)
+RP.calls<- data.frame(sparql.rdf(model, RP.calls.rq),stringsAsFactors=FALSE)
+knitr::kable(RP.calls)
+```
+
+Finally, generate the `mermaid` commands for showing the process.
+```{r, eval=TRUE}
+mermaid.commands<- paste(
+           "graph TB; ", 
+           paste( gsub("^prog:","", gsub("\\.","", RP.labels$rfunc)),"(", RP.labels$rfunclabel, "); ", sep="", collapse=" \n" ),
+    paste( gsub("^prog:","", gsub("\\.","", RP.calls$rfunc)), "-->",
+          gsub("^prog:","", gsub("\\.","", RP.calls$rcaller)), "; ", sep="", collapse=" \n" ),
+          "\n",
+          sep=" \n", collapse=" \n")
+cat(mermaid.commands,"\n")
+# cat(mermaid.commands,"\n", file="mm.mmd")
+
+```
+
+Then display the graph.
+```{r, eval=TRUE}
+# mermaid("mm.mmd")
+DiagrammeR( mermaid.commands )
+
+    
+```
+
+
+# How to make the HTML file
+
+```{r, eval=FALSE}
+rmarkdown::render("package-overview.Rmd")
+```

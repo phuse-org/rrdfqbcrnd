@@ -1,0 +1,26 @@
+compType,compName,codeType,nciDomainValue,compLabel,Comment
+dimension,trt01p,DATA,,Treatment Arm,
+dimension,ittfl,DATA,,ittfl,
+dimension,saffl,DATA,,saffl,
+dimension,efffl,DATA,,efffl,
+dimension,comp24fl,DATA,,comp24fl,
+dimension,disconfl,DATA,,disconfl,
+dimension,procedure,DATA,,Statistical Procedure,
+dimension,factor,DATA,,"Type of procedure (quantity, proportion...)",
+measure,measure,,,Value of the statistical measure,
+attribute,unit,,,Unit of measure,
+attribute,denominator,,,Denominator for a proportion (oskr) subset on which a statistic is based,
+metadata,obsURL,,,https://phuse-scripts.googlecode.com/svn/trunk/scriptathon2014/data/adsl.xpt,obsFileName
+metadata,obsFileName,,,tab1x01.csv,obsFileName
+metadata,dataCubeFileName,,,DC-TAB1X01,Cube name prefix (will be appended with version number by script. --> No. Will be set in code based on domainName parameter
+metadata,cubeVersion,,,0.0.0,Version of cube with format n.n.n
+metadata,createdBy,,,Foo,Person who configures this spreadsheet and runs the creation script to create the cube
+metadata,description,,,Data from adsl1.sas program,Cube description
+metadata,providedBy,,,PhUSE Results Metadata Working Group,
+metadata,comment,,,,Table 14-1.01 Summary of Populations
+metadata,title,,,Demographics Analysis Results,Table 14-1.01 Summary of Populations
+metadata,label,,,Table 14-1.01 Summary of Populations,
+metadata,wasDerivedFrom,,,tab1x01.csv,Data source (obsFileName). Set this programmtically based on name of input file!
+metadata,domainName,,,TAB1X01,"The domain name, also part of the spreadsheet tab name"
+metadata,obsFileNameDirec,,,!example,The directory containd the wasDerivedFrom file
+metadata,dataCubeOutDirec,,,!temporary,

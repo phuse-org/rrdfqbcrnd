@@ -1,0 +1,3319 @@
+<!DOCTYPE html>
+<html lang="en" typeof="bibo:Document w3p:REC" about="" property="dcterms:language" content="en">
+<head>
+	<title>The RDF Data Cube Vocabulary</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    
+	<!-- <script type="text/javascript" src="../respec/gld-bib.js" class="remove"></script> -->
+
+  <style type="text/css">
+.todo { background-color: #fdd; border: 1px solid #800; margin: 1em 0em; padding: 1em; page-break-inside: avoid ; font-style: italic; }
+.todo:before { content: 'TODO: '; }
+.spare-table { border-collapse: collapse; margin-left: 5ex; }
+.spare-table thead { border-bottom: black 1px solid; }
+.spare-table td { padding-left: 1em; padding-right: 1em; }
+.spare-table td + td { border-left: black 1px solid; padding-left: 1em; padding-right: 1em; }
+.spare-table th + th { border-left: black 1px solid; }
+dl.vocab_reference dt { margin-top: 1em; }
+.bordered-table { border: black 1px solid;}
+.bordered-table th { border-bottom: black 1px solid;}
+.bordered-table td { padding-right: 1em; background: #fcfaee }
+table#example-data { border: black 1px solid; border-collapse:collapse; border-spacing: 0;  }
+table#example-data td { border: black 1px solid; padding: 3px; text-align: right; }
+  </style>
+<style>/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+
+/* --- INLINES --- */
+em.rfc2119 { 
+    text-transform:     lowercase;
+    font-variant:       small-caps;
+    font-style:         normal;
+    color:              #900;
+}
+
+h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
+h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
+    border: none;
+}
+
+dfn {
+    font-weight:    bold;
+}
+
+a.internalDFN {
+    color:  inherit;
+    border-bottom:  1px solid #99c;
+    text-decoration:    none;
+}
+
+a.externalDFN {
+    color:  inherit;
+    border-bottom:  1px dotted #ccc;
+    text-decoration:    none;
+}
+
+a.bibref {
+    text-decoration:    none;
+}
+
+cite .bibref {
+    font-style: normal;
+}
+
+code {
+    color:  #ff4500;
+}
+
+/* --- TOC --- */
+.toc a, .tof a {
+    text-decoration:    none;
+}
+
+a .secno, a .figno {
+    color:  #000;
+}
+
+ul.tof, ol.tof {
+    list-style: none outside none;
+}
+
+.caption {
+    margin-top: 0.5em;
+    font-style:   italic;
+}
+
+/* --- TABLE --- */
+table.simple {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    border-bottom:  3px solid #005a9c;
+}
+
+.simple th {
+    background: #005a9c;
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+}
+
+.simple th[scope="row"] {
+    background: inherit;
+    color:  inherit;
+    border-top: 1px solid #ddd;
+}
+
+.simple td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+/* --- DL --- */
+.section dd > p:first-child {
+    margin-top: 0;
+}
+
+.section dd > p:last-child {
+    margin-bottom: 0;
+}
+
+.section dd {
+    margin-bottom:  1em;
+}
+
+.section dl.attrs dd, .section dl.eldef dd {
+    margin-bottom:  0;
+}
+</style><style>/* --- EXAMPLES --- */
+div.example-title {
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.example-title span {
+    text-transform: uppercase;   
+}
+aside.example, div.example, div.illegal-example {
+    padding: 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+div.illegal-example { color: red }
+div.illegal-example p { color: black }
+aside.example, div.example {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+    border-color: #e0cb52;
+    background: #fcfaee;    
+}
+
+aside.example div.example {
+    border-left-width: .1em;
+    border-color: #999;
+    background: #fff;
+}
+aside.example div.example div.example-title {
+    color: #999;
+}
+</style><link href="https://www.w3.org/StyleSheets/TR/W3C-REC" rel="stylesheet"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--></head>
+
+<body id="respecDocument" role="document" class="h-entry"><div id="respecHeader" role="contentinfo" class="head">
+  <p>
+    
+      <a href="http://www.w3.org/"><img src="https://www.w3.org/Icons/w3c_home" alt="W3C" height="48" width="72"></a>
+    
+  </p>
+  <h1 class="title p-name" id="title" property="dcterms:title">The RDF Data Cube Vocabulary</h1>
+  
+  <h2 id="w3c-recommendation-16-january-2014" property="dcterms:issued" datatype="xsd:dateTime" content="2014-01-16T05:00:00.000Z"><abbr title="World Wide Web Consortium">W3C</abbr> Recommendation <time class="dt-published" datetime="2014-01-16">16 January 2014</time></h2>
+  <dl>
+    
+      <dt>This version:</dt>
+      <dd><a class="u-url" href="http://www.w3.org/TR/2014/REC-vocab-data-cube-20140116/">http://www.w3.org/TR/2014/REC-vocab-data-cube-20140116/</a></dd>
+      <dt>Latest published version:</dt>
+      <dd><a href="http://www.w3.org/TR/vocab-data-cube/">http://www.w3.org/TR/vocab-data-cube/</a></dd>
+    
+    
+    
+    
+      <dt>Implementation report:</dt>
+      <dd><a href="http://www.w3.org/2011/gld/wiki/Data_Cube_Implementations">http://www.w3.org/2011/gld/wiki/Data_Cube_Implementations</a></dd>
+    
+    
+    
+      <dt>Previous version:</dt>
+      <dd><a rel="dcterms:replaces" href="http://www.w3.org/TR/2013/PR-vocab-data-cube-20131217/">http://www.w3.org/TR/2013/PR-vocab-data-cube-20131217/</a></dd>
+    
+    
+    <dt>Editors:</dt>
+    <dd class="p-author h-card vcard" rel="bibo:editor" inlist=""><span typeof="foaf:Person"><a class="u-url url p-name fn" rel="foaf:homepage" property="foaf:name" content="Richard Cyganiak" href="http://richard.cyganiak.de/">Richard Cyganiak</a>, <a rel="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.deri.ie/">DERI, NUI Galway</a></span>
+</dd>
+<dd class="p-author h-card vcard" rel="bibo:editor" inlist=""><span typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Dave Reynolds</span>, <a rel="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.epimorphics.com/">Epimorphics Ltd</a></span>
+</dd>
+
+    
+    
+      
+        
+          <dt>Contributors:</dt>
+          
+             
+                
+                  <dd>
+                    <a href="http://www.jenitennison.com/blog/">
+                      Jeni Tennison
+                    </a>
+                  </dd>
+                
+             
+          
+        
+      
+    
+  </dl>
+  
+    <p>
+      Please refer to the <a href="http://www.w3.org/2011/gld/data-cube-errata"><strong>errata</strong></a>, a list of issues with this document discovered after publication.</p>
+  
+  
+    <p>
+      
+        This document is also available in this non-normative format:
+      
+      <a rel="alternate" href="diff-20131217.html">diff to previous version</a>
+    </p>
+  
+  
+    <p>
+      The English version of this specification is the only normative version. Non-normative
+      <a href="http://www.w3.org/Consortium/Translation/">translations</a> may also be available.
+    </p>
+  
+  
+    
+      <p class="copyright">
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
+        2012-2014
+        
+        <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+        (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+        <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>), 
+        
+        All Rights Reserved.
+        
+        <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+        
+          <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
+        
+        rules apply.
+      </p>
+    
+  
+  <hr>
+</div>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" datatype="" property="dcterms:abstract" class="introductory" id="abstract"><h2 id="h2_abstract" role="heading" aria-level="1">Abstract</h2>
+<p>There are many situations where it would be useful to be able to
+publish
+multi-dimensional data, such as statistics, on the web in such a way
+that it can be linked to related data sets and concepts. The Data Cube
+vocabulary provides a means to do this using the <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/TR/REC-rdf-syntax/">RDF</a>
+(Resource Description Framework) standard. The model underpinning the
+Data Cube vocabulary is
+compatible with the cube model that underlies <a href="http://sdmx.org">SDMX</a> (Statistical Data
+and Metadata eXchange), an ISO standard for exchanging and sharing
+statistical data and metadata among organizations. The Data Cube
+vocabulary is a core foundation which supports extension
+vocabularies to enable publication of other aspects of
+statistical data flows or other multi-dimensional data sets.</p>
+
+<p>
+  The namespace for all terms in this ontology is: <a href="http://purl.org/linked-data/cube#">http://purl.org/linked-data/cube#</a>
+</p>
+ <p>The vocabulary defined in this document is also available in these non-normative formats: <a href="http://purl.org/linked-data/cube">Turtle</a>.</p>
+
+</section><section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="sotd" class="introductory"><h2 id="h2_sotd" role="heading" aria-level="1">Status of This Document</h2>
+  
+    
+      
+        <p>
+          <em>This section describes the status of this document at the time of its publication.
+          Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the
+          latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
+          http://www.w3.org/TR/.</em>
+        </p>
+        
+  <p>This document has been reviewed by W3C Members, by software developers, and by other W3C groups and interested parties, and is endorsed by the Director as a W3C Recommendation. It is a stable document and may be used as reference material or cited from another document. W3C's role in making the Recommendation is to draw attention to the specification and to promote its widespread deployment. This enhances the functionality and interoperability of the Web.</p>
+
+
+  <p>This vocabulary was originally developed and <a href="http://publishing-statistical-data.googlecode.com/svn/trunk/specs/src/main/html/cube.html">published</a> outside of <abbr title="World Wide Web Consortium">W3C</abbr>, but has been extended and further developed within the Government Linked Data Working Group.</p>
+
+
+        <p>
+          This document was published by the <a href="http://www.w3.org/2011/gld/">Government Linked Data Working Group</a> as a Recommendation.
+          
+          
+            If you wish to make comments regarding this document, please send them to 
+            <a href="mailto:public-gld-comments@w3.org">public-gld-comments@w3.org</a> 
+            (<a href="mailto:public-gld-comments-request@w3.org?subject=subscribe">subscribe</a>,
+            <a href="http://lists.w3.org/Archives/Public/public-gld-comments/">archives</a>).
+          
+          
+          
+          
+            All comments are welcome.
+          
+        </p>
+        
+          <p>
+            Please see the Working Group's  <a href="http://www.w3.org/2011/gld/wiki/Data_Cube_Implementations">implementation
+            report</a>.
+          </p>
+        
+        
+        
+        <p>
+          
+            This document was produced by a group operating under the 
+            <a id="sotd_patent" about="" rel="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+            Policy</a>.
+          
+          
+          
+            
+              <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/47663/status" rel="disclosure">public list of any patent
+              disclosures</a> 
+            
+            made in connection with the deliverables of the group; that page also includes
+            instructions for disclosing a patent. An individual who has actual knowledge of a patent
+            which the individual believes contains
+            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+            Claim(s)</a> must disclose the information in accordance with
+            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+            6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+          
+          
+        </p>
+        
+      
+    
+  
+</section><section id="toc"><h2 id="h2_toc" role="heading" aria-level="1" class="introductory">Table of Contents</h2><ul id="respecContents" role="directory" class="toc"><li class="tocline"><a class="tocxref" href="#outline"><span class="secno">1. </span>Outline of the vocabulary</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#index"><span class="secno">1.1 </span>Vocabulary index</a></li></ul></li><li class="tocline"><a class="tocxref" href="#introduction"><span class="secno">2. </span>Introduction</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#intro-rdf"><span class="secno">2.1 </span>RDF and Linked Data</a></li><li class="tocline"><a class="tocxref" href="#intro-sdmx"><span class="secno">2.2 </span>SDMX and related standards</a></li><li class="tocline"><a class="tocxref" href="#intro-audience"><span class="secno">2.3 </span>Audience and scope</a></li></ul></li><li class="tocline"><a class="tocxref" href="#namespaces"><span class="secno">3. </span>Namespaces and Document Conventions</a></li><li class="tocline"><a class="tocxref" href="#conformance"><span class="secno">4. </span>Conformance</a></li><li class="tocline"><a class="tocxref" href="#data-cubes"><span class="secno">5. </span>Data cubes</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#cubes-model-datasets"><span class="secno">5.1 </span>Data Sets</a></li><li class="tocline"><a class="tocxref" href="#cubes-model"><span class="secno">5.2 </span>The cube model - dimensions, attributes, measures</a></li><li class="tocline"><a class="tocxref" href="#cubes-slices"><span class="secno">5.3 </span>Introducing Slices</a></li><li class="tocline"><a class="tocxref" href="#example"><span class="secno">5.4 </span>An example</a></li></ul></li><li class="tocline"><a class="tocxref" href="#dsd"><span class="secno">6. </span>Creating data structure definitions</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#dsd-dimensions"><span class="secno">6.1 </span>Dimensions, attributes and measures</a></li><li class="tocline"><a class="tocxref" href="#dsd-cog"><span class="secno">6.2 </span>Content oriented guidelines</a></li><li class="tocline"><a class="tocxref" href="#dsd-example"><span class="secno">6.3 </span>Example dimensions and measure</a></li><li class="tocline"><a class="tocxref" href="#dsd-dsd"><span class="secno">6.4 </span>ComponentSpecifications and DataStructureDefinitions</a></li><li class="tocline"><a class="tocxref" href="#dsd-mm"><span class="secno">6.5 </span>Handling multiple measures</a></li></ul></li><li class="tocline"><a class="tocxref" href="#datasets"><span class="secno">7. </span>Expressing data sets</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#dataset-basic"><span class="secno">7.1 </span>Data sets and observations</a></li><li class="tocline"><a class="tocxref" href="#slices"><span class="secno">7.2 </span>Slices and groups of observations</a></li></ul></li><li class="tocline"><a class="tocxref" href="#schemes"><span class="secno">8. </span>Concept schemes and code lists</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#schemes-intro"><span class="secno">8.1 </span>Coded values for components properties</a></li><li class="tocline"><a class="tocxref" href="#schemes-hierarchy"><span class="secno">8.2 </span>Hierarchical code lists</a></li><li class="tocline"><a class="tocxref" href="#schemes-hierarchy-nonskos"><span class="secno">8.3 </span>Non-SKOS hierarchies</a></li><li class="tocline"><a class="tocxref" href="#schemes-aggregation"><span class="secno">8.4 </span>Aggregation</a></li></ul></li><li class="tocline"><a class="tocxref" href="#metadata"><span class="secno">9. </span>DataSet metadata</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#metadata-categorization"><span class="secno">9.1 </span>Categorizing a data set</a></li><li class="tocline"><a class="tocxref" href="#metadata-publishers"><span class="secno">9.2 </span>Describing publishers</a></li></ul></li><li class="tocline"><a class="tocxref" href="#normalize"><span class="secno">10. </span>Abbreviated and normalized data cubes</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#normalize-algorithm"><span class="secno">10.1 </span>Normalization algorithm</a></li></ul></li><li class="tocline"><a class="tocxref" href="#wf"><span class="secno">11. </span>Well-formed cubes</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#wf-rules"><span class="secno">11.1 </span>Integrity constraints</a></li></ul></li><li class="tocline"><a class="tocxref" href="#vocab-reference"><span class="secno">12. </span>Vocabulary reference</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#reference-datasets"><span class="secno">12.1 </span>DataSets</a></li><li class="tocline"><a class="tocxref" href="#reference-observations"><span class="secno">12.2 </span>Observations</a></li><li class="tocline"><a class="tocxref" href="#reference-slices"><span class="secno">12.3 </span>Slices</a></li><li class="tocline"><a class="tocxref" href="#reference-components"><span class="secno">12.4 </span>Dimensions, Attributes, Measures</a></li><li class="tocline"><a class="tocxref" href="#reference-component-properties"><span class="secno">12.5 </span>Reusable general purpose component properties</a></li><li class="tocline"><a class="tocxref" href="#reference-dsd"><span class="secno">12.6 </span>Data Structure Definitions</a></li><li class="tocline"><a class="tocxref" href="#reference-compspec"><span class="secno">12.7 </span>Component specifications - for qualifying component use in a DSD</a></li><li class="tocline"><a class="tocxref" href="#reference-slice-definitions"><span class="secno">12.8 </span>Slice definitions</a></li><li class="tocline"><a class="tocxref" href="#reference-concepts"><span class="secno">12.9 </span>Concepts</a></li><li class="tocline"><a class="tocxref" href="#reference-nonskos-hierarchy"><span class="secno">12.10 </span>Non-SKOS Hierarchies</a></li></ul></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><span class="secno">A. </span>Acknowledgements</a></li><li class="tocline"><a class="tocxref" href="#change-history"><span class="secno">B. </span>Change history </a></li><li class="tocline"><a class="tocxref" href="#full-example"><span class="secno">C. </span>Complete example Data Cube</a></li><li class="tocline"><a class="tocxref" href="#references"><span class="secno">D. </span>References</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><span class="secno">D.1 </span>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><span class="secno">D.2 </span>Informative references</a></li></ul></li></ul></section>
+
+
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="outline">
+<!--OddPage--><h2 id="h2_outline" role="heading" aria-level="1"><span class="secno">1. </span>Outline of the vocabulary</h2>
+
+<figure id="fig-pictorial-summary-of-key-terms-and-their-relationship">
+  <img src="images/qb-fig1.png" alt="UML-style block diagram of the terms in this vocabulary">
+  <figcaption>Fig. <span class="figno">1</span> <span class="fig-title">Pictorial summary of key terms and their relationship</span></figcaption>
+</figure>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="index">
+<h3 id="h3_index" role="heading" aria-level="2"><span class="secno">1.1 </span>Vocabulary index</h3>
+
+  <p><b>Classes:</b>
+    <a href="#ref_qb_Attachable">qb:Attachable</a>
+    <a href="#ref_qb_AttributeProperty">qb:AttributeProperty</a>
+    <a href="#ref_qb_CodedProperty">qb:CodedProperty</a>
+    <a href="#ref_qb_ComponentProperty">qb:ComponentProperty</a>
+    <a href="#ref_qb_ComponentSet">qb:ComponentSet</a>
+    <a href="#ref_qb_ComponentSpecification">qb:ComponentSpecification</a>
+    <a href="#ref_qb_DataSet">qb:DataSet</a>
+    <a href="#ref_qb_DataStructureDefinition">qb:DataStructureDefinition</a>
+    <a href="#ref_qb_DimensionProperty">qb:DimensionProperty</a>
+    <a href="#ref_qb_HierarchicalCodeList">qb:HierarchicalCodeList</a>
+    <a href="#ref_qb_MeasureProperty">qb:MeasureProperty</a>
+    <a href="#ref_qb_Observation">qb:Observation</a>
+    <a href="#ref_qb_Slice">qb:Slice</a>
+    <a href="#ref_qb_ObservationGroup">qb:ObservationGroup</a>
+    <a href="#ref_qb_SliceKey">qb:SliceKey</a>
+  </p>
+  <p><b>Properties:</b>
+    <a href="#ref_qb_attribute">qb:attribute</a>
+    <a href="#ref_qb_codeList">qb:codeList</a>
+    <a href="#ref_qb_component">qb:component</a>
+    <a href="#ref_qb_componentAttachment">qb:componentAttachment</a>
+    <a href="#ref_qb_componentProperty_LC">qb:componentProperty</a>
+    <a href="#ref_qb_componentRequired">qb:componentRequired</a>
+    <a href="#ref_qb_concept">qb:concept</a>
+    <a href="#ref_qb_dataSet_LC">qb:dataSet</a>
+    <a href="#ref_qb_dimension">qb:dimension</a>
+    <a href="#ref_qb_hierarchyRoot">qb:hierarchyRoot</a>
+    <a href="#ref_qb_measure">qb:measure</a>
+    <a href="#ref_qb_measureDimension">qb:measureDimension</a>
+    <a href="#ref_qb_measureType">qb:measureType</a>
+    <a href="#ref_qb_observation_LC">qb:observation</a>
+    <a href="#ref_qb_observationGroup">qb:observationGroup</a>
+    <a href="#ref_qb_order">qb:order</a>
+    <a href="#ref_qb_parentChildProperty">qb:parentChildProperty</a>
+    <a href="#ref_qb_slice_LC">qb:slice</a>
+    <a href="#ref_qb_sliceKey_LC">qb:sliceKey</a>
+    <a href="#ref_qb_sliceStructure">qb:sliceStructure</a>
+    <a href="#ref_qb_structure">qb:structure</a>
+  </p>
+</section>
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="introduction" class="informative">
+<!--OddPage--><h2 id="h2_introduction" role="heading" aria-level="1"><span class="secno">2. </span>Introduction</h2><p><em>This section is non-normative.</em></p>
+
+<p>
+Statistical data is a foundation for policy
+prediction, planning and adjustments and
+underpins many of the mash-ups and visualisations
+we see on the web. There is strong interest
+in being able to publish statistical data in a web-friendly format
+to enable it to be linked and combined with related information.
+</p>
+
+<p>
+At the heart of a statistical dataset is a set of observed values
+organized along a group of dimensions, together with associated metadata.
+The Data Cube vocabulary enables such information to be represented
+using the <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/TR/REC-rdf-syntax/">RDF</a>
+(Resource Description Framework) standard and published following the
+principles of
+<a href="http://linkeddata.org/">linked data</a>.
+The vocabulary is based upon the approach used by the SDMX ISO standard
+for statistical data exchange. This <em>cube</em> model is very
+general and so the Data Cube vocabulary can be used for other data sets
+such as survey data, spreadsheets and OLAP data cubes [<cite><a href="#bib-OLAP" class="bibref">OLAP</a></cite>].
+</p>
+
+<p>
+The Data Cube vocabulary is focused purely on the
+publication of multi-dimensional data on the web. We envisage a series of modular
+vocabularies being developed which extend this core foundation. In
+particular, we see the need for an SDMX extension vocabulary to support the
+publication of additional context to statistical data (such as the encompassing Data
+Flows and associated Provision Agreements). Other extensions are possible to
+support metadata for surveys (so called "micro-data", as encompassed by <a href="http://www.ddialliance.org/">DDI</a>)
+or publication of statistical reference metadata.
+</p>
+
+<p>The Data Cube in turn builds upon the following existing RDF
+vocabularies:</p>
+<ul>
+  <li><a href="http://www.w3.org/2004/02/skos/">SKOS</a> for concept schemes</li>
+  <li><a href="http://sw.joanneum.at/scovo/schema.html">SCOVO</a> for
+core statistical structures</li>
+  <li><a href="http://purl.org/dc/terms/">Dublin Core Terms</a> for metadata</li>
+  <li><a href="http://rdfs.org/ns/void-guide">VoiD</a> for data access</li>
+  <li><a href="http://xmlns.com/foaf/0.1/">FOAF</a> for agents</li>
+  <li><a href="http://www.w3.org/ns/org#">ORG</a> for organizations</li>
+</ul>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="intro-rdf">
+<h3 id="h3_intro-rdf" role="heading" aria-level="2"><span class="secno">2.1 </span>RDF and Linked Data</h3>
+
+<p><em>Linked data</em> is an approach to publishing data on the web, enabling
+datasets to be linked together through references to common concepts.
+  The approach [<cite><a href="#bib-LOD" class="bibref">LOD</a></cite>]
+recommends use of HTTP URIs to name the entities and concepts so that consumers of
+the data can look-up those URIs to get more information, including links
+to other related URIs.
+RDF [<cite><a href="#bib-RDF-PRIMER" class="bibref">RDF-PRIMER</a></cite>]
+provides a standard for the representation of the
+information that describes those entities and concepts, and is returned
+by dereferencing the URIs. </p>
+
+<p>There are a number of benefits to being able to publish multi-dimensional data, such as statistics,
+using RDF and the linked data approach:</p>
+<ul>
+  <li>The individual observations, and groups of observations, become
+(web) addressable. This allows publishers and third parties to annotate
+and link to this data; for example a report can reference the specific
+figures it is based on allowing for fine grained provenance trace-back.</li>
+  <li>Data can be flexibly combined across datasets sets (for example <em>find all
+Religious schools in census areas with high values for National
+Indicators pertaining to religious tolerance</em>). The statistical
+data becomes an integral part of the broader web of linked data.</li>
+  <li>For publishers who currently only offer static files then
+publishing as linked-data offers a flexible, non-proprietary, machine
+readable means of publication that supports an out-of-the-box web API
+for programmatic access.</li>
+  <li>It enables reuse of standardized tools and components.</li>
+</ul>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="intro-sdmx">
+<h3 id="h3_intro-sdmx" role="heading" aria-level="2"><span class="secno">2.2 </span>SDMX and related standards</h3>
+
+<p>The Statistical Data and Metadata Exchange (SDMX) Initiative
+was organised in 2001 by seven international organizations (BIS,
+ECB, Eurostat, IMF, OECD, World Bank and the UN) to
+realise greater efficiencies in statistical practice. These
+organisations all
+collect significant amounts of data, mostly from the national level,
+to support policy. They also disseminate data at the supra-national
+and international levels.</p>
+
+<p>
+There have been a number of important results from this work: two
+versions of a set of technical specifications - ISO:TS 17369
+(SDMX) - and the release of several recommendations for
+structuring and harmonising cross-domain statistics, the SDMX
+Content-Oriented Guidelines. All of the products are available at
+<a href="http://www.sdmx.org">www.sdmx.org</a>. The standards are now
+being widely adopted
+around the world for the collection, exchange, processing, and
+dissemination of aggregate statistics by official statistical
+organisations. The UN Statistical Commission recommended
+SDMX as the preferred standard for statistics in 2007.
+</p>
+
+<p>The SDMX specification defines a core <em>information model</em>
+which is reflected in concrete form in two syntaxes - SDMX-ML (an XML
+syntax) and SDMX-EDI.
+</p>
+
+<p>The RDF Data Cube vocabulary builds upon the core of the
+  the SDMX 2.0 Information Model [<cite><a href="#bib-SDMX20" class="bibref">SDMX20</a></cite>].</p>
+
+<p>Readers may find the SDMX User Guide [<cite><a href="#bib-SDMX-GUIDE" class="bibref">SDMX-GUIDE</a></cite>] useful
+  background.</p>
+
+<p>A key component of the SDMX standards package are
+the <strong>Content-Oriented Guidelines</strong> (COGs), a set of
+cross-domain concepts, code lists, and categories that support
+interoperability and comparability between datasets by providing a
+shared terminology between SDMX implementers [<cite><a href="#bib-COG" class="bibref">COG</a></cite>]. RDF versions of these
+terms are available separately for use along with the Data Cube
+vocabulary, see <a href="#dsd-cog">Content oriented guidelines</a> for
+  further details. These external resources do not form a normative part of the
+  Data Cube Vocabulary specification.
+</p>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="intro-audience">
+<h3 id="h3_intro-audience" role="heading" aria-level="2"><span class="secno">2.3 </span>Audience and scope</h3>
+
+<p>This document describes the Data Cube vocabulary
+It is aimed at people wishing to publish
+statistical or other multi-dimension data in RDF.
+Mechanics of cross-format translation from other
+formats such as SDMX-ML are not covered here.</p>
+</section>
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="namespaces">
+<!--OddPage--><h2 id="h2_namespaces" role="heading" aria-level="1"><span class="secno">3. </span>Namespaces and Document Conventions</h2>
+
+<p>
+The names of RDF entities -- classes, predicates, individuals -- are
+URIs. These are usually expressed using a compact notation where the
+name is written <code>prefix:localname</code>, and where the <code>prefix</code>
+identifies a <i>namespace URI</i>. The namespace identified by the prefix is 
+ prepended to the <code>localname</code> to obtain the full URI.
+</p>
+
+<p>The following namespaces are used in this document:</p>
+
+<table>
+  <thead><tr><th>Prefix</th><th>Namespace</th><th>Reference</th></tr></thead>
+  <tbody>
+    <tr><td>qb</td><td><a href="http://purl.org/linked-data/cube#">http://purl.org/linked-data/cube#</a></td><td><em>This document</em></td></tr>
+    <tr><td>skos</td><td><a href="http://www.w3.org/2004/02/skos/core">http://www.w3.org/2004/02/skos/core#</a></td><td>[<cite><a href="#bib-SKOS-REFERENCE" class="bibref">SKOS-REFERENCE</a></cite>]</td></tr>
+    <tr><td>scovo</td><td><a href="http://purl.org/NET/scovo#">http://purl.org/NET/scovo#</a></td><td>[<cite><a href="#bib-SCOVO" class="bibref">SCOVO</a></cite>] [<cite><a href="#bib-HAUS09" class="bibref">HAUS09</a></cite>]</td></tr>
+    <tr><td>void</td><td><a href="http://rdfs.org/ns/void#">http://rdfs.org/ns/void#</a></td><td>[<cite><a href="#bib-void" class="bibref">void</a></cite>]</td></tr>
+    <tr><td>foaf</td><td><a href="http://xmlns.com/foaf/0.1/">http://xmlns.com/foaf/0.1/</a></td><td>[<cite><a href="#bib-FOAF" class="bibref">FOAF</a></cite>]</td></tr>
+    <tr><td>org</td><td><a href="http://www.w3.org/ns/org#">http://www.w3.org/ns/org#</a></td><td>[<cite><a href="#bib-ORG" class="bibref">ORG</a></cite>]</td></tr>
+    <tr><td>dct</td><td><a href="http://purl.org/dc/terms/">http://purl.org/dc/terms/</a></td><td>[<cite><a href="#bib-DC11" class="bibref">DC11</a></cite>]</td></tr>
+    <tr><td>owl</td><td><a href="http://www.w3.org/2002/07/owl">http://www.w3.org/2002/07/owl#</a></td><td>[<cite><a href="#bib-OWL2-PRIMER" class="bibref">OWL2-PRIMER</a></cite>]</td></tr>
+    <tr><td>rdf</td><td><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a></td><td>[<cite><a href="#bib-RDF-CONCEPTS" class="bibref">RDF-CONCEPTS</a></cite>]</td></tr>
+    <tr><td>rdfs</td><td><a href="http://www.w3.org/2000/01/rdf-schema">http://www.w3.org/2000/01/rdf-schema#</a></td><td>[<cite><a href="#bib-RDF-SCHEMA" class="bibref">RDF-SCHEMA</a></cite>]</td></tr>
+    <tr><td>admingeo</td><td><a href="http://data.ordnancesurvey.co.uk/ontology/admingeo/">http://data.ordnancesurvey.co.uk/ontology/admingeo/</a></td><td><em>(Non-normative, used for examples only)</em></td></tr>
+    <tr><td>interval</td><td><a href="http://reference.data.gov.uk/def/intervals/">http://reference.data.gov.uk/def/intervals/</a></td><td><em>(Non-normative, used for examples only)</em></td></tr>
+
+    <tr><td>eg</td><td><a href="http://example.org/ns#">http://example.org/ns#</a></td><td><em>(Non-normative, used for examples only)</em></td></tr>
+  </tbody>
+</table>
+	
+<p>All RDF examples are written in Turtle syntax [<cite><a href="#bib-turtle" class="bibref">turtle</a></cite>].</p>
+
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="conformance"><!--OddPage--><h2 id="h2_conformance" role="heading" aria-level="1"><span class="secno">4. </span>Conformance</h2>
+<p>
+  As well as sections marked as non-normative, all authoring guidelines, diagrams, examples,
+  and notes in this specification are non-normative. Everything else in this specification is
+  normative.
+</p>
+<p>
+  The key words <em title="MUST" class="rfc2119">MUST</em>, <em title="MUST NOT" class="rfc2119">MUST NOT</em>, <em title="REQUIRED" class="rfc2119">REQUIRED</em>, <em title="SHOULD" class="rfc2119">SHOULD</em>, <em title="SHOULD NOT" class="rfc2119">SHOULD NOT</em>, <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em>, <em title="MAY" class="rfc2119">MAY</em>,
+  and <em title="OPTIONAL" class="rfc2119">OPTIONAL</em> in this specification are to be interpreted as described in [<cite><a href="#bib-RFC2119" class="bibref">RFC2119</a></cite>].
+</p>
+
+
+<p>A data interchange, however that interchange occurs, is conformant
+  with Data Cube if:
+</p><ul>
+<li>it uses terms (classes and properties) from Data Cube in a way consistent with
+  their semantics as declared in this specification, in particular the exchanged RDF graphs constitute
+  either <em><a class="internalDFN" href="#dfn-well-formed">well-formed</a></em> or <em><a class="internalDFN" href="#dfn-well-formed-abbreviated">well-formed abbreviated</a></em> Data Cubes;</li>
+<li>it does <strong>not</strong> use terms from other vocabularies <strong>instead</strong> of ones defined
+ in this vocabulary that could reasonably be used (use of such
+ terms <strong>in addition</strong> to Data Cube terms is permissible).</li>
+</ul>
+<p></p>
+
+<p>A conforming data interchange:
+</p><ul>
+<li><em class="rfc2119" title="may">may</em> include terms from other vocabularies;</li>
+<li><em class="rfc2119" title="may">may</em> use only a subset of Data Cube terms.</li>
+</ul>
+<p></p>
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="data-cubes" class="informative">
+<!--OddPage--><h2 id="h2_data-cubes" role="heading" aria-level="1"><span class="secno">5. </span>Data cubes</h2><p><em>This section is non-normative.</em></p>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="cubes-model-datasets" class="informative">
+<h3 id="h3_cubes-model-datasets" role="heading" aria-level="2"><span class="secno">5.1 </span>Data Sets</h3><p><em>This section is non-normative.</em></p>
+
+<p>A DataSet is a collection of statistical data that corresponds to a
+  defined structure. The data in a data set can be roughly described as belonging to one of the following kinds:</p>
+
+<dl>
+  <dt>Observations</dt>
+  <dd>This is the actual data, the measured values. In a statistical table, the observations 
+       would be the values in the table cells.</dd>
+
+  <dt>Organizational structure</dt>
+  <dd>To locate an observation within the hypercube, one has at least to know the value of each 
+      dimension at which the observation is located, so these values must be specified for each observation. 
+      Datasets can have additional organizational structure in the form of <em>slices</em> 
+    as described in <a href="#slices">section 7.2</a>.
+
+  </dd><dt>Structural metadata</dt>
+  <dd>Having located an observation, we need certain metadata in order to be able to interpret it. 
+    What is the unit of measurement? Is it a normal value or a series break? 
+    Is the value measured or estimated? These metadata are provided as <em>attributes</em> and can 
+    be attached to individual observations, or to higher levels.</dd>
+
+  <dt>Reference metadata</dt>
+  <dd>This is metadata that describes the dataset as a whole, such as categorization of the 
+       dataset, its publisher, and a SPARQL endpoint where it can be accessed. 
+      External metadata is described in <a href="#metadata">section 9</a>.</dd>
+</dl>
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="cubes-model" class="informative">
+<h3 id="h3_cubes-model" role="heading" aria-level="2"><span class="secno">5.2 </span>The cube model - dimensions, attributes, measures</h3><p><em>This section is non-normative.</em></p>
+
+<p>A statistical data set comprises a collection of observations made
+at some points across some logical space. The collection can be characterized by
+a set of dimensions that define what the observation applies to (e.g. time,
+area, gender) along with metadata describing what has been
+measured (e.g. economic activity, population), how it was measured and how the
+observations are expressed (e.g. units, multipliers, status). We can
+think of the statistical data set as a multi-dimensional
+space, or hyper-cube, indexed by those dimensions. This space is
+commonly referred to
+as a <em>cube</em> for short; though the name shouldn't be taken
+literally, it is not meant to imply that
+there are exactly three dimensions (there can be more or fewer) nor
+that
+all the dimensions are somehow similar in size.</p>
+
+<p>A cube is organized according to a set of <em>dimensions</em>,
+<em>attributes</em> and <em>measures</em>. We collectively call these <em>components</em>.</p>
+
+<p>The <em>dimension</em> components serve to identify
+the observations. A set of values for all the dimension
+components
+is sufficient to identify a single observation. Examples of dimensions
+include the
+time to which the observation applies, or a geographic region which the observation covers.</p>
+
+<p>The <em>measure</em> components represent the phenomenon being
+observed.</p>
+
+<p>The <em>attribute</em> components allow us to qualify and
+interpret the observed value(s). They enable specification of the units of
+measure, any scaling factors and metadata such as the status
+of the observation (e.g. <em>estimated</em>, <em>provisional</em>).</p>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="cubes-slices" class="informative">
+<h3 id="h3_cubes-slices" role="heading" aria-level="2"><span class="secno">5.3 </span>Introducing Slices</h3><p><em>This section is non-normative.</em></p>
+
+<p>It is frequently useful to group subsets of observations within a
+dataset. In particular to fix all but one (or a small subset) of the
+dimensions and be able to refer to all observations with those
+dimension values as a single entity. We call such a selection a <em>slice</em>
+through the cube. For example, given a data set on regional performance
+indicators then we might group together all the observations about a given indicator
+and a given region. Each such group would be a slice representing a time
+  series of observed values.</p>
+
+<p>A data publisher may identify slices through the data for various
+purposes. They can be a useful grouping to which metadata might be attached, for example to note a
+change in measurement process which
+affects a particular time or region. Slices also enable the publisher to
+identify and label particular subsets of the data which should be presented to the
+user - they can enable the consuming application to more easily
+  construct the appropriate graph or chart for presentation.</p>
+
+<p>In statistical applications it is common to work with
+slices in which a single dimension is left unspecified. 
+In particular,
+to refer to such slices in which the single free dimension is time as <em>Time
+Series</em> and to refer slices along non-time dimensions as <em>Sections</em>.
+Within the Data Cube vocabulary we allow arbitrary dimensionality
+slices and do not give different names to particular types of
+  slice. Such sub-classes of slice could be added in extension vocabularies.</p>
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="example" class="informative">
+<h3 id="h3_example" role="heading" aria-level="2"><span class="secno">5.4 </span>An example</h3><p><em>This section is non-normative.</em></p>
+
+<p>In order to illustrate the use of the data cube vocabulary we will
+use a small demonstration
+data set extracted from
+<a href="http://statswales.wales.gov.uk/index.htm">StatsWales</a> report
+number 003311 which describes life expectancy broken down by region
+(unitary authority), age and time. The extract we will use is:<br>
+</p>
+
+<table id="example-data" style="text-align: left; width: 80%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td colspan="2" rowspan="1" style="vertical-align: top; text-align: center; font-weight: bold;">2004-2006<br>
+      </td>
+      <td colspan="2" rowspan="1" style="vertical-align: top; text-align: center; font-weight: bold;">2005-2007<br>
+      </td>
+      <td colspan="2" rowspan="1" style="vertical-align: top; text-align: center; font-weight: bold;">2006-2008<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center; font-weight: bold;">Male<br>
+      </td>
+      <td style="vertical-align: top; text-align: center; font-weight: bold;">Female<br>
+      </td>
+      <td style="vertical-align: top; text-align: center; font-weight: bold;">Male<br>
+      </td>
+      <td style="vertical-align: top; text-align: center; font-weight: bold;">Female<br>
+      </td>
+      <td style="vertical-align: top; text-align: center; font-weight: bold;">Male<br>
+      </td>
+      <td style="vertical-align: top; text-align: center; font-weight: bold;">Female<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; text-align: right; font-weight: bold;">Newport<br>
+      </td>
+      <td style="vertical-align: top;">76.7<br>
+      </td>
+      <td style="vertical-align: top;">80.7<br>
+      </td>
+      <td style="vertical-align: top;">77.1<br>
+      </td>
+      <td style="vertical-align: top;">80.9<br>
+      </td>
+      <td style="vertical-align: top;">77.0<br>
+      </td>
+      <td style="vertical-align: top;">81.5<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; text-align: right; font-weight: bold;">Cardiff<br>
+      </td>
+      <td style="vertical-align: top;">78.7<br>
+      </td>
+      <td style="vertical-align: top;">83.3<br>
+      </td>
+      <td style="vertical-align: top;">78.6<br>
+      </td>
+      <td style="vertical-align: top;">83.7<br>
+      </td>
+      <td style="vertical-align: top;">78.7<br>
+      </td>
+      <td style="vertical-align: top;">83.4<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; text-align: right; font-weight: bold;">Monmouthshire<br>
+      </td>
+      <td style="vertical-align: top;">76.6<br>
+      </td>
+      <td style="vertical-align: top;">81.3<br>
+      </td>
+      <td style="vertical-align: top;">76.5<br>
+      </td>
+      <td style="vertical-align: top;">81.5<br>
+      </td>
+      <td style="vertical-align: top;">76.6<br>
+      </td>
+      <td style="vertical-align: top;">81.7<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; text-align: right; font-weight: bold;">Merthyr
+Tydfil<br>
+      </td>
+      <td style="vertical-align: top;">75.5<br>
+      </td>
+      <td style="vertical-align: top;">79.1<br>
+      </td>
+      <td style="vertical-align: top;">75.5<br>
+      </td>
+      <td style="vertical-align: top;">79.4<br>
+      </td>
+      <td style="vertical-align: top;">74.9<br>
+      </td>
+      <td style="vertical-align: top;">79.6<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We can see that there are three dimensions - time period (rolling averages over three year timespans),
+  region and sex. Each observation represents the life expectancy for that population (the measure) and
+  we will need an attribute to define the units (years) of the measured values.</p>
+
+<p>An example of slicing the data would be to define slices in which the time and sex are
+fixed for each slice. Such slices then show the variation in life expectancy across the 
+  different regions, i.e. corresponding to the columns in the above tabular layout.</p>
+
+<p>A complete encoding of this data as a Data Cube, including such a
+  slice structure, is shown in <a href="#full-example">Appendix C</a>.</p>
+
+</section>
+
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="dsd">
+<!--OddPage--><h2 id="h2_dsd" role="heading" aria-level="1"><span class="secno">6. </span>Creating data structure definitions</h2>
+
+<p>A <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code> defines the structure of one or more
+datasets. In particular, it defines the dimensions, attributes and measures 
+used in the dataset along with qualifying information such as ordering of
+  dimensions and whether attributes are required or optional. For well-formed
+  data sets much of this information is implicit within the RDF component properties
+  found on the observations. However, the explicit declaration of the structure has
+  several benefits:</p>
+
+<ul>
+  <li>it enables verification that the data set matches the expected structure,
+   in particular helps with detection of incoherent sets obtained by 
+   combining differently structured source data;</li>
+  <li>it allows a consumer to easily determine what dimensions are available for query
+    and their presentational order, which in turn simplifies data
+    consumption, for example for UI construction;</li>
+  <li>it supports transmission of the structure information in
+  associated SDMX data flows (see below).</li>
+</ul>
+
+<p>It is common, when publishing statistical data, to have a regular series of publications which
+all follow the same structure. The notion of a Data Structure Definition (DSD) allows us to define
+that structure once and then reuse it for each publication in the series. Consumers can then be
+  confident that the structure of the data has not changed.</p>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="dsd-dimensions">
+<h3 id="h3_dsd-dimensions" role="heading" aria-level="2"><span class="secno">6.1 </span>Dimensions, attributes and measures</h3>
+
+<p>The Data Cube vocabulary represents the dimensions, attributes and measures
+  as RDF properties. Each is an instance of the abstract <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code> 
+  class,  which in turn has sub-classes <code><a class="internalDFN" href="#dfn-qb-dimensionproperty">qb:DimensionProperty</a></code>,
+  <code><a class="internalDFN" href="#dfn-qb-attributeproperty">qb:AttributeProperty</a></code> and <code><a class="internalDFN" href="#dfn-qb-measureproperty">qb:MeasureProperty</a></code>.</p>
+
+<p>A component property encapsulates several pieces of information:</p>
+<ul>
+  <li>the concept being represented (e.g. time or geographic area),</li>
+  <li>the nature of the component (dimension, attribute or measure) as represented by the type of the component property,</li>
+  <li>the type or code list used to represent the value.</li>
+</ul>
+
+<p>The same <em>concept</em> can be manifested in different components. For example, the concept
+  of <em>currency</em> may be used as a dimension (in a data set dealing with exchange rates) or as
+  an attribute (when describing the currency in which an observed trade took place). The concept of time
+  is typically used only as a dimension but may be encoded as a data value (e.g. an <code>xsd:dateTime</code>)
+  or as a symbolic value (e.g. a URI drawn from the reference time URI set developed by data.gov.uk).
+  In statistical agencies it is common to have a standard thesaurus of statistical concepts which 
+  underpin the components used in multiple different data sets.</p>
+
+<p>To support this reuse of general statistical concepts the data cube vocabulary provides the <code><a class="internalDFN" href="#dfn-qb-concept">qb:concept</a></code> property which
+  links a <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code> to the concept it represents. We use the SKOS
+  vocabulary [<cite><a href="#bib-SKOS-PRIMER" class="bibref">SKOS-PRIMER</a></cite>] to represent such concepts. This is very natural for those cases where the  
+  concepts are already maintained as a controlled term list or thesaurus.
+   When developing a data structure definition for an informal data set there may not be an appropriate 
+   concept already. In those cases, if the concept is likely to be reused in other guises it is recommended to
+   publish a <code>skos:Concept</code> along with the specific <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code>. However, if
+  such reuse is not expected then it is not required to do so - the <code><a class="internalDFN" href="#dfn-qb-concept">qb:concept</a></code>
+  link is optional and a simple instance of the appropriate subclass of <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code> is
+  sufficient.</p>
+
+<p>The representation of the possible values of the component is described using the <code>rdfs:range</code>
+   property of the component in the usual RDF manner. Thus, for example, values of a time dimension might
+  be represented using literals of type <code>xsd:dateTime</code> or as URIs drawn from a time reference service.</p>
+
+<p>In statistical data sets it is common
+   for values to be encoded using some (possibly hierarchical) code list and it can be useful to be 
+   able to easily identify the overall code list in some more structured form. To cater for this a 
+  component can also be optionally annotated with  a <code><a class="internalDFN" href="#dfn-qb-codelist">qb:codeList</a></code> to indicate a set of 
+  <code>skos:Concept</code>s which may be used as codes. The  <code><a class="internalDFN" href="#dfn-qb-codelist">qb:codeList</a></code> value may be a
+  <code>skos:ConceptScheme</code>,  <code>skos:Collection</code> or <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code>.
+  In such a case the <code>rdfs:range</code> of the component might be left as simply <code>skos:Concept</code> but 
+  a useful design pattern is to also define an <code>rdfs:Class</code>
+  whose members are all the <code>skos:Concept</code>s within a particular scheme. In that way 
+  the <code>rdfs:range</code> can be made more specific which enables generic RDF tools to perform
+  appropriate range checking.</p>
+
+<p>Note that in any SDMX extension vocabulary there would be one further item of information to encode
+  about components - the role that they play within the structure definition. In particular, it is sometimes
+  convenient for consumers to be able to easily identify which is the time dimension,
+  which component is the primary measure and so forth. It turns out that such roles are intrinsic to
+  the concepts and so this information can be encoded by providing subclasses of <code>skos:Concept</code>
+  for each role. The particular choice of roles here is specific to the SDMX standard and so is not 
+  included within the core Data Cube vocabulary.</p>
+
+<p>Before illustrating the components needed for our running example, there is one more piece
+  of machinery to introduce, a reusable set of concepts and components based on SDMX. 
+</p>
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="dsd-cog" class="informative">
+<h3 id="h3_dsd-cog" role="heading" aria-level="2"><span class="secno">6.2 </span>Content oriented guidelines</h3><p><em>This section is non-normative.</em></p>
+
+<p>The SDMX standard includes a set of <em>content oriented guidelines</em> (COG) [<cite><a href="#bib-COG" class="bibref">COG</a></cite>]
+ which define a  set of common statistical concepts and associated code lists that are intended to be 
+   reusable across data sets. A <a href="https://code.google.com/p/publishing-statistical-data/">community group</a> 
+   has developed RDF encodings of these guidelines. These comprise:
+
+</p><table id="namespaces-table">
+  <thead><tr><th>Prefix</th><th>Namespace</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>sdmx-concept</code></td><td><a href="http://purl.org/linked-data/sdmx/2009/concept#">http://purl.org/linked-data/sdmx/2009/concept#</a></td><td>SKOS Concepts for each COG defined concept</td>
+    </tr><tr><td><code>sdmx-code</code></td><td><a href="http://purl.org/linked-data/sdmx/2009/code#">http://purl.org/linked-data/sdmx/2009/code#</a></td><td>SKOS Concepts and ConceptSchemes for each COG defined code list</td>
+    </tr><tr><td><code>sdmx-dimension</code></td><td><a href="http://purl.org/linked-data/sdmx/2009/dimension#">http://purl.org/linked-data/sdmx/2009/dimension#</a></td><td>component properties corresponding to each COG concept that can be used as a dimension</td>
+    </tr><tr><td><code>sdmx-attribute</code></td><td><a href="http://purl.org/linked-data/sdmx/2009/attribute#">http://purl.org/linked-data/sdmx/2009/attribute#</a></td><td>component properties corresponding to each COG concept that can be used as an attribute</td>
+    </tr><tr><td><code>sdmx-measure</code></td><td><a href="http://purl.org/linked-data/sdmx/2009/measure#">http://purl.org/linked-data/sdmx/2009/measure#</a></td><td>component properties corresponding to each COG concept that can be used as a measure</td>
+  
+  </tr></tbody>
+</table>
+
+<p>These community resources are provided as a convenience and do not form part
+  of the Data Cube specification. However, they are used
+  by a number of existing Data Cube publications and so we will
+  reference them within our worked examples.</p>
+
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="dsd-example" class="informative">
+<h3 id="h3_dsd-example" role="heading" aria-level="2"><span class="secno">6.3 </span>Example dimensions and measure</h3><p><em>This section is non-normative.</em></p>
+
+<p>Turning to our example data set then we can see there are three dimensions to represent
+   - time period, region (unitary authority) and sex. There is a single
+   (primary) measure which corresponds to the topic of the data set (life expectancy) and
+  encodes a value in years. Hence, we need the following components.</p>
+
+<p><b>Time.</b> There is a suitable predefined concept in the SMDX-COG for this, REF_PERIOD, so 
+  we could reuse the corresponding component property <code>sdmx-dimension:refPeriod</code>. However,
+  to represent the time period itself it would be convenient to use the data.gov.uk reference
+  time service and to declare this within the data structure definition.</p>
+
+<div class="example"><div class="example-title"><span>Example 1</span></div><pre class="example">eg:refPeriod  a rdf:Property, qb:DimensionProperty;
+    rdfs:label "reference period"@en;
+    rdfs:subPropertyOf sdmx-dimension:refPeriod;
+    rdfs:range interval:Interval;
+    qb:concept sdmx-concept:refPeriod . </pre></div>
+
+<p><b>Region.</b> Again there is a suitable COG concept and associated component that
+we can use for this, and again we can customize the range of the component. In this case
+  we can use the Ordnance Survey Administrative Geography Ontology [<cite><a href="#bib-OS-GEO" class="bibref">OS-GEO</a></cite>].</p>
+
+<div class="example"><div class="example-title"><span>Example 2</span></div><pre class="example">eg:refArea  a rdf:Property, qb:DimensionProperty;
+    rdfs:label "reference area"@en;
+    rdfs:subPropertyOf sdmx-dimension:refArea;
+    rdfs:range admingeo:UnitaryAuthority;
+    qb:concept sdmx-concept:refArea . </pre></div>
+
+<p><b>Sex.</b> In this case we can use the corresponding COG component <code>sdmx-dimension:sex</code> 
+    directly, since the default code list for it includes the terms we need.</p>
+
+<p><b>Measure.</b> This property will give the value of each observation.
+  We could use the default <code>smdx-measure:obsValue</code> for this (defining
+  the topic being observed using metadata). However, it can aid readability and processing
+  of the RDF data sets to use a specific measure corresponding to the phenomenon being observed.</p>
+  
+<div class="example"><div class="example-title"><span>Example 3</span></div><pre class="example">eg:lifeExpectancy  a rdf:Property, qb:MeasureProperty;
+    rdfs:label "life expectancy"@en;
+    rdfs:subPropertyOf sdmx-measure:obsValue;
+    rdfs:range xsd:decimal . </pre></div>
+  
+<p><b>Unit measure attribute.</b> The primary measure on its own is a plain decimal value.
+  To correctly interpret this value we need to define what units it is measured in (years in this case).
+  This is defined using attributes which qualify the interpretation of the observed value.
+  Specifically in this example we can use the predefined <code>sdmx-attribute:unitMeasure</code>
+  which in turn corresponds to the COG concept of <code>UNIT_MEASURE</code>. To express
+  the value of this attribute we would typically use a common thesaurus of units of measure.
+  For the sake of this simple example we will use the DBpedia resource <code>http://dbpedia.org/resource/Year</code>
+  which corresponds to the topic of the Wikipedia page on "Years".</p>
+
+<p>This covers the minimal components needed to define the structure of this data set.</p>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="dsd-dsd">
+<h3 id="h3_dsd-dsd" role="heading" aria-level="2"><span class="secno">6.4 </span>ComponentSpecifications and DataStructureDefinitions</h3>
+
+<p>To combine the components into a specification for the structure of this
+  dataset we need to declare a <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code>
+  resource which in turn will reference a set of <code><a class="internalDFN" href="#dfn-qb-componentspecification">qb:ComponentSpecification</a></code> resources.
+  The <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code> will be reusable across other data sets with the same structure.</p>
+
+<p>In the simplest case the <code><a class="internalDFN" href="#dfn-qb-componentspecification">qb:ComponentSpecification</a></code> simply references the
+  corresponding <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code> (usually using one of the sub properties
+  <code><a class="internalDFN" href="#dfn-qb-dimension">qb:dimension</a></code>, <code><a class="internalDFN" href="#dfn-qb-measure">qb:measure</a></code> or <code><a class="internalDFN" href="#dfn-qb-attribute">qb:attribute</a></code>). 
+  However, it is also possible to qualify the
+  component specification in several ways.</p>
+
+<ul>
+  <li>Attributes may be declared as optional or required. If an
+  attribute is required to be present for every observation then the specification should set 
+    <code><a class="internalDFN" href="#dfn-qb-componentrequired">qb:componentRequired</a></code>. In the
+    absence of such a declaration an attribute is assumed to be
+    optional. The  <code><a class="internalDFN" href="#dfn-qb-componentrequired">qb:componentRequired</a></code>
+    declaration may only be applied to component specifications of
+    attributes -  measures and dimensions are always required.</li>
+  <li>The components may be ordered by giving an integer value for <code><a class="internalDFN" href="#dfn-qb-order">qb:order</a></code>. 
+    This order carries no semantics but can be useful to aid consuming agents in generating
+    appropriate user interfaces. It can also be useful in the publication chain to enable
+    synthesis of appropriate URIs for observations.</li>
+  <li>By default the values of all of the components will be attached to each individual observation,
+    this is called the <em><a class="internalDFN" href="#dfn-normalized">normalized</a></em> representation.
+    This allows such observations to stand alone, so that a SPARQL query to retrieve the observation
+    can immediately locate the attributes which enable the observation to be interpreted. However,
+    it is also permissible to attach attributes to the
+    overall data set, to an intervening slice or to a specific Measure (in the case of multiple measures).
+    This reduces some of the redundancy in the encoding of the instance data. To declare such an
+    abbreviated structure, the <code><a class="internalDFN" href="#dfn-qb-componentattachment">qb:componentAttachment</a></code> property of the specification should
+    reference the class corresponding to the attachment level (e.g. <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> for attributes
+    that will be attached to the overall data set). The classes 
+    which can be used as such attachment levels are all subclasses of <code><a class="internalDFN" href="#dfn-qb-attachable">qb:Attachable</a></code>.</li>
+</ul>
+
+<p>In the case of our running example the dimensions can be usefully ordered. There is only one
+   attribute, the unit measure, and this is required. In the interest of illustrating the vocabulary
+   use we will declare that this attribute will be attached at the level of the data set, however 
+   normalized representations are in general easier to query and combine.</p>
+
+<p>So the structure of our example data set (and other similar datasets) can be declared by:</p>
+
+<div class="example"><div class="example-title"><span>Example 4</span></div><pre id="attachment-example" class="example">eg:dsd-le a qb:DataStructureDefinition;
+    # The dimensions
+    qb:component [ qb:dimension eg:refArea;         qb:order 1 ];
+    qb:component [ qb:dimension eg:refPeriod;       qb:order 2 ];
+    qb:component [ qb:dimension sdmx-dimension:sex; qb:order 3 ];
+    # The measure(s)
+    qb:component [ qb:measure eg:lifeExpectancy];
+    # The attributes
+    qb:component [ qb:attribute sdmx-attribute:unitMeasure; 
+                   qb:componentRequired "true"^^xsd:boolean;
+                   qb:componentAttachment qb:DataSet; ] .</pre></div>
+
+<p>Note that we have given the data structure definition (DSD) a URI since it will be
+ reused across different datasets with the same structure. Similarly the component properties
+ themselves can be reused across different DSDs. However, the component specifications
+ are only useful within the scope of a particular DSD and so we have chosen to represent
+ them using blank nodes.
+</p>
+</section>
+      
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="dsd-mm">
+<h3 id="h3_dsd-mm" role="heading" aria-level="2"><span class="secno">6.5 </span>Handling multiple measures</h3>
+
+<p>Our example data set is relatively simple in having a single observable (in this case "life expectancy") 
+  that is being measured. In other data sets there can be multiple measures. These measures
+  may be of similar nature (e.g. a data set on local government performance might provide
+  multiple different performance indicators for each region) or quite different (e.g. a data set
+  on trades might provide quantity, value, weight for each trade).</p>
+  
+<p>There are two approaches to representing multiple measures supported by the Data Cube vocabulary.</p>
+
+<p>In the first approach each observation records a single observed value for one measure.
+We introduce an additional dimension whose value indicates the measure being conveyed by 
+each observation. This <em>measure dimension</em> approach is the one supported by the SDMX information model. </p>
+
+<p>In the second approach a single observation can provide values for multiple different measures.
+This is particularly appropriate in cases where each of those values relates to a single
+observational event such as a multi-spectral sensor measurement. This <em>multi-measure</em>
+approach is commonly used in applications such as Business Intelligence and OLAP.</p>
+
+<p>The Data Cube vocabulary permits either representation approach to be used though they cannot be mixed
+  within the same data set. </p>
+
+<p>Both representation approaches require
+  that, for every point in the space of dimensions for which there is
+  an observation, a value must be given for every measure. In the
+  case of multi-measure observations each measure must be
+  present on each observation. In cubes which use a measure dimension
+  there are sets of observations for each populated point in the
+  cube and within each of those sets there must be an observation giving each measure.</p>
+  
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="dsd-mm-obs">
+<h4 id="h4_dsd-mm-obs" role="heading" aria-level="3">Multi-measure observations</h4>
+  
+<p> This approach allows multiple observed values to be attached
+  to an individual observation. It is suited to representation of things like sensor data and OLAP cubes.
+  To use this representation you simply declare multiple <code><a class="internalDFN" href="#dfn-qb-measureproperty">qb:MeasureProperty</a></code> components
+  in the data structure definition and attach an instance of each property to the observations within 
+  the data set.</p>
+
+<p>For example, if we have a set of shipment data containing unit count and total weight for each
+  shipment then we might have a data structure definition such as:</p>
+<div class="example"><div class="example-title"><span>Example 5</span></div><pre class="example">eg:dsd1 a qb:DataStructureDefinition;
+    rdfs:comment "shipments by time (multiple measures approach)"@en;
+    qb:component 
+        [ qb:dimension  sdmx-dimension:refTime; ],
+        [ qb:measure    eg-measure:quantity; ],
+        [ qb:measure    eg-measure:weight; ] . </pre></div>
+        
+<p>This would correspond to individual observations such as:</p>
+<div class="example"><div class="example-title"><span>Example 6</span></div><pre class="example">eg:dataset1 a qb:DataSet;
+    qb:structure eg:dsd1 .
+    
+eg:obs1a  a qb:Observation;
+    qb:dataSet eg:dataset1;
+    sdmx-dimension:refTime "2010-07-30"^^xsd:date;
+    eg-measure:weight 1.3 ;
+    eg-measure:quantity 42 ;
+    . </pre></div>
+    
+<p>Note that one limitation of the multi-measure approach is that it is not possible to attach
+  an attribute to a single observed value. An attribute attached to the observation instance
+  will apply to the whole observation (e.g. to indicate who made the observation). Attributes
+  can also be attached directly to the <code><a class="internalDFN" href="#dfn-qb-measureproperty">qb:MeasureProperty</a></code> itself (e.g. to indicate
+  the <em>unit of measure</em> for that measure) but that attachment applies to the whole data
+  set (indeed any data set using that measure property) and cannot vary for different observations.
+  For applications where this limitation is a problem then use the <em>measure dimension</em> approach.</p> 
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="dsd-mm-dim">
+<h4 id="h4_dsd-mm-dim" role="heading" aria-level="3"><dfn id="dfn-measure-dimension">Measure dimension</dfn></h4>
+  
+<p>This approach restricts observations to having a single measured value but allows
+  a data set to carry multiple measures by adding an extra dimension, a <em>measure dimension</em>.
+  The value of the measure dimension denotes which particular measure is being conveyed by the 
+  observation. This is the representation approach used within SDMX and an extension vocabulary
+  could introduce a sub-class of <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code> which enforces
+  such a single-measure restriction.</p>
+  
+<p>To use this representation you declare an additional dimension within the data structure
+  definition to play the role of the measure dimension. For use within the Data Cube vocabulary
+  we provide a single distinguished component for this purpose -- <code><a class="internalDFN" href="#dfn-qb-measuretype">qb:measureType</a></code>.
+  An extension vocabulary could generalize this through the provision of roles to
+  identify concepts which
+  act as measure types, enabling other measure dimensions to be declared. 
+</p>
+
+ <p>
+  In the special case of using <code><a class="internalDFN" href="#dfn-qb-measuretype">qb:measureType</a></code> as the measure dimension, the set of allowed 
+  measures is assumed to be those measures declared within the DSD. There is no need to 
+  define a separate code list or enumerated class to duplicate this information. 
+  Thus, <code><a class="internalDFN" href="#dfn-qb-measuretype">qb:measureType</a></code> is a “magic” dimension
+  property with an implicit code list. This notion of an implicit
+  code list for <code><a class="internalDFN" href="#dfn-qb-measuretype">qb:measureType</a></code> is a small divergence
+  from SDMX usage.</p>
+
+<p>The data structure definition for our above example, using this representation approach, would then be:</p>
+<div class="example"><div class="example-title"><span>Example 7</span></div><pre class="example">eg:dsd2 a qb:DataStructureDefinition;
+    rdfs:comment "shipments by time (measure dimension approach)"@en;
+    qb:component 
+        [ qb:dimension  sdmx-dimension:refTime; ],
+        [ qb:measure    eg-measure:quantity; ],
+        [ qb:measure    eg-measure:weight; ],
+        [ qb:dimension  qb:measureType; ] . </pre></div>
+        
+<p>This would correspond to individual observations such as:</p>
+<div class="example"><div class="example-title"><span>Example 8</span></div><pre class="example">eg:dataset2 a qb:DataSet;
+    qb:structure eg:dsd2 .
+    
+eg:obs2a  a qb:Observation;
+    qb:dataSet eg:dataset2;
+    sdmx-dimension:refTime "2010-07-30"^^xsd:date;
+    qb:measureType eg-measure:weight ;
+    eg-measure:weight 1.3 .
+    
+eg:obs2b  a qb:Observation;
+    qb:dataSet eg:dataset2;
+    sdmx-dimension:refTime "30-07-2010"^^xsd:date;
+    qb:measureType eg-measure:quantity ;
+    eg-measure:quantity 42 . </pre></div>
+    
+
+<p>Note the duplication of having the measure property show up both as the property that 
+  carries the measured value, and as the value of the measure dimension. We accept 
+  this duplication as necessary to ensure the uniform cube/dimension mechanism and 
+  a uniform way of declaring and using measure properties on all kinds of datasets.</p><p>
+  
+</p><p>Those familiar with SDMX should also note that in the RDF representation there is 
+  no need for a separate "primary measure" which subsumes each of the individual 
+  measures, those individual measures are used directly. Extension vocabularies
+  could address the round-tripping of the SDMX primary measure by use of a
+  separate annotation on the data structure definition.
+</p></section>
+
+</section>
+
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="datasets">
+<!--OddPage--><h2 id="h2_datasets" role="heading" aria-level="1"><span class="secno">7. </span>Expressing data sets</h2>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="dataset-basic">
+<h3 id="h3_dataset-basic" role="heading" aria-level="2"><span class="secno">7.1 </span>Data sets and observations</h3>
+
+<p>A resource representing the entire data set is created and typed as <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> and
+  linked to the corresponding data structure definition via the <code><a class="internalDFN" href="#dfn-qb-structure">qb:structure</a></code> property.</p>
+
+<p><strong>Pitfall</strong>: Note the capitalization of <code>qb:<strong>D</strong>ata<strong>S</strong>et</code>, 
+which differs from the capitalization in other vocabularies, such as
+<a href="http://semanticweb.org/wiki/VoiD">void:Dataset</a> and <a href="http://www.w3.org/egov/wiki/Data_Catalog_Vocabulary">dcat:Dataset</a>. This unusual capitalization is chosen for compatibility
+with the SDMX standard. The same applies to the related property <code>qb:data<strong>S</strong>et</code>.</p>
+
+<p>Each observation is represented as an instance of type <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code>.
+  In the basic case then values for each of the attributes, dimensions and measurements are attached directly to the observation (remember 
+  that these components are all RDF properties). The observation is linked to the containing
+  data set using the <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:dataSet</a></code> property. </p>
+
+<p>Thus for our running example we might expect to have:</p>
+
+<div class="example"><div class="example-title"><span>Example 9</span></div><pre class="example">eg:dataset-le1 a qb:DataSet;
+    rdfs:label "Life expectancy"@en;
+    rdfs:comment "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    qb:structure eg:dsd-le ;
+    .  
+
+eg:o1 a qb:Observation;
+    qb:dataSet  eg:dataset-le1 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    sdmx-attribute:unitMeasure &lt;http://dbpedia.org/resource/Year&gt; ;
+    eg:lifeExpectancy          76.7 ;
+    .
+
+eg:o2 a qb:Observation;
+    qb:dataSet  eg:dataset-le1 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    sdmx-attribute:unitMeasure &lt;http://dbpedia.org/resource/Year&gt; ;
+    eg:lifeExpectancy          78.7 ;
+    .
+
+eg:o3 a qb:Observation;
+    qb:dataSet  eg:dataset-le1 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    sdmx-attribute:unitMeasure &lt;http://dbpedia.org/resource/Year&gt; ;
+    eg:lifeExpectancy          76.6 ;
+    .
+
+...</pre></div>
+
+<p>This <a class="internalDFN" href="#dfn-normalized">normalized</a> structure makes it easy to query and combine data sets 
+  but there is some redundancy here. For example, the unit of measure for the
+  life expectancy is uniform across the whole data set and does not change between
+  observations. To cater for situations like this the Data Cube vocabulary allows components
+  to be attached at a high level in the nested structure. Indeed if we re-examine our
+  original Data Structure Declaration we see that we declared the unit of measure to be
+  attached at the data set level. So an shortened version of the example is:</p>
+
+<div class="example"><div class="example-title"><span>Example 10</span></div><pre class="example">eg:dataset-le1 a qb:DataSet;
+    rdfs:label "Life expectancy"@en;
+    rdfs:comment "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    qb:structure eg:dsd-le ;  
+    sdmx-attribute:unitMeasure &lt;http://dbpedia.org/resource/Year&gt; ;
+    .
+    
+eg:o1 a qb:Observation;
+    qb:dataSet  eg:dataset-le1 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    eg:lifeExpectancy          76.7 ;
+    .
+    
+eg:o2 a qb:Observation;
+    qb:dataSet  eg:dataset-le1 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    eg:lifeExpectancy          78.7 ;
+    .
+
+eg:o3 a qb:Observation;
+    qb:dataSet  eg:dataset-le1 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    eg:lifeExpectancy          76.6 ;
+    .
+
+...</pre></div>
+
+<p>In a data set containing just observations with no intervening structure then each observation
+  must have a complete set of dimension values, along with all the measure values. If the
+  set is structured by using slices then further abbreviation is possible, as discussed
+  in the next section.</p>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="slices">
+<h3 id="h3_slices" role="heading" aria-level="2"><span class="secno">7.2 </span>Slices and groups of observations</h3>
+
+<p>Slices allow us to group subsets of observations together. This is not intended
+  to represent arbitrary selections from the observations but uniform slices
+  through the cube in which one or more of the dimension values are fixed.</p>
+  
+<p>Slices may be used for a number of reasons:</p>
+<ul>
+  <li>to guide consuming applications in how to present the data (e.g. to organize
+      data as a set of time series);</li>
+  <li>to provide an identity (URI) for the slice to enable it to be annotated or externally referenced;</li>
+  <li>to reduce the verbosity of the data set by only stating each fixed dimensional value once.</li>
+</ul>  
+
+<p>To illustrate the use of slices let us group the sample data set into geographic series.
+ That will enable us to refer to e.g. "male life expectancy observations for 2004-2006" 
+ and guide applications to present a comparative chart across regions. </p>
+
+<p>We first define the structure of the slices we want by associating a "slice key" with the
+   data structure definition. This is done by creating a <code><a class="internalDFN" href="#dfn-qb-slicekey-1">qb:SliceKey</a></code> to
+   list the component properties (which must be dimensions) which will be fixed in the
+   slice. The key is attached to the DSD using <code><a class="internalDFN" href="#dfn-qb-slicekey-1">qb:sliceKey</a></code>. For example: </p>
+   
+<div class="example"><div class="example-title"><span>Example 11</span></div><pre class="example">eg:sliceByRegion a qb:SliceKey;
+    rdfs:label "slice by region"@en;
+    rdfs:comment "Slice by grouping regions together, fixing sex and time values"@en;
+    qb:componentProperty eg:refPeriod, sdmx-dimension:sex .
+    
+eg:dsd-le-slice1 a qb:DataStructureDefinition;
+    qb:component 
+        [ qb:dimension eg:refArea;         qb:order 1 ],
+        [ qb:dimension eg:refPeriod;       qb:order 2 ],
+        [ qb:dimension sdmx-dimension:sex; qb:order 3 ],
+        [ qb:measure eg:lifeExpectancy];
+        [qb:attribute sdmx-attribute:unitMeasure; qb:componentAttachment qb:DataSet; ] ;
+    qb:sliceKey eg:sliceByRegion .</pre></div>   
+
+<p>In the instance data then slices are represented by instances of <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code> which 
+  link to the observations in the slice via <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:observation</a></code> and to the key by means
+  of <code><a class="internalDFN" href="#dfn-qb-slicestructure">qb:sliceStructure</a></code>. Data sets indicate
+  the slices they contain by means of <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:slice</a></code>. Thus in our example we would have:</p>
+
+<div class="example"><div class="example-title"><span>Example 12</span></div><pre class="example">eg:dataset-le2 a qb:DataSet;
+    rdfs:label "Life expectancy"@en;
+    rdfs:comment "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    qb:structure eg:dsd-le-slice2 ;  
+    sdmx-attribute:unitMeasure &lt;http://dbpedia.org/resource/Year&gt; ;
+    qb:slice eg:slice2;
+    .
+
+eg:slice2 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    qb:observation eg:o1b, eg:o2b, eg:o3b, ... .
+
+eg:o1b a qb:Observation;
+    qb:dataSet  eg:dataset-le2 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    eg:lifeExpectancy          76.7 ;
+    .
+    
+eg:o2b a qb:Observation;
+    qb:dataSet  eg:dataset-le2 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    eg:lifeExpectancy          78.7 ;
+    .
+
+eg:o3b a qb:Observation;
+    qb:dataSet  eg:dataset-le2 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    eg:lifeExpectancy          76.6 ;
+    .
+
+...</pre></div>
+
+<p>Note that here we are still repeating the dimension values on the individual observations.
+This normalized representation means that a consuming application can still query 
+for observed values uniformly without having to first parse the data structure
+definition and search for slice definitions. If it is desired, this redundancy can be reduced
+by declaring different attachment levels for the dimensions. For example:
+</p>
+<div class="example"><div class="example-title"><span>Example 13</span></div><pre class="example">eg:dsd-le-slice3 a qb:DataStructureDefinition;
+    qb:component 
+        [ qb:dimension eg:refArea;         qb:order 1 ];
+        [ qb:dimension eg:refPeriod;       qb:order 2; qb:componentAttachment qb:Slice ];
+        [ qb:dimension sdmx-dimension:sex; qb:order 3; qb:componentAttachment qb:Slice ];
+        [ qb:measure eg:lifeExpectancy];
+        [ qb:attribute sdmx-attribute:unitMeasure; qb:componentAttachment qb:DataSet; ] ;
+    qb:sliceKey eg:sliceByRegion .
+
+eg:dataset-le3 a qb:DataSet;
+    rdfs:label "Life expectancy"@en;
+    rdfs:comment "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    qb:structure eg:dsd-le-slice3 ;  
+    sdmx-attribute:unitMeasure &lt;http://dbpedia.org/resource/Year&gt; ;
+    qb:slice eg:slice3 ;
+    .
+
+eg:slice3 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    qb:observation eg:o1c, eg:o2c, eg:o3c, ... .
+
+eg:o1c a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          76.7 ;
+    .
+    
+eg:o2c a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          78.7 ;
+    .
+
+eg:o3c a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          76.6 ;
+    .
+
+...</pre></div>
+
+<p>There are also situations in which a publisher wishes to group a set of observations
+together for ease of access or presentation purposes but where that set is not defined
+by simply fixing a set of dimension values. For example, in
+  representing weather observations it can be desirable to group
+  together the latest observation available from each station even though
+  each observation may have been taken at a different time.
+  For those situations the Data Cube vocabulary supports
+<code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:ObservationGroup</a></code>. A <code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:ObservationGroup</a></code> can contain an arbitrary
+collection of observations.  A <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code> is a special case of a  <code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:ObservationGroup</a></code>.
+
+</p></section>
+
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="schemes">
+<!--OddPage--><h2 id="h2_schemes" role="heading" aria-level="1"><span class="secno">8. </span>Concept schemes and code lists</h2>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="schemes-intro">
+<h3 id="h3_schemes-intro" role="heading" aria-level="2"><span class="secno">8.1 </span>Coded values for components properties</h3>
+
+<p>The values for dimensions within a data set must be unambiguously
+   defined. They may be typed values (e.g. <code>xsd:dateTime</code> for time instances)
+   or codes drawn from some code list. Similarly, many attributes
+   used in data sets represent coded values from some controlled term list rather 
+   than free text descriptions. In the Data Cube vocabulary such codes are
+   represented by URI references in the usual RDF fashion.</p>
+ 
+<p>Sometimes
+   appropriate URI sets already exist for the relevant dimensions (e.g. the representations
+   of area and time periods in our running example). In other cases the data set being
+   converted may use controlled terms from some scheme which does not yet have
+   associated URIs. In those cases we recommend use of SKOS, representing
+   the individual code values using <code>skos:Concept</code> and the overall
+   set of admissible values using <code>skos:ConceptScheme</code> or <code>skos:Collection</code>.</p>
+   
+<p>We illustrate this with an example drawn from the translation of the SDMX COG
+  code list for gender, as used already in our worked example. The relevant subset of this code list is:</p>
+
+<div class="example"><div class="example-title"><span>Example 14</span></div><pre class="example">sdmx-code:sex a skos:ConceptScheme;
+    skos:prefLabel "Code list for Sex (SEX) - codelist scheme"@en;
+    rdfs:label "Code list for Sex (SEX) - codelist scheme"@en;
+    skos:notation "CL_SEX";
+    skos:note "This  code list provides the gender."@en;
+    skos:definition &lt;http://sdmx.org/wp-content/uploads/2009/01/02_sdmx_cog_annex_2_cl_2009.pdf&gt; ;
+    rdfs:seeAlso sdmx-code:Sex ;
+    sdmx-code:sex skos:hasTopConcept sdmx-code:sex-F ;
+    sdmx-code:sex skos:hasTopConcept sdmx-code:sex-M .
+
+sdmx-code:Sex a rdfs:Class, owl:Class;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Code list for Sex (SEX) - codelist class"@en;
+    rdfs:comment "This  code list provides the gender."@en;
+    rdfs:seeAlso sdmx-code:sex .
+
+sdmx-code:sex-F a skos:Concept, sdmx-code:Sex;
+    skos:topConceptOf sdmx-code:sex;
+    skos:prefLabel "Female"@en ;
+    skos:notation "F" ;
+    skos:inScheme sdmx-code:sex .
+
+sdmx-code:sex-M a skos:Concept, sdmx-code:Sex;
+    skos:topConceptOf sdmx-code:sex;
+    skos:prefLabel "Male"@en ;
+    skos:notation "M" ; 
+    skos:inScheme sdmx-code:sex .</pre></div>
+
+<p><code>skos:prefLabel</code> is used to give a name to the code, 
+<code>skos:note</code> gives a description and <code>skos:notation</code> can be used 
+to record a short form code which might appear in other serializations. 
+The SKOS specification [<cite><a href="#bib-SKOS-REFERENCE" class="bibref">SKOS-REFERENCE</a></cite>] recommends the generation of a custom datatype for
+each use of <code>skos:notation</code> but here the notation is not intended for use
+within RDF encodings, it merely documents the notation used in other representations 
+(which do not use such a datatype).</p>
+
+<p>It is convenient and good practice when developing a code list to also 
+create a Class to denote all the codes within the code
+list, irrespective of hierarchical structure. This allows the range of an
+<code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code> to be defined by using <code>rdfs:range</code>
+which then permits standard RDF closed-world checkers to validate use of the
+code list without requiring custom SDMX-RDF-aware tooling. We do that in the
+above example by using the common convention that the class name is the
+same as that of the concept scheme but with leading upper case.</p>
+
+<p>This code list can then be associated with a coded property, such as a dimension:</p>
+
+<div class="example"><div class="example-title"><span>Example 15</span></div><pre class="example">eg:sex a qb:DimensionProperty, qb:CodedProperty;
+    qb:codeList sdmx-code:sex ;
+    rdfs:range sdmx-code:Sex .</pre></div>
+
+<p>Explicitly declaring  the code list using <code><a class="internalDFN" href="#dfn-qb-codelist">qb:codeList</a></code>
+  is not mandatory but can be helpful in those cases where a concept scheme has been defined.</p>
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="schemes-hierarchy">  
+<h3 id="h3_schemes-hierarchy" role="heading" aria-level="2"><span class="secno">8.2 </span>Hierarchical code lists</h3>
+
+<p>In some cases code lists have a hierarchical structure. In particular, this is 
+used in SDMX when the data cube includes aggregations of data values 
+(e.g. aggregating a measure across geographic regions).
+Hierarchical code lists <em title="SHOULD" class="rfc2119">SHOULD</em> be represented using the 
+<code>skos:narrower</code> relationship, or a sub-property of it,
+to link from the <code>skos:hasTopConcept</code>
+codes down through the tree or lattice of child codes. 
+In some publishing tool chains the corresponding transitive closure 
+<code>skos:narrowerTransitive</code> will be automatically inferred. 
+The use of <code>skos:narrower</code> makes it possible to declare new 
+concept schemes which extend an existing scheme by adding additional aggregation layers on top.
+All items are linked to the scheme via <code>skos:inScheme</code>.</p>
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="schemes-hierarchy-nonskos">  
+<h3 id="h3_schemes-hierarchy-nonskos" role="heading" aria-level="2"><span class="secno">8.3 </span>Non-SKOS hierarchies</h3>
+
+<p>It is sometimes convenient to be able to specify a hierarchical arrangement of 
+concepts other than through the use of the SKOS relation <code>skos:narrower</code>. 
+There are several situations where this is useful, for example:</p>
+
+<ul>
+<li>In some cases publishers wish to be able to reuse existing reference data as their
+code lists. This particularly occurs where a geographic or admin-geographic hierarchy
+is already maintained by a separate authority but which uses non-SKOS containment or part-of relationships.</li>
+<li>Where such maintained reference data is to be reused there can be multiple hierarchies which relate
+the same codes. In particular a set of geographic entities may participate in both a geographic-containment hierarchy
+and an administrative hierarchy which do not precisely align. </li>
+</ul>
+
+<p>The Data Cube vocabulary supports this situation through the <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code> class.
+An instance of <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code> defines a set of root concepts in the hierarchy 
+(<code><a class="internalDFN" href="#dfn-qb-hierarchyroot">qb:hierarchyRoot</a></code>) and a parent-to-child relationship (<code><a class="internalDFN" href="#dfn-qb-parentchildproperty">qb:parentChildProperty</a></code>) which
+links a term in the hierarchy to its immediate sub-terms. </p>
+
+<p>Thus a <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code>
+is similar to a <code>skos:ConceptScheme</code> in which <code><a class="internalDFN" href="#dfn-qb-hierarchyroot">qb:hierarchyRoot</a></code> plays the same
+role as <code>skos:hasTopConcept</code>, and the value of <code><a class="internalDFN" href="#dfn-qb-parentchildproperty">qb:parentChildProperty</a></code> plays
+the same role as <code>skos:narrower</code>.  In the case where a code
+  list is already available as a SKOS concept scheme or collection, or
+  could reasonable me made so, then those <em title="SHOULD" class="rfc2119">SHOULD</em> be used
+  directly. <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code> is provided
+  for cases where the 
+terms are not available as SKOS but are available in some other RDF representation suitable for reuse.
+</p>
+
+<p>For example, the Ordnance Survey of Great Britain publishes a geographic hierarchy which has 
+eleven roots (European Regions such as Wales, Scotland, the South West) and uses a spatial relations 
+ontology to define a containment hierarchy. This could be represented as a  <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code> using the following.</p>
+
+<div class="example"><div class="example-title"><span>Example 16</span></div><pre class="example">@prefix spatial: &lt;http://data.ordnancesurvey.co.uk/ontology/spatialrelations/&gt; .
+
+eg:GBgeoHierarchy a qb:HierarchicalCodeList;
+    rdfs:label "Geographic Hierarchy for Great Britain"@en;
+    qb:hierarchyRoot 
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041427&gt;, # South West
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041426&gt;, # West Midlands
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041421&gt;, # South East
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041430&gt;, # Yorkshire &amp; the Humber
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041423&gt;, # East Midlands
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041425&gt;, # Eastern
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041428&gt;, # London
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041431&gt;, # North West
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041422&gt;, # North East
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041424&gt;, # Wales
+      &lt;http://data.ordnancesurvey.co.uk/id/7000000000041429&gt;; # Scotland
+    qb:parentChildProperty  spatial:contains;
+    .
+
+eg:geoDimension a qb:DimensionProperty ;
+    qb:codeList eg:GBgeoHierarchy .</pre></div>
+
+<p>Note that in some cases  the hierarchy to be reused may only have a
+  property relating child concepts to parent concepts. This situation
+  is handled by declaring
+  the <code><a class="internalDFN" href="#dfn-qb-parentchildproperty">qb:parentChildProperty</a></code> to be
+  the <code>owl:inverseOf</code> of the child-to-parent property. For
+  example:</p>
+
+<div class="example"><div class="example-title"><span>Example 17</span></div><pre class="example">@prefix spatial: &lt;http://data.ordnancesurvey.co.uk/ontology/spatialrelations/&gt; .
+
+eg:GBgeoHierarchy a qb:HierarchicalCodeList;
+    qb:parentChildProperty  [owl:inverseOf spatial:within] .</pre></div>
+ 
+<p>Future extensions of Data Cube may support additional sub classes
+  of <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code>, for example to
+  declare hierarchies in which each parent is a disjoint union of its children.</p>
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="schemes-aggregation">  
+<h3 id="h3_schemes-aggregation" role="heading" aria-level="2"><span class="secno">8.4 </span>Aggregation</h3>
+
+<p>The use of SKOS, or non-SKOS, hierarchies makes it possible to publish aggregated
+statistics for the non-leaf concepts in the hierarchy. The Data Cube vocabulary itself imposes
+no constraints on how such aggregation is done. Indeed in statistical applications the
+appropriate statistical corrections to make to aggregated values may be non-trivial and dependent on 
+the data and precise analysis methodology. Similarly in other
+  applications such as OLAP a number of different aggregation operators are commonly used.
+</p>
+
+<p>Vocabulary terms to represent the aggregation operations employed within a given dataset, and how one dataset 
+might be derived from another, are not supported in this version of the Data Cube specification. This
+area may be addressed by future extensions to Data Cube.</p>
+</section>
+
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="metadata">
+<!--OddPage--><h2 id="h2_metadata" role="heading" aria-level="1"><span class="secno">9. </span>DataSet metadata</h2>
+
+<p>DataSets should be marked up with metadata to support discovery, presentation and
+  processing. Dublin Core Terms [<cite><a href="#bib-DC11" class="bibref">DC11</a></cite>] <em title="SHOULD" class="rfc2119">SHOULD</em> be used
+  for representing the key metadata annotations commonly needed for
+  DataSets. The RDFS terms for display label (<code>rdfs:label</code>)
+  descriptive comment (<code>rdfs:comment</code>) <em title="SHOULD" class="rfc2119">SHOULD</em> be given as
+  well for compatibility with earlier versions of Data Cube and common
+  RDF practice.
+</p>
+
+<p>The recommend core set of metadata terms is:</p>
+<ul>
+  <li><code>dct:title</code></li>
+  <li><code>rdfs:label</code> - may be same as <code>dct:title</code></li>
+  <li><code>dct:description</code></li>
+  <li><code>rdfs:comment</code> - may be same as <code>dct:description</code></li>
+  <li><code>dct:issued</code></li>
+  <li><code>dct:modified</code></li>
+  <li><code>dct:subject</code></li>
+  <li><code>dct:publisher</code></li>
+  <li><code>dct:license</code></li>
+</ul>
+
+<p>Other documents, notably [<cite><a href="#bib-DCAT" class="bibref">DCAT</a></cite>], provide additional
+  recommendations for metadata terms for data sets
+  which may be used for describing Data Cube DataSets.</p>
+  
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="metadata-categorization">
+<h3 id="h3_metadata-categorization" role="heading" aria-level="2"><span class="secno">9.1 </span>Categorizing a data set</h3>
+
+<p>Publishers of statistics often categorize their data sets into different statistical 
+domains, such as <em>Education</em>, <em>Labour</em>, or <em>Transportation</em>.
+We encourage use of <code>dct:subject</code> to record such a classification of
+a whole data set.
+The classification terms can include coarse grained classifications, such
+as the List of Subject-matter Domains from the SDMX Content-oriented Guidelines, 
+and fine grained classifications to support discovery of data sets.</p>
+
+<p>The classification schemes are typically represented using the SKOS vocabulary. For 
+convenience the SMDX Subject-matter Domains have been encoded as a SKOS concept scheme
+at <a href="http://purl.org/linked-data/sdmx/2009/subject">http://purl.org/linked-data/sdmx/2009/subject#</a>.</p>
+
+<p>Thus our sample dataset might be marked up by:</p>
+
+<div class="example"><div class="example-title"><span>Example 18</span></div><pre class="example">eg:dataset1 a qb:DataSet;
+    rdfs:label      "Life expectancy"@en;
+    dct:title       "Life expectancy"@en;
+    rdfs:comment    "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    dct:description "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    dct:issued      "2010-08-11"^^xsd:date;
+    dct:subject
+        sdmx-subject:3.2 ,      # regional and small area statistics
+        sdmx-subject:1.4 ,      # Health
+        eg:Wales;               # Wales
+    ...</pre></div>
+
+<p>where <code>eg:Wales</code> is a <code>skos:Concept</code> drawn from an appropriate controlled
+vocabulary for places.</p>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="metadata-publishers">
+<h3 id="h3_metadata-publishers" role="heading" aria-level="2"><span class="secno">9.2 </span>Describing publishers</h3>
+
+<p>The organization that publishes a dataset should be recorded as part of the dataset metadata.
+Again we recommend use of the Dublin Core term <code>dct:publisher</code> for this.
+The organization should be represented as an instance of <code>foaf:Agent</code>, or
+some more specific subclass such as <code>org:Organization</code> [<cite><a href="#bib-ORG" class="bibref">ORG</a></cite>].</p>
+
+<div class="example"><div class="example-title"><span>Example 19</span></div><pre class="example">eg:dataset1 a qb:DataSet;
+    dct:publisher &lt;http://example.com/meta#organization&gt; .
+    
+&lt;http://example.com/meta#organization&gt; a org:Organization, foaf:Agent;
+    rdfs:label "Example org" .    </pre></div>
+
+<p>Extension vocabularies may provide additional metadata properties and may impose
+ constraints on what metadata must be provided.</p>
+</section>
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="normalize">
+<!--OddPage--><h2 id="h2_normalize" role="heading" aria-level="1"><span class="secno">10. </span>Abbreviated and normalized data cubes</h2>
+
+<p>In normal form then the <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code>s which
+make up a Data Cube have property values for each of the required
+dimensions, attributes and measures as declared in the associated data
+structure definition. This form for a Data Cube is
+termed <em><dfn id="dfn-normalized">normalized</dfn></em>. It is a convenient format for
+querying data and makes it possible to write uniform queries which
+extract sets of observations, including from across multiple
+cubes. However, the verbosity of a fully normalized representation
+incurs overheads in transmission and storage of Data Cubes which may
+be problematic in some settings. Note that abbreviated form is
+  provided as an option and there is requirement that it be used. In
+  many settings standard compression techniques can eliminate much of the
+  overhead of normalized form.
+</p>
+
+<p>To address this the Data Cube vocabulary supports a notion of
+an <em><dfn id="dfn-abbreviated">abbreviated</dfn></em> format in which component
+properties may be <em><dfn id="dfn-attached">attached</dfn></em> to other levels in the
+Data Cube.  Specifically they may be attached to
+a <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> or <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code>.
+In those cases the attached property is taken to be applied to all
+the <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code> instances associated with that
+attachment point. For illustration
+see <a href="#attachment-example">example 4</a> in which the unit of
+measure is declared as to be attached to the whole data set and need
+not be repeated for every observation.</p>
+
+<p>It is also possible to attach attributes to a <code><a class="internalDFN" href="#dfn-qb-measureproperty">qb:MeasureProperty</a></code>
+ in which case the attribute is intended to apply only to that property and not
+ to the observations in which that property occurs.</p>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="normalize-algorithm">
+<h3 id="h3_normalize-algorithm" role="heading" aria-level="2"><span class="secno">10.1 </span>Normalization algorithm</h3>
+
+<p>We define these notions by means of a transformation algorithm
+  which can normalize an abbreviated Data Cube. We express this transformation using the SPARQL 1.1
+  Update language [<cite><a href="#bib-sparql11-update" class="bibref">sparql11-update</a></cite>]. Use of this notation does not imply that
+  the transformation must be implemented this way. Information
+  exchanges using Data Cube may retain data in abbreviated form and
+  use other techniques such as query rewriting to ease access, may
+  implement the normalization algorithm by other means or may handle
+  all data in normalized form or any mix of these.</p>
+
+
+<p>The normalization algorithm comprises two sets of SPARQL Update
+  operations which should be applied in turn to a SPARQL Dataset in which the
+  default graph contains the Data Cube RDF graph to be normalized.</p>
+
+<p>The first update operation performs selective type and property closure
+  operations. These serve two purposes. They ensure
+  that <code>rdf:type</code> assertions on instances 
+  of <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code> and <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code>
+  may be omitted in an abbreviated Data Cube. They also simplify 
+  the second set of update operations by expanding
+  the sub properties of <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:componentProperty</a></code>
+  (specifically <code><a class="internalDFN" href="#dfn-qb-dimension">qb:dimension</a></code>,  <code><a class="internalDFN" href="#dfn-qb-measure">qb:measure</a></code>
+  and <code><a class="internalDFN" href="#dfn-qb-attribute">qb:attribute</a></code>).</p>
+
+<table class="bordered-table">
+  <thead>
+   <tr><th>Phase 1: Type and property closure</th></tr>
+  </thead>
+  <tbody><tr><td>
+<pre>PREFIX rdf:            &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX qb:             &lt;http://purl.org/linked-data/cube#&gt;
+
+INSERT {
+    ?o rdf:type qb:Observation .
+} WHERE {
+    [] qb:observation ?o .
+};
+
+INSERT {
+    ?o  rdf:type qb:Observation .
+    ?ds rdf:type qb:DataSet .
+} WHERE {
+    ?o qb:dataSet ?ds .
+};
+
+INSERT {
+    ?s rdf:type qb:Slice .
+} WHERE {
+    [] qb:slice ?s.
+};
+
+INSERT {
+    ?cs qb:componentProperty ?p .
+    ?p  rdf:type qb:DimensionProperty .
+} WHERE {
+    ?cs qb:dimension ?p .
+};
+
+INSERT {
+    ?cs qb:componentProperty ?p .
+    ?p  rdf:type qb:MeasureProperty .
+} WHERE {
+    ?cs qb:measure ?p .
+};
+
+INSERT {
+    ?cs qb:componentProperty ?p .
+    ?p  rdf:type qb:AttributeProperty .
+} WHERE {
+    ?cs qb:attribute ?p .
+}
+</pre>
+  </td></tr></tbody>
+</table>
+
+
+<p>These closure operations are implied by the RDFS semantics of the
+  Data Cube vocabulary. Data Cube processors <em title="MAY" class="rfc2119">MAY</em> apply full RDFS
+  closure in place of the update operation defined here.</p>
+
+<p>The second update operation checks the components of the data
+  structure definition of the data set for declared attachment levels.
+  For each of the possible attachments levels it looks for occurrences
+  of that component to be pushed down to the corresponding
+  observations. 
+</p>
+
+<table class="bordered-table">
+  <thead>
+   <tr><th>Phase 2: Push down attachment levels</th></tr>
+  </thead>
+  <tbody><tr><td>
+<pre>PREFIX qb:             &lt;http://purl.org/linked-data/cube#&gt;
+
+# Dataset attachments
+INSERT {
+    ?obs  ?comp ?value
+} WHERE {
+    ?spec    qb:componentProperty ?comp ;
+             qb:componentAttachment qb:DataSet .
+    ?dataset qb:structure [qb:component ?spec];
+             ?comp ?value .
+    ?obs     qb:dataSet ?dataset.
+};
+
+# Slice attachments
+INSERT {
+    ?obs  ?comp ?value
+} WHERE {
+    ?spec    qb:componentProperty ?comp;
+             qb:componentAttachment qb:Slice .
+    ?dataset qb:structure [qb:component ?spec];
+             qb:slice ?slice .
+    ?slice ?comp ?value;
+           qb:observation ?obs .
+};
+
+# Dimension values on slices
+INSERT {
+    ?obs  ?comp ?value
+} WHERE {
+    ?spec    qb:componentProperty ?comp .
+    ?comp a  qb:DimensionProperty .
+    ?dataset qb:structure [qb:component ?spec];
+             qb:slice ?slice .
+    ?slice ?comp ?value;
+           qb:observation ?obs .
+}
+</pre>
+  </td></tr></tbody>
+</table>
+
+
+</section>
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="wf">
+<!--OddPage--><h2 id="h2_wf" role="heading" aria-level="1"><span class="secno">11. </span>Well-formed cubes</h2>
+
+<p>An instance of an RDF Data Cube should conform to a set of
+  integrity constraints which we define in this section.</p>
+
+<p>A <dfn id="dfn-well-formed">well-formed</dfn> RDF Data Cube is an a RDF graph describing
+  one or more instances of <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> for which
+  each of the integrity checks defined here passes.</p>
+
+<p>A <dfn id="dfn-well-formed-abbreviated">well-formed abbreviated</dfn> RDF Data Cube is an a RDF
+  graph which, when expanded using
+  the <a href="#normalize-algorithm">normalization algorithm</a>,
+  yields a <a class="internalDFN" href="#dfn-well-formed">well-formed</a> RDF Data Cube.</p>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="wf-rules">
+<h3 id="h3_wf-rules" role="heading" aria-level="2"><span class="secno">11.1 </span>Integrity constraints</h3>
+
+<p>Each integrity constraint is expressed as narrative prose and, where possible, a SPARQL
+  [<cite><a href="#bib-sparql11-query" class="bibref">sparql11-query</a></cite>] ASK query or query template. If the ASK query  is applied to an RDF graph then it
+  will return <em>true</em> if that graph contains one or more Data Cube instances which
+  violate the corresponding constraint.
+</p>
+<p>
+  Using SPARQL queries to
+  express the integrity constraints does not imply that integrity
+  checking must be performed this way. Implementations are free
+  to use alternative query formulations or alternative implementation
+  techniques to perform equivalent checks. </p>
+
+<p>Each integrity constraint query assumes the following set of prefix bindings:</p>
+<pre>PREFIX rdf:     &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX rdfs:    &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX skos:    &lt;http://www.w3.org/2004/02/skos/core#&gt;
+PREFIX qb:      &lt;http://purl.org/linked-data/cube#&gt;
+PREFIX xsd:     &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX owl:     &lt;http://www.w3.org/2002/07/owl#&gt;
+</pre>
+
+<p>The complete set of constraints is listed below.</p>
+
+<h3 id="ic-0">IC-0. Datatype consistency</h3>
+<p>
+The RDF graph must be consistent under RDF D-entailment [<cite><a href="#bib-RDF-MT" class="bibref">RDF-MT</a></cite>]
+using a datatype map containing all the datatypes used within the graph. 
+</p>
+
+<h3 id="ic-1">IC-1.  Unique DataSet</h3>
+<p>
+Every <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code> has exactly one associated <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code>.
+</p> 
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  {
+    # Check observation has a data set
+    ?obs a qb:Observation .
+    FILTER NOT EXISTS { ?obs qb:dataSet ?dataset1 . }
+  } UNION {
+    # Check has just one data set
+    ?obs a qb:Observation ;
+       qb:dataSet ?dataset1, ?dataset2 .
+    FILTER (?dataset1 != ?dataset2)
+  }
+}
+    </pre></td></tr>
+  </tbody>
+</table> 
+
+<h3 id="ic-2">IC-2. Unique DSD</h3>
+<p>
+Every <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> has exactly one associated <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code>.
+</p>
+<table class="bordered-table">
+  <tbody> 
+    <tr><td><pre>ASK {
+  {
+    # Check dataset has a dsd
+    ?dataset a qb:DataSet .
+    FILTER NOT EXISTS { ?dataset qb:structure ?dsd . }
+  } UNION { 
+    # Check has just one dsd
+    ?dataset a qb:DataSet ;
+       qb:structure ?dsd1, ?dsd2 .
+    FILTER (?dsd1 != ?dsd2)
+  }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-3">IC-3. DSD includes measure</h3>
+<p>
+Every <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code> must include at least one declared measure.
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  ?dsd a qb:DataStructureDefinition .
+  FILTER NOT EXISTS { ?dsd qb:component [qb:componentProperty [a qb:MeasureProperty]] }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-4">IC-4. Dimensions have range</h3>
+<p>
+Every dimension declared in a <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code> must have a declared <code>rdfs:range</code>.
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  ?dim a qb:DimensionProperty .
+  FILTER NOT EXISTS { ?dim rdfs:range [] }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-5">IC-5. Concept dimensions have code lists</h3>
+<p>
+Every dimension with range <code>skos:Concept</code> must have a <code><a class="internalDFN" href="#dfn-qb-codelist">qb:codeList</a></code>.
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  ?dim a qb:DimensionProperty ;
+       rdfs:range skos:Concept .
+  FILTER NOT EXISTS { ?dim qb:codeList [] }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-6">IC-6. Only attributes may be optional</h3>
+<p>
+The only components of
+a <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code> that may be marked as
+optional, using <code><a class="internalDFN" href="#dfn-qb-componentrequired">qb:componentRequired</a></code> are attributes.
+</p>
+
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  ?dsd qb:component ?componentSpec .
+  ?componentSpec qb:componentRequired "false"^^xsd:boolean ;
+                 qb:componentProperty ?component .
+  FILTER NOT EXISTS { ?component a qb:AttributeProperty }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-7">IC-7. Slice Keys must be declared</h3>
+<p>
+Every <code><a class="internalDFN" href="#dfn-qb-slicekey-1">qb:SliceKey</a></code> must be associated with a <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code>.
+</p>
+
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    ?sliceKey a qb:SliceKey .
+    FILTER NOT EXISTS { [a qb:DataStructureDefinition] qb:sliceKey ?sliceKey }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-8">IC-8. Slice Keys consistent with DSD</h3>
+<p>
+Every <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:componentProperty</a></code> on a <code><a class="internalDFN" href="#dfn-qb-slicekey-1">qb:SliceKey</a></code> must also be declared as a <code><a class="internalDFN" href="#dfn-qb-component">qb:component</a></code> of the associated <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code>.
+</p>
+
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  ?slicekey a qb:SliceKey;
+      qb:componentProperty ?prop .
+  ?dsd qb:sliceKey ?slicekey .
+  FILTER NOT EXISTS { ?dsd qb:component [qb:componentProperty ?prop] }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-9">IC-9. Unique slice structure</h3>
+<p>
+Each <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code> must have exactly one associated <code><a class="internalDFN" href="#dfn-qb-slicestructure">qb:sliceStructure</a></code>.
+</p>
+
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  {
+    # Slice has a key
+    ?slice a qb:Slice .
+    FILTER NOT EXISTS { ?slice qb:sliceStructure ?key }
+  } UNION {
+    # Slice has just one key
+    ?slice a qb:Slice ;
+           qb:sliceStructure ?key1, ?key2;
+    FILTER (?key1 != ?key2)
+  }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+
+<h3 id="ic-10">IC-10. Slice dimensions complete</h3>
+<p>
+Every <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code> must have a value for every dimension declared in its <code><a class="internalDFN" href="#dfn-qb-slicestructure">qb:sliceStructure</a></code>.
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  ?slice qb:sliceStructure [qb:componentProperty ?dim] .
+  FILTER NOT EXISTS { ?slice ?dim [] }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-11">IC-11. All dimensions required</h3>
+<p>
+Every <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code> has a value for each dimension declared in its associated <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code>.
+</p>
+
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    ?obs qb:dataSet/qb:structure/qb:component/qb:componentProperty ?dim .
+    ?dim a qb:DimensionProperty;
+    FILTER NOT EXISTS { ?obs ?dim [] }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-12">IC-12. No duplicate observations</h3>
+<p>
+No two <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code>s in the same <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> may have the same value for all dimensions.
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  FILTER( ?allEqual )
+  {
+    # For each pair of observations test if all the dimension values are the same
+    SELECT (MIN(?equal) AS ?allEqual) WHERE {
+        ?obs1 qb:dataSet ?dataset .
+        ?obs2 qb:dataSet ?dataset .
+        FILTER (?obs1 != ?obs2)
+        ?dataset qb:structure/qb:component/qb:componentProperty ?dim .
+        ?dim a qb:DimensionProperty .
+        ?obs1 ?dim ?value1 .
+        ?obs2 ?dim ?value2 .
+        BIND( ?value1 = ?value2 AS ?equal)
+    } GROUP BY ?obs1 ?obs2
+  }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-13">IC-13. Required attributes</h3>
+<p>
+Every <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code> has a value for each declared attribute that is marked as required.
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    ?obs qb:dataSet/qb:structure/qb:component ?component .
+    ?component qb:componentRequired "true"^^xsd:boolean ;
+               qb:componentProperty ?attr .
+    FILTER NOT EXISTS { ?obs ?attr [] }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-14">IC-14. All measures present</h3>
+<p>
+In a <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> which does not use a <a class="internalDFN" href="#dfn-measure-dimension">Measure dimension</a> then each individual <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code> must have a value for every declared measure.
+</p>
+
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    # Observation in a non-measureType cube
+    ?obs qb:dataSet/qb:structure ?dsd .
+    FILTER NOT EXISTS { ?dsd qb:component/qb:componentProperty qb:measureType }
+
+    # verify every measure is present
+    ?dsd qb:component/qb:componentProperty ?measure .
+    ?measure a qb:MeasureProperty;
+    FILTER NOT EXISTS { ?obs ?measure [] }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-15">IC-15. Measure dimension consistent</h3>
+<p>
+In a <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> which uses a <a class="internalDFN" href="#dfn-measure-dimension">Measure dimension</a> then each <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code> must have a value for the measure corresponding to its given <code><a class="internalDFN" href="#dfn-qb-measuretype">qb:measureType</a></code>.
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    # Observation in a measureType-cube
+    ?obs qb:dataSet/qb:structure ?dsd ;
+         qb:measureType ?measure .
+    ?dsd qb:component/qb:componentProperty qb:measureType .
+    # Must have value for its measureType
+    FILTER NOT EXISTS { ?obs ?measure [] }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-16">IC-16. Single measure on measure dimension observation</h3>
+<p>
+In a <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> which uses a <a class="internalDFN" href="#dfn-measure-dimension">Measure dimension</a> then each <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code> must only have a value for one measure (by IC-15 this will be the measure corresponding to its <code><a class="internalDFN" href="#dfn-qb-measuretype">qb:measureType</a></code>).
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    # Observation with measureType
+    ?obs qb:dataSet/qb:structure ?dsd ;
+         qb:measureType ?measure ;
+         ?omeasure [] .
+    # Any measure on the observation
+    ?dsd qb:component/qb:componentProperty qb:measureType ;
+         qb:component/qb:componentProperty ?omeasure .
+    ?omeasure a qb:MeasureProperty .
+    # Must be the same as the measureType
+    FILTER (?omeasure != ?measure)
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-17">IC-17. All measures present in measures dimension cube </h3>
+<p>
+In a <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> which uses a <a class="internalDFN" href="#dfn-measure-dimension">Measure dimension</a> then if there is a Observation for some combination of non-measure dimensions then there must be other Observations with the same non-measure dimension values for each of the declared measures.
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+  {
+      # Count number of other measures found at each point 
+      SELECT ?numMeasures (COUNT(?obs2) AS ?count) WHERE {
+          {
+              # Find the DSDs and check how many measures they have
+              SELECT ?dsd (COUNT(?m) AS ?numMeasures) WHERE {
+                  ?dsd qb:component/qb:componentProperty ?m.
+                  ?m a qb:MeasureProperty .
+              } GROUP BY ?dsd
+          }
+        
+          # Observation in measureType cube
+          ?obs1 qb:dataSet/qb:structure ?dsd;
+                qb:dataSet ?dataset ;
+                qb:measureType ?m1 .
+    
+          # Other observation at same dimension value
+          ?obs2 qb:dataSet ?dataset ;
+                qb:measureType ?m2 .
+          FILTER NOT EXISTS { 
+              ?dsd qb:component/qb:componentProperty ?dim .
+              FILTER (?dim != qb:measureType)
+              ?dim a qb:DimensionProperty .
+              ?obs1 ?dim ?v1 . 
+              ?obs2 ?dim ?v2. 
+              FILTER (?v1 != ?v2)
+          }
+          
+      } GROUP BY ?obs1 ?numMeasures
+        HAVING (?count != ?numMeasures)
+  }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-18">IC-18. Consistent data set links</h3>
+<p>
+If a <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> D has a <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:slice</a></code> S, and S has an <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:observation</a></code> O, then the <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:dataSet</a></code> corresponding to O must be D.
+</p>
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    ?dataset qb:slice       ?slice .
+    ?slice   qb:observation ?obs .
+    FILTER NOT EXISTS { ?obs qb:dataSet ?dataset . }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-19">IC-19. Codes from code list</h3>
+<p>
+If a dimension property has a <code><a class="internalDFN" href="#dfn-qb-codelist">qb:codeList</a></code>, then the value of the dimension property on every <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code> must be in the code list.
+</p>
+<p>The following integrity check queries must be applied to an RDF graph which contains the 
+definition of the code list as well as the Data Cube to be checked. In the case
+of a <code>skos:ConceptScheme</code> then each concept must be linked to the scheme using
+<code>skos:inScheme</code>. In the case of a <code>skos:Collection</code> then the
+collection must link to each concept (or to nested collections) using <code>skos:member</code>. If the
+collection uses <code>skos:memberList</code> then the entailment of <code>skos:member</code>
+values defined by <a href="http://www.w3.org/TR/2009/REC-skos-reference-20090818/#S36">S36</a>
+in [<cite><a href="#bib-SKOS-REFERENCE" class="bibref">SKOS-REFERENCE</a></cite>] must be materialized before this check is applied. </p>
+
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    ?obs qb:dataSet/qb:structure/qb:component/qb:componentProperty ?dim .
+    ?dim a qb:DimensionProperty ;
+        qb:codeList ?list .
+    ?list a skos:ConceptScheme .
+    ?obs ?dim ?v .
+    FILTER NOT EXISTS { ?v a skos:Concept ; skos:inScheme ?list }
+}
+
+ASK {
+    ?obs qb:dataSet/qb:structure/qb:component/qb:componentProperty ?dim .
+    ?dim a qb:DimensionProperty ;
+        qb:codeList ?list .
+    ?list a skos:Collection .
+    ?obs ?dim ?v .
+    FILTER NOT EXISTS { ?v a skos:Concept . ?list skos:member+ ?v }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-20">IC-20. Codes from hierarchy</h3>
+<p>
+If a dimension property has
+a <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code> with a
+non-blank <code><a class="internalDFN" href="#dfn-qb-parentchildproperty">qb:parentChildProperty</a></code> then the value of
+that dimension property on every <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code>
+must be reachable from a root of the hierarchy using zero or more hops along the <code><a class="internalDFN" href="#dfn-qb-parentchildproperty">qb:parentChildProperty</a></code> links.
+</p>
+<p>
+This check cannot be made by a simple fixed SPARQL query. Instead a
+query template is supplied. 
+An instance of the template should be generated
+for each <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code> which has an IRI
+value for its  <code><a class="internalDFN" href="#dfn-qb-parentchildproperty">qb:parentChildProperty</a></code>.
+That is for each binding of <code>?p</code> in the following
+instantiation query:</p>
+<pre>SELECT ?p WHERE {
+    ?hierarchy a qb:HierarchicalCodeList ;
+                 qb:parentChildProperty ?p .
+    FILTER ( isIRI(?p) )
+}
+</pre>
+
+<p>The template is then instantiated by replacing the
+  string <code>$p</code> by the IRI found by the
+  instantiation query. The template is:</p>
+
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    ?obs qb:dataSet/qb:structure/qb:component/qb:componentProperty ?dim .
+    ?dim a qb:DimensionProperty ;
+        qb:codeList ?list .
+    ?list a qb:HierarchicalCodeList .
+    ?obs ?dim ?v .
+    FILTER NOT EXISTS { ?list qb:hierarchyRoot/&lt;$p&gt;* ?v }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+<h3 id="ic-21">IC-21. Codes from hierarchy (inverse)</h3>
+<p>
+If a dimension property has
+a <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code> with an
+inverse <code><a class="internalDFN" href="#dfn-qb-parentchildproperty">qb:parentChildProperty</a></code> then the value of
+that dimension property on every <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code>
+must be reachable from a root of the hierarchy using zero or more hops along the inverse  <code><a class="internalDFN" href="#dfn-qb-parentchildproperty">qb:parentChildProperty</a></code> links.
+</p>
+
+<p>
+This check cannot be made by a simple fixed SPARQL query. Instead a
+query template is supplied. 
+An instance of the template should be generated
+for each <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code> which has a blank-node
+value for its  <code><a class="internalDFN" href="#dfn-qb-parentchildproperty">qb:parentChildProperty</a></code>, with an 
+associated inverse property.
+That is for each binding of <code>?p</code> in the following
+instantiation query:</p>
+<pre>SELECT ?p WHERE {
+    ?hierarchy a qb:HierarchicalCodeList;
+                 qb:parentChildProperty ?pcp .
+    FILTER( isBlank(?pcp) )
+    ?pcp  owl:inverseOf ?p .
+    FILTER( isIRI(?p) )
+}
+</pre>
+
+<p>The template is then instantiated by replacing the
+  string <code>$p</code> by the IRI found by the
+  instantiation query. The template is:</p>
+
+<table class="bordered-table">
+  <tbody>
+    <tr><td><pre>ASK {
+    ?obs qb:dataSet/qb:structure/qb:component/qb:componentProperty ?dim .
+    ?dim a qb:DimensionProperty ;
+         qb:codeList ?list .
+    ?list a qb:HierarchicalCodeList .
+    ?obs ?dim ?v .
+    FILTER NOT EXISTS { ?list qb:hierarchyRoot/(^&lt;$p&gt;)* ?v }
+}
+    </pre></td></tr>
+  </tbody>
+</table>
+
+</section>
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="vocab-reference">
+<!--OddPage--><h2 id="h2_vocab-reference" role="heading" aria-level="1"><span class="secno">12. </span>Vocabulary reference</h2>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-datasets">
+<h3 id="h3_reference-datasets" role="heading" aria-level="2"><span class="secno">12.1 </span>DataSets</h3>
+
+<p><em>See Section <a href="#datasets">Expressing data sets</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_DataSet">
+    <em>Class:</em> <code><dfn id="dfn-qb-dataset">qb:DataSet</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-attachable">qb:Attachable</a></code>
+    <em>Equivalent to: </em>
+      <code>scovo:Dataset</code>
+  </dt>
+ <dd>Represents a collection of observations, possibly organized into various slices, conforming to some common dimensional structure.</dd>
+</dl>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-observations">
+<h3 id="h3_reference-observations" role="heading" aria-level="2"><span class="secno">12.2 </span>Observations</h3>
+<p><em>See Section <a href="#datasets">Expressing data sets</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_Observation">
+    <em>Class:</em> <code><dfn id="dfn-qb-observation">qb:Observation</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-attachable">qb:Attachable</a></code>
+    <em>Equivalent to: </em>
+      <code>scovo:Item</code>
+  </dt>
+ <dd>A single observation in the cube, may have one or more associated measured values.</dd>
+
+  <dt id="ref_qb_dataSet_LC">
+    <em>Property:</em> <code><dfn id="dfn-qb-dataset-1">qb:dataSet</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code>
+  ) 
+  </dt>
+  <dd>Indicates the data set of which this observation is a part.</dd>
+
+  <dt id="ref_qb_observation_LC">
+    <em>Property:</em> <code><dfn id="dfn-qb-observation-1">qb:observation</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:ObservationGroup</a></code>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code>
+  ) 
+  </dt>
+  <dd>Indicates a observation contained within this slice of the data set.</dd>
+</dl>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-slices">
+<h3 id="h3_reference-slices" role="heading" aria-level="2"><span class="secno">12.3 </span>Slices</h3>
+<p><em>See Section <a href="#slices">Slices</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_ObservationGroup">
+    <em>Class:</em> <code><dfn id="dfn-qb-observationgroup">qb:ObservationGroup</dfn></code>
+  </dt>
+ <dd>A, possibly arbitrary, group of observations.</dd>
+
+
+  <dt id="ref_qb_Slice">
+    <em>Class:</em> <code><dfn id="dfn-qb-slice">qb:Slice</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-attachable">qb:Attachable</a></code>,
+      <code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:ObservationGroup</a></code>
+  </dt>
+ <dd>Denotes a subset of a DataSet defined by fixing a subset of the dimensional values, component properties on the Slice.</dd>
+
+  <dt id="ref_qb_slice_LC">
+    <em>Property:</em> <code><dfn id="dfn-qb-slice-1">qb:slice</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code>;
+    <em>sub property of:</em>
+    <code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:observationGroup</a></code>
+  ) 
+  </dt>
+  <dd>Indicates a subset of a DataSet defined by fixing a subset of the dimensional values.</dd>
+
+  <dt id="ref_qb_observationGroup">
+    <em>Property:</em> <code><dfn id="dfn-qb-observationgroup-1">qb:observationGroup</dfn></code>
+    ( <em>Domain:</em>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:ObservationGroup</a></code>
+  ) 
+  </dt>
+  <dd>Indicates a group of observations. The domain of this property is left open so that a group may be attached to different resources and need not be restricted to a single DataSet.</dd>
+
+</dl>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-components">
+<h3 id="h3_reference-components" role="heading" aria-level="2"><span class="secno">12.4 </span>Dimensions, Attributes, Measures</h3>
+<p><em>See Section <a href="#dsd-dimensions">Dimensions, attributes and measures</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_Attachable">
+    <em>Class:</em> <code><dfn id="dfn-qb-attachable">qb:Attachable</dfn></code>
+  </dt>
+ <dd>Abstract superclass for everything that can have attributes and dimensions.</dd>
+
+  <dt id="ref_qb_ComponentProperty">
+    <em>Class:</em> <code><dfn id="dfn-qb-componentproperty">qb:ComponentProperty</dfn></code>
+    <em>Sub class of: </em>
+      <code>rdf:Property</code>
+  </dt>
+ <dd>Abstract super-class of all properties representing dimensions, attributes or measures.</dd>
+
+  <dt id="ref_qb_DimensionProperty">
+    <em>Class:</em> <code><dfn id="dfn-qb-dimensionproperty">qb:DimensionProperty</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code>,
+      <code><a class="internalDFN" href="#dfn-qb-codedproperty">qb:CodedProperty</a></code>
+  </dt>
+ <dd>The class of component properties which represent the dimensions of the cube.</dd>
+
+  <dt id="ref_qb_AttributeProperty">
+    <em>Class:</em> <code><dfn id="dfn-qb-attributeproperty">qb:AttributeProperty</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code>
+  </dt>
+ <dd>The class of component properties which represent attributes of observations in the cube, e.g. unit of measurement.</dd>
+
+  <dt id="ref_qb_MeasureProperty">
+    <em>Class:</em> <code><dfn id="dfn-qb-measureproperty">qb:MeasureProperty</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code>
+  </dt>
+ <dd>The class of component properties which represent the measured value of the phenomenon being observed.</dd>
+
+  <dt id="ref_qb_CodedProperty">
+    <em>Class:</em> <code><dfn id="dfn-qb-codedproperty">qb:CodedProperty</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code>
+  </dt>
+ <dd>Superclass of all coded component properties.</dd>
+</dl>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-component-properties">
+<h3 id="h3_reference-component-properties" role="heading" aria-level="2"><span class="secno">12.5 </span>Reusable general purpose component properties</h3>
+<p><em>See Section <a href="#dsd-mm-dim">Measure dimensions</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_measureType">
+    <em>Property:</em> <code><dfn id="dfn-qb-measuretype">qb:measureType</dfn></code>
+    ( <em>Domain:</em>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-measureproperty">qb:MeasureProperty</a></code>
+  ) 
+  </dt>
+  <dd>Generic measure dimension, the value of this dimension indicates which measure (from the set of measures in the DSD) is being given by the observation.</dd>
+</dl>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-dsd">
+<h3 id="h3_reference-dsd" role="heading" aria-level="2"><span class="secno">12.6 </span>Data Structure Definitions</h3>
+<p><em>See Section <a href="#dsd-dsd">ComponentSpecifications and DataStructureDefinitions</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_DataStructureDefinition">
+    <em>Class:</em> <code><dfn id="dfn-qb-datastructuredefinition">qb:DataStructureDefinition</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-componentset">qb:ComponentSet</a></code>
+  </dt>
+ <dd>Defines the structure of a DataSet or slice.</dd>
+
+  <dt id="ref_qb_structure">
+    <em>Property:</em> <code><dfn id="dfn-qb-structure">qb:structure</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code>
+  ) 
+  </dt>
+  <dd>Indicates the structure to which this data set conforms</dd>
+
+  <dt id="ref_qb_component">
+    <em>Property:</em> <code><dfn id="dfn-qb-component">qb:component</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-componentspecification">qb:ComponentSpecification</a></code>
+  ) 
+  </dt>
+  <dd>Indicates a component specification which is included in the structure of the dataset.</dd>
+</dl>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-compspec">
+<h3 id="h3_reference-compspec" role="heading" aria-level="2"><span class="secno">12.7 </span>Component specifications - for qualifying component use in a DSD</h3>
+<p><em>See Section <a href="#dsd-dsd">ComponentSpecifications and DataStructureDefinitions</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_ComponentSpecification">
+    <em>Class:</em> <code><dfn id="dfn-qb-componentspecification">qb:ComponentSpecification</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-componentset">qb:ComponentSet</a></code>
+  </dt>
+ <dd>Used to define properties of a component (attribute, dimension etc) which are specific to its usage in a DSD.</dd>
+
+  <dt id="ref_qb_ComponentSet">
+    <em>Class:</em> <code><dfn id="dfn-qb-componentset">qb:ComponentSet</dfn></code>
+  </dt>
+ <dd>Abstract class of things which reference one or more ComponentProperties</dd>
+
+  <dt id="ref_qb_componentProperty_LC">
+    <em>Property:</em> <code><dfn id="dfn-qb-componentproperty-1">qb:componentProperty</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-componentset">qb:ComponentSet</a></code>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code>
+  ) 
+  </dt>
+  <dd>Indicates a ComponentProperty (i.e. attribute/dimension) expected on a DataSet, or a dimension fixed in a SliceKey.</dd>
+
+  <dt id="ref_qb_order">
+    <em>Property:</em> <code><dfn id="dfn-qb-order">qb:order</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-componentspecification">qb:ComponentSpecification</a></code>
+    -&gt; <em>Range:</em> 
+    <code>xsd:int</code>
+  ) 
+  </dt>
+  <dd>Indicates a priority order for the components of sets with this structure, used to guide presentations - lower order numbers come before higher numbers, un-numbered components come last.</dd>
+
+  <dt id="ref_qb_componentRequired">
+    <em>Property:</em> <code><dfn id="dfn-qb-componentrequired">qb:componentRequired</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-componentspecification">qb:ComponentSpecification</a></code>
+    -&gt; <em>Range:</em> 
+    <code>xsd:boolean</code>
+  ) 
+  </dt>
+  <dd>Indicates whether a component property is required (true) or optional (false) in the context of a DSD. Only applicable
+    to components corresponding to an attribute. Defaults to false (optional).</dd>
+
+  <dt id="ref_qb_componentAttachment">
+    <em>Property:</em> <code><dfn id="dfn-qb-componentattachment">qb:componentAttachment</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-componentspecification">qb:ComponentSpecification</a></code>
+    -&gt; <em>Range:</em> 
+    <code>rdfs:Class</code>
+  ) 
+  </dt>
+  <dd>Indicates the level at which the component property should be attached, this might be an qb:DataSet, qb:Slice or qb:Observation, or a qb:MeasureProperty.</dd>
+
+  <dt id="ref_qb_dimension">
+    <em>Property:</em> <code><dfn id="dfn-qb-dimension">qb:dimension</dfn></code>
+    ( <em>Domain:</em>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-dimensionproperty">qb:DimensionProperty</a></code>
+    ; <em>sub property of: </em>
+    <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:componentProperty</a></code>
+  ) 
+  </dt>
+  <dd>An alternative to qb:componentProperty which makes explicit that the component is a dimension.</dd>
+
+  <dt id="ref_qb_measure">
+    <em>Property:</em> <code><dfn id="dfn-qb-measure">qb:measure</dfn></code>
+    ( <em>Domain:</em>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-measureproperty">qb:MeasureProperty</a></code>
+    ; <em>sub property of: </em>
+    <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:componentProperty</a></code>
+  ) 
+  </dt>
+  <dd>An alternative to qb:componentProperty which makes explicit that the component is a measure.</dd>
+
+  <dt id="ref_qb_attribute">
+    <em>Property:</em> <code><dfn id="dfn-qb-attribute">qb:attribute</dfn></code>
+    ( <em>Domain:</em>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-attributeproperty">qb:AttributeProperty</a></code>
+    ; <em>sub property of: </em>
+    <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:componentProperty</a></code>
+  ) 
+  </dt>
+  <dd>An alternative to qb:componentProperty which makes explicit that the component is a attribute.</dd>
+
+  <dt id="ref_qb_measureDimension">
+    <em>Property:</em> <code><dfn id="dfn-qb-measuredimension">qb:measureDimension</dfn></code>
+    ( <em>Domain:</em>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-dimensionproperty">qb:DimensionProperty</a></code>
+    ; <em>sub property of: </em>
+    <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:componentProperty</a></code>
+  ) 
+  </dt>
+  <dd>An alternative to qb:componentProperty which makes explicit that the component is a measure dimension.</dd>
+</dl>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-slice-definitions">
+<h3 id="h3_reference-slice-definitions" role="heading" aria-level="2"><span class="secno">12.8 </span>Slice definitions</h3>
+<p><em>See Section <a href="#slices">Slices</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_SliceKey">
+    <em>Class:</em> <code><dfn id="dfn-qb-slicekey">qb:SliceKey</dfn></code>
+    <em>Sub class of: </em>
+      <code><a class="internalDFN" href="#dfn-qb-componentset">qb:ComponentSet</a></code>
+  </dt>
+ <dd>Denotes a subset of the component properties of a DataSet which are fixed in the corresponding slices.</dd>
+
+  <dt id="ref_qb_sliceStructure">
+    <em>Property:</em> <code><dfn id="dfn-qb-slicestructure">qb:sliceStructure</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-slicekey-1">qb:SliceKey</a></code>
+  ) 
+  </dt>
+  <dd>Indicates the slice key corresponding to this slice.</dd>
+
+  <dt id="ref_qb_sliceKey_LC">
+    <em>Property:</em> <code><dfn id="dfn-qb-slicekey-1">qb:sliceKey</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-datastructuredefinition">qb:DataStructureDefinition</a></code>
+    -&gt; <em>Range:</em> 
+    <code><a class="internalDFN" href="#dfn-qb-slicekey-1">qb:SliceKey</a></code>
+  ) 
+  </dt>
+  <dd>Indicates a slice key which is used for slices in this dataset.</dd>
+</dl>
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-concepts">
+<h3 id="h3_reference-concepts" role="heading" aria-level="2"><span class="secno">12.9 </span>Concepts</h3>
+<p><em>See Section <a href="#schemes">Concept schemes and code lists</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_concept">
+    <em>Property:</em> <code><dfn id="dfn-qb-concept">qb:concept</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-componentproperty-1">qb:ComponentProperty</a></code>
+    -&gt; <em>Range:</em> 
+    <code>skos:Concept</code>
+  ) 
+  </dt>
+  <dd>Gives the concept which is being measured or indicated by a ComponentProperty.</dd>
+
+  <dt id="ref_qb_codeList">
+    <em>Property:</em> <code><dfn id="dfn-qb-codelist">qb:codeList</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-codedproperty">qb:CodedProperty</a></code>
+    -&gt; <em>Range:</em> 
+    <code>owl:unionOf(skos:ConceptScheme skos:Collection qb:HierarchicalCodeList)</code>
+  ) 
+  </dt>
+  <dd>Gives the code list associated with a CodedProperty.</dd>
+</dl></section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="reference-nonskos-hierarchy">
+<h3 id="h3_reference-nonskos-hierarchy" role="heading" aria-level="2"><span class="secno">12.10 </span>Non-SKOS Hierarchies</h3>
+<p><em>See Section <a href="#schemes-hierarchy-nonskos">Non-SKOS hierarchies</a>.</em></p>
+
+<dl class="vocab_reference">
+
+  <dt id="ref_qb_HierarchicalCodeList">
+    <em>Class:</em> <code><dfn id="dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</dfn></code>
+  </dt>
+ <dd>Represents a generalized hierarchy of concepts which can be used for coding. The hierarchy is defined by one or more roots together with a property which relates concepts in the hierarchy to their child concept .  The same concepts may be members of multiple hierarchies provided that different qb:parentChildProperty values are used for each hierarchy.</dd>
+  <dt id="ref_qb_hierarchyRoot">
+    <em>Property:</em> <code><dfn id="dfn-qb-hierarchyroot">qb:hierarchyRoot</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code>
+    ) 
+  </dt>
+  <dd>Specifies a root of the hierarchy. A hierarchy may have multiple roots but must have at least one. </dd>
+
+  <dt id="ref_qb_parentChildProperty">
+    <em>Property:</em> <code><dfn id="dfn-qb-parentchildproperty">qb:parentChildProperty</dfn></code>
+    ( <em>Domain:</em>
+    <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code>
+    -&gt; <em>Range:</em> 
+    <code>rdf:Property</code>
+  ) 
+  </dt>
+  <dd>Specifies a property which relates a parent concept in the hierarchy to a child concept. Note that a child may have more than one parent.</dd>
+
+</dl>
+</section>
+
+</section>
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="acknowledgements" class="appendix">
+<!--OddPage--><h2 id="h2_acknowledgements" role="heading" aria-level="1"><span class="secno">A. </span>Acknowledgements</h2>
+
+<p>This work is based on a collaboration that was initiated in a
+workshop on Publishing statistical datasets in SDMX and the semantic
+web, hosted by ONS in Sunningdale, United Kingdom in February 2010 and
+continued at the ODaF 2010 workshop in Tilburg. The authors would like
+to thank all the participants at those workshops for their input into
+this work but especially Arofan Gregory for his patient
+explanations of SDMX and insight in the need and requirements 
+for a core Data Cube representation.</p>
+
+<p>The editors would like to thank John Sheridan for his comments,
+suggestions and support for the original work.</p>
+
+<p>Many individuals provided valuable comments on this specification
+as it made its way through the <abbr title="World Wide Web Consortium">W3C</abbr> process. We would like to 
+especially acknowledge the contributions of
+Benedikt Kaempgen, Sarven Capadisli and Curran  Kelleher.</p>
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="change-history" class="appendix">
+<!--OddPage--><h2 id="h2_change-history" role="heading" aria-level="1"><span class="secno">B. </span>Change history </h2>
+
+<p>Changes since  <a href="http://www.w3.org/TR/2013/PR-vocab-data-cube-20131217/"> the <abbr title="World Wide Web Consortium">W3C</abbr> Proposed Recommendation 17 December 2013</a>: None.</p>
+
+<ul>
+  <li>Corrected typo in reference to <code>eg:Wales</code> in example 18.</li>
+  <li>Fixed broken like to SCOVO reference [<cite><a href="#bib-HAUS09" class="bibref">HAUS09</a></cite>].</li>
+  <li>Added namespace, and links to vocabulary file, to the Abstract for ease of reference.</li>
+   <li>Added missing closure rule to infer <code>rdf:type</code> of <code><a class="internalDFN" href="#dfn-qb-dataset-1">qb:DataSet</a></code> from
+   its use in a <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:Observation</a></code>.</li>
+   <li>Corrected mis-statement of domain of <code>qb:sliceKey</code>
+   in the reference section (was correct in the rest of the specification).</li>
+   <li>Corrected typo in statement of IC-8.</li>
+   <li>Minor typographical corrections.</li>
+   <li>Updated references, including moving Turtle to a non-normative reference.</li>
+  <li>Removed CR specific text on implementation feedback and At Risk features.</li>
+</ul>
+
+<p>Changes
+  since <a href="http://www.w3.org/TR/2013/WD-vocab-data-cube-20130312/"><abbr title="World Wide Web Consortium">W3C</abbr>
+    Last Call Working Draft 12 March 2013</a>:</p>
+
+<ul>
+  <li>Section 1. Modified diagram to clarify that <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code> is a sub
+  class of <code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:ObservationGroup</a></code> </li>
+  <li>Section 5.1. Moved description of data set here for greater
+  clarity, was in section 7.</li>
+  <li>Section 6.2. Further clarified the status of COG RDF vocabularies.</li>
+  <li>Example 6.3. Retitled for clarity.</li>
+  <li>Section 6.4, corrected "with multiple observations" to "with
+  multiple measures".</li>
+  <li>Section 6.4. Added mention of <code><a class="internalDFN" href="#dfn-qb-attachable">qb:Attachable</a></code> (previously only
+  mentioned in the vocabulary reference).</li>
+  <li>Section 6.5. Rewritten description of handling of multiple
+  measures for greater clarity.</li>
+  <li>Section 6.5.2. Removed reference to "SDMX-in-RDF vocabulary"
+  which is not part of this specification.</li>
+  <li>Section 6.5.2 clarified that the special nature of
+  <code><a class="internalDFN" href="#dfn-qb-measuretype">qb:measureType</a></code> is a divergence from SDMX.</li>
+  <li>Section 7. Change terminology from "internal and external
+  metadata" to "structural and reference" metadata for compatibility
+  with SDMX terminology.</li>
+  <li>Section 8.2. Clarified that sub properties of <code>skos:narrower</code> may
+  be used.</li>
+  <li>Section 8.3. Removed third bullet on the motivation for
+  <code><a class="internalDFN" href="#dfn-qb-hierarchicalcodelist">qb:HierarchicalCodeList</a></code> (exhaustivity and mutual exclusion).</li>
+  <li>Added reference to SDMX User Guide as additional background context.</li>
+  <li>Added complete example Data Cube as an appendix, providing a
+  link to it from earlier on in the document.
+  </li><li>Section 10. Clarified that abbreviated form is an option, and
+  there is no requirement to use it in place of normalized form.</li>
+  <li>Section 12.2. Corrected domain of  <code><a class="internalDFN" href="#dfn-qb-observation-1">qb:observation</a></code> from  <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code> to
+   <code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:ObservationGroup</a></code>, was given correctly in the ontology and text
+  body but was mis-stated in the reference section.</li>
+  <li>References. Updated ORG reference.</li>
+  <li>Various typographical corrections.</li>
+</ul>
+
+<p>Changes since <a href="http://www.w3.org/TR/2012/WD-vocab-data-cube-20120405/"><abbr title="World Wide Web Consortium">W3C</abbr> Working Draft 5 April 2012</a>:</p>
+
+<ul>
+  <li>Added <a href="#wf">section</a> on criteria for well-formed cubes. <a href="http://www.w3.org/2011/gld/track/issues/29">ISSUE-29</a></li>
+  <li>Added <a href="#normalize">section</a> on normalization algorithm
+  for handling abbreviated cubes.</li>
+  <li>Added <a href="#conformance">conformance section</a>.
+  </li><li>Clarified that <code><a class="internalDFN" href="#dfn-qb-componentrequired">qb:componentRequired</a></code> is only applicable to
+  attributes and that it defaults to optional.</li>
+  <li>Moved vocabulary reference into the normative body of the specification, adding hyperlinks for all qb: terms.</li>
+  <li>Added <a href="#schemes-hierarchy-nonskos">section</a> on non-skos hierarchies. <a href="http://www.w3.org/2011/gld/track/issues/31">ISSUE-31</a>.</li>
+  <li>Added <a href="#schemes-aggregation">note</a> that aggregation operations and inter-cube relations are out of scope for this version. <a href="http://www.w3.org/2011/gld/track/issues/30">ISSUE-30</a>.</li>
+  <li>Added <code><a class="internalDFN" href="#dfn-qb-observationgroup-1">qb:ObservationGroup</a></code> as a generalization of <code><a class="internalDFN" href="#dfn-qb-slice-1">qb:Slice</a></code>. <a href="http://www.w3.org/2011/gld/track/issues/33">ISSUE-33</a>.</li>
+  <li>Removed <code>qb:subSlice</code> as being problematic in how
+  they interact with attachment levels. <a href="http://www.w3.org/2011/gld/track/issues/34">ISSUE-34</a>.</li>
+  <li>Generalized range of <code><a class="internalDFN" href="#dfn-qb-codelist">qb:codeList</a></code> to allow <code>skos:Collection</code>. <a href="http://www.w3.org/2011/gld/track/issues/39">ISSUE-39</a>.</li>
+  <li>Moved namespace definitions to a normative <a href="#namespaces">section</a> within the body of the specification.</li>
+  <li>Moved Jeni Tennison from being listed as an author to being a
+  contributor. </li>
+</ul>
+
+
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="full-example" class="appendix">
+
+<!--OddPage--><h2 id="h2_full-example" role="heading" aria-level="1"><span class="secno">C. </span>Complete example Data Cube</h2>
+
+<p>This is a complete Data Cube encoding of the running example
+   introduced in <a href="#example">section 5.4</a>. 
+   It uses the abbreviated format so that it can be concisely
+   presented. It passes all the integrity checks (when the
+   declaration of <code>sdmx-dimension:sex</code> is included 
+   from <a href="http://purl.org/linked-data/sdmx/2009/dimension">http://purl.org/linked-data/sdmx/2009/dimension</a>)
+   and so is a well-formed abbreviated Data Cube.
+   </p>
+
+<pre>@prefix rdf:      &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs:     &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix owl:      &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix xsd:      &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix skos:     &lt;http://www.w3.org/2004/02/skos/core#&gt; .
+@prefix void:     &lt;http://rdfs.org/ns/void#&gt; .
+@prefix dct:      &lt;http://purl.org/dc/terms/&gt; .
+@prefix foaf:     &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix org:      &lt;http://www.w3.org/ns/org#&gt; .
+@prefix admingeo: &lt;http://data.ordnancesurvey.co.uk/ontology/admingeo/&gt; .
+@prefix interval: &lt;http://reference.data.gov.uk/def/intervals/&gt; .
+
+@prefix qb:       &lt;http://purl.org/linked-data/cube#&gt; .
+
+@prefix sdmx-concept:    &lt;http://purl.org/linked-data/sdmx/2009/concept#&gt; .
+@prefix sdmx-dimension:  &lt;http://purl.org/linked-data/sdmx/2009/dimension#&gt; .
+@prefix sdmx-attribute:  &lt;http://purl.org/linked-data/sdmx/2009/attribute#&gt; .
+@prefix sdmx-measure:    &lt;http://purl.org/linked-data/sdmx/2009/measure#&gt; .
+@prefix sdmx-metadata:   &lt;http://purl.org/linked-data/sdmx/2009/metadata#&gt; .
+@prefix sdmx-code:       &lt;http://purl.org/linked-data/sdmx/2009/code#&gt; .
+@prefix sdmx-subject:    &lt;http://purl.org/linked-data/sdmx/2009/subject#&gt; .
+
+@prefix ex-geo:   &lt;http://example.org/geo#&gt; .
+@prefix eg:       &lt;http://example.org/ns#&gt; .
+
+# -- Data Set --------------------------------------------
+
+eg:dataset-le3 a qb:DataSet;
+    dct:title       "Life expectancy"@en;
+    rdfs:label      "Life expectancy"@en;
+    rdfs:comment    "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    dct:description "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    dct:publisher   eg:organization ;
+    dct:issued      "2010-08-11"^^xsd:date;
+    dct:subject
+        sdmx-subject:3.2 ,      # regional and small area statistics
+        sdmx-subject:1.4 ,      # Health
+        ex-geo:wales;           # Wales
+    qb:structure eg:dsd-le3 ;  
+    sdmx-attribute:unitMeasure &lt;http://dbpedia.org/resource/Year&gt; ;
+    qb:slice eg:slice1, eg:slice2, eg:slice3, eg:slice4, eg:slice5, eg:slice6 ;
+    .
+
+eg:organization a org:Organization, foaf:Agent;
+    rdfs:label "Example org"@en .    
+        
+# -- Data structure definition ----------------------------
+
+eg:dsd-le3 a qb:DataStructureDefinition;
+    qb:component 
+    # The dimensions
+        [ qb:dimension eg:refArea;         qb:order 1 ],
+        [ qb:dimension eg:refPeriod;       qb:order 2; qb:componentAttachment qb:Slice ],
+        [ qb:dimension sdmx-dimension:sex; qb:order 3; qb:componentAttachment qb:Slice ];
+        
+    # The measure(s)
+    qb:component [ qb:measure eg:lifeExpectancy];
+    
+    # The attributes
+    qb:component [ qb:attribute sdmx-attribute:unitMeasure; 
+                   qb:componentRequired "true"^^xsd:boolean;
+                   qb:componentAttachment qb:DataSet; ] ;
+    
+    # slices
+    qb:sliceKey eg:sliceByRegion ;
+    .
+    
+eg:sliceByRegion a qb:SliceKey;
+    rdfs:label "slice by region"@en;
+    rdfs:comment "Slice by grouping regions together, fixing sex and time values"@en;
+    qb:componentProperty eg:refPeriod, sdmx-dimension:sex ;
+    .
+                   
+# -- Dimensions and measures  ----------------------------
+
+eg:refPeriod  a rdf:Property, qb:DimensionProperty;
+    rdfs:label "reference period"@en;
+    rdfs:subPropertyOf sdmx-dimension:refPeriod;
+    rdfs:range interval:Interval;
+    qb:concept sdmx-concept:refPeriod ;
+    .
+
+
+eg:refArea  a rdf:Property, qb:DimensionProperty;
+    rdfs:label "reference area"@en;
+    rdfs:subPropertyOf sdmx-dimension:refArea;
+    rdfs:range admingeo:UnitaryAuthority;
+    qb:concept sdmx-concept:refArea ;
+    .
+
+eg:lifeExpectancy  a rdf:Property, qb:MeasureProperty;
+    rdfs:label "life expectancy"@en;
+    rdfs:subPropertyOf sdmx-measure:obsValue;
+    rdfs:range xsd:decimal ;
+    .
+    
+# -- Observations -----------------------------------------
+
+# Column 1
+    
+eg:slice1 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    qb:observation eg:o11, eg:o12, eg:o13, eg:o14 ;
+    .
+
+eg:o11 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          76.7 ;
+    .
+    
+eg:o12 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          78.7 ;
+    .
+
+eg:o13 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          76.6 ;
+    .
+
+eg:o14 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          75.5 ;
+    .
+
+# Column 2
+    
+eg:slice2 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-F ;
+    qb:observation eg:o21, eg:o22, eg:o23, eg:o24 ;
+    .
+
+eg:o21 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          80.7 ;
+    .
+    
+eg:o22 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          83.3 ;
+    .
+
+eg:o23 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          81.3 ;
+    .
+
+eg:o24 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          79.1 ;
+    .
+
+# Column 3
+    
+eg:slice3 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    qb:observation eg:o31, eg:o32, eg:o33, eg:o34 ;
+    .
+
+eg:o31 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          77.1 ;
+    .
+    
+eg:o32 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          78.6 ;
+    .
+
+eg:o33 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          76.5 ;
+    .
+
+eg:o34 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          75.5 ;
+    .
+
+# Column 4
+    
+eg:slice4 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-F ;
+    qb:observation eg:o41, eg:o42, eg:o43, eg:o44 ;
+    .
+
+eg:o41 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          80.9 ;
+    .
+    
+eg:o42 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          83.7 ;
+    .
+
+eg:o43 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          81.5 ;
+    .
+
+eg:o44 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          79.4 ;
+    .
+
+# Column 5
+    
+eg:slice5 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    qb:observation eg:o51, eg:o52, eg:o53, eg:o54 ;
+    .
+
+eg:o51 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          77.0 ;
+    .
+    
+eg:o52 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          78.7 ;
+    .
+
+eg:o53 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          76.6 ;
+    .
+
+eg:o54 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          74.9 ;
+    .
+
+# Column 6
+    
+eg:slice6 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               &lt;http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y&gt; ;
+    sdmx-dimension:sex         sdmx-code:sex-F ;
+    qb:observation eg:o61, eg:o62, eg:o63, eg:o64 ;
+    .
+
+eg:o61 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          81.5 ;
+    .
+    
+eg:o62 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          83.4 ;
+    .
+
+eg:o63 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          81.7 ;
+    .
+
+eg:o64 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          79.6 ;
+    .
+</pre>
+   
+</section>
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="references_section" class="appendix">
+</section>
+
+
+
+<section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="references" class="appendix"><!--OddPage--><h2 id="h2_references" role="heading" aria-level="1"><span class="secno">D. </span>References</h2><section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="normative-references"><h3 id="h3_normative-references" role="heading" aria-level="2"><span class="secno">D.1 </span>Normative references</h3><dl about="" class="bibliography"><dt id="bib-DC11">[DC11]</dt><dd rel="dcterms:requires">Dublin Core metadata initiative. <a href="http://dublincore.org/documents/dcmi-terms/"><cite>Dublin Core metadata element set, version 1.1</cite></a>. July 1999. Dublin Core recommendation. URL: <a href="http://dublincore.org/documents/dcmi-terms/">http://dublincore.org/documents/dcmi-terms/</a>
+</dd><dt id="bib-OWL2-PRIMER">[OWL2-PRIMER]</dt><dd rel="dcterms:requires">Pascal Hitzler; Markus Krötzsch; Bijan Parsia; Peter Patel-Schneider; Sebastian Rudolph. <a href="http://www.w3.org/TR/owl2-primer/"><cite>OWL 2 Web Ontology Language Primer (Second Edition)</cite></a>. 11 December 2012. W3C Recommendation. URL: <a href="http://www.w3.org/TR/owl2-primer/">http://www.w3.org/TR/owl2-primer/</a>
+</dd><dt id="bib-RDF-CONCEPTS">[RDF-CONCEPTS]</dt><dd rel="dcterms:requires">Graham Klyne; Jeremy Carroll. <a href="http://www.w3.org/TR/rdf-concepts/"><cite>Resource Description Framework (RDF): Concepts and Abstract Syntax</cite></a>. 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-concepts/">http://www.w3.org/TR/rdf-concepts/</a>
+</dd><dt id="bib-RDF-MT">[RDF-MT]</dt><dd rel="dcterms:requires">Patrick Hayes. <a href="http://www.w3.org/TR/rdf-mt/"><cite>RDF Semantics</cite></a>. 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-mt/">http://www.w3.org/TR/rdf-mt/</a>
+</dd><dt id="bib-RDF-PRIMER">[RDF-PRIMER]</dt><dd rel="dcterms:requires">Frank Manola; Eric Miller. <a href="http://www.w3.org/TR/rdf-primer/"><cite>RDF Primer</cite></a>. 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-primer/">http://www.w3.org/TR/rdf-primer/</a>
+</dd><dt id="bib-RDF-SCHEMA">[RDF-SCHEMA]</dt><dd rel="dcterms:requires">Dan Brickley; Ramanathan Guha. <a href="http://www.w3.org/TR/rdf-schema/"><cite>RDF Schema 1.1</cite></a>. 9 January 2014. W3C Proposed Edited Recommendation. URL: <a href="http://www.w3.org/TR/rdf-schema/">http://www.w3.org/TR/rdf-schema/</a>
+</dd><dt id="bib-RFC2119">[RFC2119]</dt><dd rel="dcterms:requires">S. Bradner. <a href="http://www.ietf.org/rfc/rfc2119.txt"><cite>Key words for use in RFCs to Indicate Requirement Levels.</cite></a> March 1997. Internet RFC 2119.  URL: <a href="http://www.ietf.org/rfc/rfc2119.txt">http://www.ietf.org/rfc/rfc2119.txt</a> 
+</dd><dt id="bib-SKOS-REFERENCE">[SKOS-REFERENCE]</dt><dd rel="dcterms:requires">Alistair Miles; Sean Bechhofer. <a href="http://www.w3.org/TR/skos-reference"><cite>SKOS Simple Knowledge Organization System Reference</cite></a>. 18 August 2009. W3C Recommendation. URL: <a href="http://www.w3.org/TR/skos-reference">http://www.w3.org/TR/skos-reference</a>
+</dd><dt id="bib-sparql11-query">[sparql11-query]</dt><dd rel="dcterms:requires">Steven Harris; Andy Seaborne. <a href="http://www.w3.org/TR/sparql11-query/"><cite>SPARQL 1.1 Query Language</cite></a>. 21 March 2013. W3C Recommendation. URL: <a href="http://www.w3.org/TR/sparql11-query/">http://www.w3.org/TR/sparql11-query/</a>
+</dd><dt id="bib-sparql11-update">[sparql11-update]</dt><dd rel="dcterms:requires">Paul Gearon; Alexandre Passant; Axel Polleres. <a href="http://www.w3.org/TR/sparql11-update/"><cite>SPARQL 1.1 Update</cite></a>. 21 March 2013. W3C Recommendation. URL: <a href="http://www.w3.org/TR/sparql11-update/">http://www.w3.org/TR/sparql11-update/</a>
+</dd></dl></section><section rel="bibo:Chapter" resource="#ref" typeof="bibo:Chapter" id="informative-references"><h3 id="h3_informative-references" role="heading" aria-level="2"><span class="secno">D.2 </span>Informative references</h3><dl about="" class="bibliography"><dt id="bib-COG">[COG]</dt><dd rel="dcterms:references">SDMX Contnent Oriented Guidelines, <a href="http://sdmx.org/?page_id=11">http://sdmx.org/?page_id=11</a>
+</dd><dt id="bib-DCAT">[DCAT]</dt><dd rel="dcterms:references">Fadi Maali; John Erickson. <a href="http://www.w3.org/TR/vocab-dcat/"><cite>Data Catalog Vocabulary (DCAT)</cite></a>. W3C Candidate Recommendation. 5 November 2013. URL: <a href="http://www.w3.org/TR/vocab-dcat/">http://www.w3.org/TR/vocab-dcat/</a>
+</dd><dt id="bib-FOAF">[FOAF]</dt><dd rel="dcterms:references">Dan Brickley, Libby Miller. <a href="http://xmlns.com/foaf/spec/"><cite>FOAF Vocabulary Specification 0.98.</cite></a> 9 August 2010. URL: <a href="http://xmlns.com/foaf/spec/">http://xmlns.com/foaf/spec/</a>
+</dd><dt id="bib-HAUS09">[HAUS09]</dt><dd rel="dcterms:references">Michael Hausenblas; Wolfgang Halb; Yves Raimond; Lee Feigenbaum; Danny Ayers. <a href="http://mhausenblas.info/pubs/eswc09-inuse-scovo.pdf"><cite>SCOVO: Using Statistics on the Web of Data</cite></a>. 2009. URL: <a href="http://mhausenblas.info/pubs/eswc09-inuse-scovo.pdf">http://mhausenblas.info/pubs/eswc09-inuse-scovo.pdf</a>
+</dd><dt id="bib-LOD">[LOD]</dt><dd rel="dcterms:references">Linked Data, <a href="http://linkeddata.org/">http://linkeddata.org/</a>
+</dd><dt id="bib-OLAP">[OLAP]</dt><dd rel="dcterms:references">Online Analytical Processing Data Cubes, <a href="http://en.wikipedia.org/wiki/OLAP_cube">http://en.wikipedia.org/wiki/OLAP_cube</a>
+</dd><dt id="bib-ORG">[ORG]</dt><dd rel="dcterms:references">Dave Reynolds. <a href="http://www.w3.org/TR/vocab-org/"><cite>The Organzation Ontology</cite></a>. 25 June 2013. W3C Candidate Recommendation. URL: <a href="http://www.w3.org/TR/vocab-org/">http://www.w3.org/TR/vocab-org/</a>
+</dd><dt id="bib-OS-GEO">[OS-GEO]</dt><dd rel="dcterms:references">Ordnance Survey Administrative Geography Ontology, <a href="http://data.ordnancesurvey.co.uk/ontology/admingeo/">http://data.ordnancesurvey.co.uk/ontology/admingeo/</a>
+</dd><dt id="bib-SCOVO">[SCOVO]</dt><dd rel="dcterms:references">The Statistical Core Vocabulary, <a href="http://sw.joanneum.at/scovo/schema.html">http://sw.joanneum.at/scovo/schema.html</a>
+</dd><dt id="bib-SDMX-GUIDE">[SDMX-GUIDE]</dt><dd rel="dcterms:references">SDMX User Guide, Version 2009.1, January 2009.  Statistical Data and Metadata Exchange Initiative. URL: <a href="http://sdmx.org/wp-content/uploads/2009/02/sdmx-userguide-version2009-1-71.pdf">http://sdmx.org/wp-content/uploads/2009/02/sdmx-userguide-version2009-1-71.pdf</a>
+</dd><dt id="bib-SDMX20">[SDMX20]</dt><dd rel="dcterms:references">SDMX Information Model: UML Conceptual Design (Version 2.0), November 2005, Statistical Data and Metadata Exchange Initiative. URL: <a href="http://sdmx.org/docs/2_0/SDMX_2_0%20SECTION_02_InformationModel.pdf">http://sdmx.org/docs/2_0/SDMX_2_0%20SECTION_02_InformationModel.pdf</a>
+</dd><dt id="bib-SKOS-PRIMER">[SKOS-PRIMER]</dt><dd rel="dcterms:references">Antoine Isaac; Ed Summers. <a href="http://www.w3.org/TR/skos-primer"><cite>SKOS Simple Knowledge Organization System Primer</cite></a>. 18 August 2009. W3C Note. URL: <a href="http://www.w3.org/TR/skos-primer">http://www.w3.org/TR/skos-primer</a>
+</dd><dt id="bib-turtle">[turtle]</dt><dd rel="dcterms:references">Eric Prud'hommeaux; Gavin Carothers. <a href="http://www.w3.org/TR/turtle/"><cite>RDF 1.1 Turtle</cite></a>. 9 January 2014. W3C Proposed Recommendation. URL: <a href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a>
+</dd><dt id="bib-void">[void]</dt><dd rel="dcterms:references">Keith Alexander; Richard Cyganiak; Michael Hausenblas; Jun Zhao. <a href="http://www.w3.org/TR/void/"><cite>Describing Linked Datasets with the VoID Vocabulary</cite></a>. 3 March 2011. W3C Note. URL: <a href="http://www.w3.org/TR/void/">http://www.w3.org/TR/void/</a>
+</dd></dl></section></section></body></html>

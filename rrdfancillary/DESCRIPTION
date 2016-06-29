@@ -1,0 +1,19 @@
+Package: rrdfancillary
+Type: Package
+Title: Ancilary functions to the rrdf package - support for the Resource
+    Description Framework
+Version: 0.2.5
+Authors@R: c(person("Marc", "Andersen", role = c("aut", "cre"),
+  email = "mja@statgroup.dk"))
+Author: Marc Andersen [aut, cre]
+Maintainer: Marc Andersen <mja@statgroup.dk>
+Depends:
+    R (>= 2.0.0),
+    rJava,
+    rrdf
+Suggests:
+    testthat
+Description: Provides ancillary functions to the RRDF package
+License: MIT + file LICENSE
+LazyLoad: yes
+RoxygenNote: 5.0.1

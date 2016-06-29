@@ -1,0 +1,105 @@
+%% \VignetteIndexEntry{Analysis results stored using RDF Data Cube}
+%% \VignetteEngine{knitr::knitr}
+%% \usepackage[utf8]{inputenc}
+%\SweaveUTF8
+
+\documentclass[10pt]{beamer}
+\usepackage[T1]{fontenc}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{url}
+\ifx\hypersetup\undefined
+  \AtBeginDocument{%
+    \hypersetup{unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 0},backref=false,colorlinks=false}
+  }
+\else
+  \hypersetup{unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 0},backref=false,colorlinks=false}
+\fi
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+ % this default might be overridden by plain title style
+ \newcommand\makebeamertitle{\frame{\maketitle}}%
+ % (ERT) argument for the TOC
+ \AtBeginDocument{%
+   \let\origtableofcontents=\tableofcontents
+   \def\tableofcontents{\@ifnextchar[{\origtableofcontents}{\gobbletableofcontents}}
+   \def\gobbletableofcontents#1{\origtableofcontents}
+ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usetheme{PaloAlto}
+
+\makeatother
+
+\begin{document}
+<<setup, include=FALSE,echo=FALSE>>=
+library(knitr)
+opts_chunk$set(fig.path='figure/beamer-',fig.align='center',fig.show='hold',size='footnotesize')
+@
+
+
+
+\title[Results as RDF Data Cube]{Analysis results stored using RDF Data Cube}
+
+
+\author{PhuseSubTeamAnalysisResults@example.org%
+\thanks{Thanks to \dots
+}}
+\makebeamertitle
+\begin{frame}{Background}
+
+  \begin{itemize}
+  \item Motivation
+    \begin{itemize}
+    \item Store analysis results in RDF
+    \item Leverage CDISC in RDF
+    \end{itemize}
+  \item Choices
+    \begin{itemize}
+    \item use R with RRDF package (interface to Jena)
+    \item use RDF Data Cube
+    \item create codelists using SDTM/ADAM
+    \end{itemize}
+  \end{itemize}
+
+
+\end{frame}
+
+\section{Example: Demographics table}
+\begin{frame}[fragile]{Demographics table}
+
+% http://tex.stackexchange.com/questions/32931/multiple-columns-with-images-and-wrapped-text-in-beamer
+ \begin{columns}[onlytextwidth]
+    \begin{column}{0.4\textwidth}
+      \centering
+%      \rule{100pt}{150pt}% Place your graphic here
+       left - Ians slide from XX
+    \end{column}
+    \begin{column}{0.2\textwidth}
+      \centering
+      No text
+%      \rule{40pt}{150pt}% Place your graphic here
+    \end{column}
+    \begin{column}{0.4\textwidth}
+right - same data shown using Kable
+    \end{column}
+​  \end{columns}
+
+
+\end{frame}
+
+
+
+\end{document}
+
+%% http://tex.stackexchange.com/questions/133719/changing-auctex-processor-in-the-file-itself
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-PDF-mode: t
+%%% End:

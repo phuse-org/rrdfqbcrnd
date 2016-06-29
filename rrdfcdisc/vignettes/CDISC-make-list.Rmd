@@ -1,0 +1,74 @@
+---
+title: "Use R RDF version of CDISC standards"
+author: "mja@statgroup.dk"
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{Create simple RDF data qube}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Introduction
+This vignette shows how to 
+* load the CDISC standards from the packages
+* make a SPARQL query for extracting a codelist
+* make a SPARQL query for extracting the definition for the SDTM DM dataset
+
+## Setup
+
+```{r, results='asis', eval=TRUE}
+library(rrdfancillary)
+library(rrdfcdisc)
+```
+
+### Loading using Load.cdisc.standards 
+
+The code below shows the call for loading the zipped rdf file and store in a triple store.
+This is currently handled in the .onLoad function for the package. The rrdf model is then stored in the package environment.
+
+```{r, results='asis', eval=TRUE}
+cdisc.rdf<- Load.cdisc.standards()
+message(".. total number of triples: ", summarize.rdf.noprint(cdisc.rdf) )
+```
+
+### Extract codelist
+
+```{r, results='asis', eval=TRUE}
+nciDomainValue<- "sdtmct:C66731"
+query <- GetCDISCCodeListSparqlQuery( Get.rq.prefixlist.df(qbCDISCprefixes), nciDomainValue )
+codeSource <- as.data.frame(sparql.rdf(cdisc.rdf, query),stringsAsFactors=FALSE)
+
+knitr::kable(codeSource)
+```
+
+### Extract the definition for the SDTM DM dataset
+
+```{r, results='asis', eval=TRUE}
+query.rq<-'
+select *
+where {
+  ?column a <http://rdf.cdisc.org/mms#Column> .
+  ?column <http://rdf.cdisc.org/mms#context> ?dataset .
+  ?dataset a <http://rdf.cdisc.org/mms#Dataset>.
+  optional { ?column <http://rdf.cdisc.org/mms#dataElementLabel> ?label }
+  optional { ?column <http://rdf.cdisc.org/std/schema#controlledTermsOrFormat> ?controlledTermsOrFormat }
+  optional { ?column <http://rdf.cdisc.org/std/schema#dataElementCompliance> ?dataElementCompliance }
+  optional { ?column <http://rdf.cdisc.org/std/schema#dataElementRole> ?dataElementRole }
+  optional { ?column <http://rdf.cdisc.org/std/schema#dataElementType> ?dataElementType }
+  optional { ?column <http://rdf.cdisc.org/std/schema#references> ?references }
+  optional { ?column <http://rdf.cdisc.org/mms#dataElement> ?dataElement }
+  optional { ?column <http://rdf.cdisc.org/mms#dataElementDescription> ?dataElementDescription }
+  optional { ?column <http://rdf.cdisc.org/mms#dataElementName> ?dataElementName }
+  optional { ?column <http://rdf.cdisc.org/mms#dataElementValueDomain> ?dataElementValueDomain }
+  optional { ?column <http://rdf.cdisc.org/mms#ordinal> ?ordinal }
+  values (?dataset) {(<http://rdf.cdisc.org/std/sdtmig-3-1-3#Dataset.DM>)}
+  }
+  order by ?dataset ?ordinal 
+'
+datasetDef <- as.data.frame(sparql.rdf(cdisc.rdf, query.rq),stringsAsFactors=FALSE)
+```
+
+Here are some of the columns in the result:
+```{r, results='asis', eval=TRUE}
+knitr::kable(datasetDef[,c("dataset", "ordinal", "dataElementName", "label")])
+```

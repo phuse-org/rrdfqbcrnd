@@ -1,0 +1,60 @@
+## @knitr DEMOcodelistfull  
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  
+prefix skos: <http://www.w3.org/2004/02/skos/core#>  
+prefix prov: <http://www.w3.org/ns/prov#>  
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
+prefix dcat: <http://www.w3.org/ns/dcat#>  
+prefix owl: <http://www.w3.org/2002/07/owl#>  
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>  
+prefix pav: <http://purl.org/pav>  
+prefix dc: <http://purl.org/dc/elements/1.1/>  
+prefix dct: <http://purl.org/dc/terms/>  
+prefix mms: <http://rdf.cdisc.org/mms#>  
+prefix cts: <http://rdf.cdisc.org/ct/schema#>  
+prefix cdiscs: <http://rdf.cdisc.org/std/schema#>  
+prefix cdash-1-1: <http://rdf.cdisc.org/std/cdash-1-1#>  
+prefix cdashct: <http://rdf.cdisc.org/cdash-terminology#>  
+prefix sdtmct: <http://rdf.cdisc.org/sdtm-terminology#>  
+prefix sdtm-1-2: <http://rdf.cdisc.org/std/sdtm-1-2#>  
+prefix sdtm-1-3: <http://rdf.cdisc.org/std/sdtm-1-3#>  
+prefix sdtms-1-3: <http://rdf.cdisc.org/sdtm-1-3/schema#>  
+prefix sdtmig-3-1-2: <http://rdf.cdisc.org/std/sdtmig-3-1-2#>  
+prefix sdtmig-3-1-3: <http://rdf.cdisc.org/std/sdtmig-3-1-3#>  
+prefix sendct: <http://rdf.cdisc.org/send-terminology#>  
+prefix sendig-3-0: <http://rdf.cdisc.org/std/sendig-3-0#>  
+prefix adamct: <http://rdf.cdisc.org/adam-terminology#>  
+prefix adam-2-1: <http://rdf.cdisc.org/std/adam-2-1#>  
+prefix adamig-1-0: <http://rdf.cdisc.org/std/adamig-1-0#>  
+prefix adamvr-1-2: <http://rdf.cdisc.org/std/adamvr-1-2#>  
+prefix qb: <http://purl.org/linked-data/cube#>  
+prefix rrdfqbcrnd0: <http://www.example.org/rrdfqbcrnd0/>  
+prefix code: <http://www.example.org/dc/code/>  
+prefix dccs: <http://www.example.org/dc/demo/dccs/>  
+prefix ds: <http://www.example.org/dc/demo/ds/>  
+prefix crnd-dimension: <http://www.example.org/dc/dimension#>  
+prefix crnd-attribute: <http://www.example.org/dc/attribute#>  
+prefix crnd-measure: <http://www.example.org/dc/measure#>  
+   
+select distinct ?DataStructureDefinition ?component ?dimension ?c ?cprefLabel ?cl ?clprefLabel ?vn ?vnd2rq ?vct ?vnop ?vnval  
+where {  
+   ?DataStructureDefinition a qb:DataStructureDefinition ;  
+        qb:component ?component .  
+   ?component a qb:ComponentSpecification .  
+   ?component qb:dimension ?dimension .  
+  
+   ?dimension qb:codeList ?c .  
+   OPTIONAL { ?c skos:prefLabel ?cprefLabel .   }  
+   OPTIONAL { ?c rrdfqbcrnd0:DataSetRefD2RQ ?vnd2rq . }  
+   OPTIONAL { ?c rrdfqbcrnd0:R-columnname ?vn . }  
+   OPTIONAL { ?c rrdfqbcrnd0:codeType     ?vct .          }  
+  
+   ?c skos:hasTopConcept ?cl .  
+   OPTIONAL { ?cl skos:prefLabel ?clprefLabel . }  
+   OPTIONAL { ?cl rrdfqbcrnd0:R-selectionoperator ?vnop . }  
+   OPTIONAL { ?cl rrdfqbcrnd0:R-selectionvalue ?vnval .   }  
+ values ( ?DataStructureDefinition ) {  
+(ds:dsd-DEMO)  
+}   
+}  
+order by ?dimension ?cl ?dimensionrefLabel  
+

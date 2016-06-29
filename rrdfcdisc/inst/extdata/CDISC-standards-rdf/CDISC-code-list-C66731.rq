@@ -1,0 +1,40 @@
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix prov: <http://www.w3.org/ns/prov#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix pav: <http://purl.org/pav>
+prefix dc: <http://purl.org/dc/elements/1.1/>
+prefix dct: <http://purl.org/dc/terms/>
+prefix mms: <http://rdf.cdisc.org/mms#>
+prefix cts: <http://rdf.cdisc.org/ct/schema#>
+prefix cdiscs: <http://rdf.cdisc.org/std/schema#>
+prefix cdash-1-1: <http://rdf.cdisc.org/std/cdash-1-1#>
+prefix cdashct: <http://rdf.cdisc.org/cdash-terminology#>
+prefix sdtmct: <http://rdf.cdisc.org/sdtm-terminology#>
+prefix sdtm-1-2: <http://rdf.cdisc.org/std/sdtm-1-2#>
+prefix sdtm-1-3: <http://rdf.cdisc.org/std/sdtm-1-3#>
+prefix sdtms-1-3: <http://rdf.cdisc.org/sdtm-1-3/schema#>
+prefix sdtmig-3-1-2: <http://rdf.cdisc.org/std/sdtmig-3-1-2#>
+prefix sdtmig-3-1-3: <http://rdf.cdisc.org/std/sdtmig-3-1-3#>
+prefix sendct: <http://rdf.cdisc.org/send-terminology#>
+prefix sendig-3-0: <http://rdf.cdisc.org/std/sendig-3-0#>
+prefix adamct: <http://rdf.cdisc.org/adam-terminology#>
+prefix adam-2-1: <http://rdf.cdisc.org/std/adam-2-1#>
+prefix adamig-1-0: <http://rdf.cdisc.org/std/adamig-1-0#>
+prefix adamvr-1-2: <http://rdf.cdisc.org/std/adamvr-1-2#>
+ select ?nciDomain ?cdiscDefinition ?code ?cdiscSynonyms ?nciCode ?nciPreferredTerm ?nciDomainValue
+where {
+  ?nciDomain mms:inValueDomain        ?nciDomainValue ;
+  ?nciDomain cts:cdiscDefinition      ?cdiscDefinition .
+  ?nciDomain cts:cdiscSubmissionValue ?code .
+  ?nciDomain cts:nciCode              ?nciCode .
+  ?nciDomain cts:nciPreferredTerm     ?nciPreferredTerm
+  OPTIONAL { ?nciDomain cts:cdiscSynonyms        ?cdiscSynonyms . }
+values (?nciDomainValue) {
+ (sdtmct:C66731) 
+  }
+}
+

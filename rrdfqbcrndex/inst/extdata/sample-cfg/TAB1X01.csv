@@ -1,0 +1,65 @@
+ittfl,saffl,efffl,comp24fl,disconfl,trt01p,procedure,factor,unit,denominator,measure
+Y,_ALL_,_ALL_,_ALL_,_ALL_,Placebo,count,quantity,,,86
+Y,_ALL_,_ALL_,_ALL_,_ALL_,Placebo,percent,proportion,,ittfl,100
+Y,_ALL_,_ALL_,_ALL_,_ALL_,Xanomeline High Dose,count,quantity,,,84
+Y,_ALL_,_ALL_,_ALL_,_ALL_,Xanomeline High Dose,percent,proportion,,ittfl,100
+Y,_ALL_,_ALL_,_ALL_,_ALL_,Xanomeline Low Dose,count,quantity,,,84
+Y,_ALL_,_ALL_,_ALL_,_ALL_,Xanomeline Low Dose,percent,proportion,,ittfl,100
+Y,_ALL_,_ALL_,_ALL_,_ALL_,,count,quantity,,,254
+Y,_ALL_,_ALL_,_ALL_,_ALL_,,percent,proportion,,ittfl,100
+_ALL_,Y,_ALL_,_ALL_,_ALL_,Placebo,count,quantity,,,86
+_ALL_,Y,_ALL_,_ALL_,_ALL_,Placebo,percent,proportion,,saffl,100
+_ALL_,Y,_ALL_,_ALL_,_ALL_,Xanomeline High Dose,count,quantity,,,84
+_ALL_,Y,_ALL_,_ALL_,_ALL_,Xanomeline High Dose,percent,proportion,,saffl,100
+_ALL_,Y,_ALL_,_ALL_,_ALL_,Xanomeline Low Dose,count,quantity,,,84
+_ALL_,Y,_ALL_,_ALL_,_ALL_,Xanomeline Low Dose,percent,proportion,,saffl,100
+_ALL_,Y,_ALL_,_ALL_,_ALL_,,count,quantity,,,254
+_ALL_,Y,_ALL_,_ALL_,_ALL_,,percent,proportion,,saffl,100
+_ALL_,_ALL_,N,_ALL_,_ALL_,Placebo,count,quantity,,,7
+_ALL_,_ALL_,N,_ALL_,_ALL_,Placebo,percent,proportion,,efffl,8.1395348837
+_ALL_,_ALL_,N,_ALL_,_ALL_,Xanomeline High Dose,count,quantity,,,10
+_ALL_,_ALL_,N,_ALL_,_ALL_,Xanomeline High Dose,percent,proportion,,efffl,11.904761905
+_ALL_,_ALL_,N,_ALL_,_ALL_,Xanomeline Low Dose,count,quantity,,,3
+_ALL_,_ALL_,N,_ALL_,_ALL_,Xanomeline Low Dose,percent,proportion,,efffl,3.5714285714
+_ALL_,_ALL_,Y,_ALL_,_ALL_,Placebo,count,quantity,,,79
+_ALL_,_ALL_,Y,_ALL_,_ALL_,Placebo,percent,proportion,,efffl,91.860465116
+_ALL_,_ALL_,Y,_ALL_,_ALL_,Xanomeline High Dose,count,quantity,,,74
+_ALL_,_ALL_,Y,_ALL_,_ALL_,Xanomeline High Dose,percent,proportion,,efffl,88.095238095
+_ALL_,_ALL_,Y,_ALL_,_ALL_,Xanomeline Low Dose,count,quantity,,,81
+_ALL_,_ALL_,Y,_ALL_,_ALL_,Xanomeline Low Dose,percent,proportion,,efffl,96.428571429
+_ALL_,_ALL_,N,_ALL_,_ALL_,,count,quantity,,,20
+_ALL_,_ALL_,N,_ALL_,_ALL_,,percent,proportion,,efffl,7.874015748
+_ALL_,_ALL_,Y,_ALL_,_ALL_,,count,quantity,,,234
+_ALL_,_ALL_,Y,_ALL_,_ALL_,,percent,proportion,,efffl,92.125984252
+_ALL_,_ALL_,_ALL_,N,_ALL_,Placebo,count,quantity,,,26
+_ALL_,_ALL_,_ALL_,N,_ALL_,Placebo,percent,proportion,,comp24fl,30.23255814
+_ALL_,_ALL_,_ALL_,N,_ALL_,Xanomeline High Dose,count,quantity,,,54
+_ALL_,_ALL_,_ALL_,N,_ALL_,Xanomeline High Dose,percent,proportion,,comp24fl,64.285714286
+_ALL_,_ALL_,_ALL_,N,_ALL_,Xanomeline Low Dose,count,quantity,,,56
+_ALL_,_ALL_,_ALL_,N,_ALL_,Xanomeline Low Dose,percent,proportion,,comp24fl,66.666666667
+_ALL_,_ALL_,_ALL_,Y,_ALL_,Placebo,count,quantity,,,60
+_ALL_,_ALL_,_ALL_,Y,_ALL_,Placebo,percent,proportion,,comp24fl,69.76744186
+_ALL_,_ALL_,_ALL_,Y,_ALL_,Xanomeline High Dose,count,quantity,,,30
+_ALL_,_ALL_,_ALL_,Y,_ALL_,Xanomeline High Dose,percent,proportion,,comp24fl,35.714285714
+_ALL_,_ALL_,_ALL_,Y,_ALL_,Xanomeline Low Dose,count,quantity,,,28
+_ALL_,_ALL_,_ALL_,Y,_ALL_,Xanomeline Low Dose,percent,proportion,,comp24fl,33.333333333
+_ALL_,_ALL_,_ALL_,N,_ALL_,,count,quantity,,,136
+_ALL_,_ALL_,_ALL_,N,_ALL_,,percent,proportion,,comp24fl,53.543307087
+_ALL_,_ALL_,_ALL_,Y,_ALL_,,count,quantity,,,118
+_ALL_,_ALL_,_ALL_,Y,_ALL_,,percent,proportion,,comp24fl,46.456692913
+_ALL_,_ALL_,_ALL_,_ALL_,_ALL_,Placebo,count,quantity,,,58
+_ALL_,_ALL_,_ALL_,_ALL_,_ALL_,Placebo,percent,proportion,,disconfl,67.441860465
+_ALL_,_ALL_,_ALL_,_ALL_,_ALL_,Xanomeline High Dose,count,quantity,,,27
+_ALL_,_ALL_,_ALL_,_ALL_,_ALL_,Xanomeline High Dose,percent,proportion,,disconfl,32.142857143
+_ALL_,_ALL_,_ALL_,_ALL_,_ALL_,Xanomeline Low Dose,count,quantity,,,25
+_ALL_,_ALL_,_ALL_,_ALL_,_ALL_,Xanomeline Low Dose,percent,proportion,,disconfl,29.761904762
+_ALL_,_ALL_,_ALL_,_ALL_,Y,Placebo,count,quantity,,,28
+_ALL_,_ALL_,_ALL_,_ALL_,Y,Placebo,percent,proportion,,disconfl,32.558139535
+_ALL_,_ALL_,_ALL_,_ALL_,Y,Xanomeline High Dose,count,quantity,,,57
+_ALL_,_ALL_,_ALL_,_ALL_,Y,Xanomeline High Dose,percent,proportion,,disconfl,67.857142857
+_ALL_,_ALL_,_ALL_,_ALL_,Y,Xanomeline Low Dose,count,quantity,,,59
+_ALL_,_ALL_,_ALL_,_ALL_,Y,Xanomeline Low Dose,percent,proportion,,disconfl,70.238095238
+_ALL_,_ALL_,_ALL_,_ALL_,_ALL_,,count,quantity,,,110
+_ALL_,_ALL_,_ALL_,_ALL_,_ALL_,,percent,proportion,,disconfl,43.307086614
+_ALL_,_ALL_,_ALL_,_ALL_,Y,,count,quantity,,,144
+_ALL_,_ALL_,_ALL_,_ALL_,Y,,percent,proportion,,disconfl,56.692913386

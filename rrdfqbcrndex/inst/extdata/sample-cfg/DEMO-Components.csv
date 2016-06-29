@@ -1,0 +1,30 @@
+compType,compName,codeType,nciDomainValue,compLabel,Comment
+dimension,trt01a,DATA,,Treatment Arm,
+dimension,sex,SDTM,C66731,Sex (Gender),
+dimension,race,SDTM,C74457,Race
+dimension,ethnic,DATA,,Ethnic
+dimension,agegr1,DATA,,Age group
+dimension,procedure,DATA,,Statistical Procedure,
+dimension,factor,DATA,,"Type of procedure (quantity, proportion...)",
+measure,measure,,,Value of the statistical measure,
+attribute,unit,,,Unit of measure,
+attribute,denominator,,,Denominator for a proportion (oskr) subset on which a statistic is based,
+attribute,colno,,,Column number for two dimensional represenation,
+attribute,rowno,,,Row number for two dimensional represenation,
+attribute,cellpartno,,,Position within cell given by row and column number for two dimensional represenation,
+attribute,measurefmt,,,Format for sprintf,
+metadata,obsURL,,,https://phuse-scripts.googlecode.com/svn/trunk/scriptathon2014/data/adsl.xpt,obsURL
+metadata,obsFileName,,,demo.AR.csv,obsFileName
+metadata,dataCubeFileName,,,DC-DEMO-R-V,Cube name prefix (will be appended with version number by script. --> No. Will be set in code based on domainName parameter
+metadata,cubeVersion,,,0.5.2,Version of cube with format n.n.n
+metadata,createdBy,,,Marc Andersen,Person who configures this spreadsheet and runs the creation script to create the cube
+metadata,description,,,Data from demo.sas program,Cube description
+metadata,providedBy,,,PhUSE Results Metadata Working Group,
+metadata,comment,,,Example demographics table from demo.sas program,
+metadata,title,,,Demographics Analysis Results,
+metadata,label,,,Demographics results data set.,
+metadata,wasDerivedFrom,,,demo.AR.csv,Data source (obsFileName). Set this programmtically based on name of input file.
+metadata,domainName,,,DEMO,"The domain name, also part of the spreadsheet tab name"
+metadata,obsFileNameDirectory,,,!example,The directory containing the wasDerivedFrom file
+metadata,dataCubeOutDirectory,,,!temporary,
+metadata,extension.rrdfqbcrnd0,,,TRUE

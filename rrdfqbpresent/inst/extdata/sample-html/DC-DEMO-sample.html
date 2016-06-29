@@ -1,0 +1,728 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DEMO table as html</title>
+     
+   <script src="jquery-2.1.3.min.js"></script>
+   <link rel="stylesheet" href="jquery-ui-1.11.3.custom/jquery-ui.css"/>
+   <script src="jquery-ui-1.11.3.custom/jquery-ui.min.js"></script>
+   <script src="RDFa.min.1.4.0.js"></script>
+     
+</style>
+
+</head>
+<script>
+"use strict";
+ 
+function obsclick(obssubject)
+{
+  alert("Observation " + obssubject )
+}  
+                  
+</script>
+<body>
+  <h1> dsd-DEMO </h1>
+<div id="container"><div id='table'>
+<table border>
+<tr><th><a href=" http://www.example.org/dc/dimension#agegr1 "> Age group </a></th><th><a href=" http://www.example.org/dc/dimension#race "> Race </a></th><th><a href=" http://www.example.org/dc/dimension#ethnic "> Ethnic </a></th><th><a href=" http://www.example.org/dc/dimension#sex "> Sex (Gender) </a></th><th> Variable </th><th> Statistics </th><th colspan=" 2 "><a href=" http://www.example.org/dc/code/trt01a-Placebo "> Placebo </a></th>
+<th colspan=" 2 "><a href=" http://www.example.org/dc/code/trt01a-Xanomeline_Low_Dose "> Xanomeline Low Dose </a></th>
+<th colspan=" 2 "><a href=" http://www.example.org/dc/code/trt01a-Xanomeline_High_Dose "> Xanomeline High Dose </a></th>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_NONMISS_ "> _NONMISS_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs001" onclick=obsclick("http://www.example.org/dc/demo/ds/obs001")>
+<span id="obs001"resource="ds:obs001" typeof="qb:Observation" >
+    86</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs004" onclick=obsclick("http://www.example.org/dc/demo/ds/obs004")>
+<span id="obs004"resource="ds:obs004" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs002" onclick=obsclick("http://www.example.org/dc/demo/ds/obs002")>
+<span id="obs002"resource="ds:obs002" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs005" onclick=obsclick("http://www.example.org/dc/demo/ds/obs005")>
+<span id="obs005"resource="ds:obs005" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs003" onclick=obsclick("http://www.example.org/dc/demo/ds/obs003")>
+<span id="obs003"resource="ds:obs003" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs006" onclick=obsclick("http://www.example.org/dc/demo/ds/obs006")>
+<span id="obs006"resource="ds:obs006" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-F "> F </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs007" onclick=obsclick("http://www.example.org/dc/demo/ds/obs007")>
+<span id="obs007"resource="ds:obs007" typeof="qb:Observation" >
+    53</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs010" onclick=obsclick("http://www.example.org/dc/demo/ds/obs010")>
+<span id="obs010"resource="ds:obs010" typeof="qb:Observation" >
+  61.6</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs008" onclick=obsclick("http://www.example.org/dc/demo/ds/obs008")>
+<span id="obs008"resource="ds:obs008" typeof="qb:Observation" >
+    50</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs011" onclick=obsclick("http://www.example.org/dc/demo/ds/obs011")>
+<span id="obs011"resource="ds:obs011" typeof="qb:Observation" >
+  59.5</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs009" onclick=obsclick("http://www.example.org/dc/demo/ds/obs009")>
+<span id="obs009"resource="ds:obs009" typeof="qb:Observation" >
+    40</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs012" onclick=obsclick("http://www.example.org/dc/demo/ds/obs012")>
+<span id="obs012"resource="ds:obs012" typeof="qb:Observation" >
+  47.6</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-M "> M </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs013" onclick=obsclick("http://www.example.org/dc/demo/ds/obs013")>
+<span id="obs013"resource="ds:obs013" typeof="qb:Observation" >
+    33</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs016" onclick=obsclick("http://www.example.org/dc/demo/ds/obs016")>
+<span id="obs016"resource="ds:obs016" typeof="qb:Observation" >
+  38.4</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs014" onclick=obsclick("http://www.example.org/dc/demo/ds/obs014")>
+<span id="obs014"resource="ds:obs014" typeof="qb:Observation" >
+    34</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs017" onclick=obsclick("http://www.example.org/dc/demo/ds/obs017")>
+<span id="obs017"resource="ds:obs017" typeof="qb:Observation" >
+  40.5</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs015" onclick=obsclick("http://www.example.org/dc/demo/ds/obs015")>
+<span id="obs015"resource="ds:obs015" typeof="qb:Observation" >
+    44</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs018" onclick=obsclick("http://www.example.org/dc/demo/ds/obs018")>
+<span id="obs018"resource="ds:obs018" typeof="qb:Observation" >
+  52.4</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-age">age</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-std">std</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs019" onclick=obsclick("http://www.example.org/dc/demo/ds/obs019")>
+<span id="obs019"resource="ds:obs019" typeof="qb:Observation" >
+   8.6</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs020" onclick=obsclick("http://www.example.org/dc/demo/ds/obs020")>
+<span id="obs020"resource="ds:obs020" typeof="qb:Observation" >
+   8.3</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs021" onclick=obsclick("http://www.example.org/dc/demo/ds/obs021")>
+<span id="obs021"resource="ds:obs021" typeof="qb:Observation" >
+   7.9</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-age">age</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-n">n</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs022" onclick=obsclick("http://www.example.org/dc/demo/ds/obs022")>
+<span id="obs022"resource="ds:obs022" typeof="qb:Observation" >
+    86</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs023" onclick=obsclick("http://www.example.org/dc/demo/ds/obs023")>
+<span id="obs023"resource="ds:obs023" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs024" onclick=obsclick("http://www.example.org/dc/demo/ds/obs024")>
+<span id="obs024"resource="ds:obs024" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-age">age</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-median">median</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs025" onclick=obsclick("http://www.example.org/dc/demo/ds/obs025")>
+<span id="obs025"resource="ds:obs025" typeof="qb:Observation" >
+  76.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs026" onclick=obsclick("http://www.example.org/dc/demo/ds/obs026")>
+<span id="obs026"resource="ds:obs026" typeof="qb:Observation" >
+  77.5</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs027" onclick=obsclick("http://www.example.org/dc/demo/ds/obs027")>
+<span id="obs027"resource="ds:obs027" typeof="qb:Observation" >
+  76.0</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-age">age</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-mean">mean</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs028" onclick=obsclick("http://www.example.org/dc/demo/ds/obs028")>
+<span id="obs028"resource="ds:obs028" typeof="qb:Observation" >
+  75.2</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs029" onclick=obsclick("http://www.example.org/dc/demo/ds/obs029")>
+<span id="obs029"resource="ds:obs029" typeof="qb:Observation" >
+  75.7</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs030" onclick=obsclick("http://www.example.org/dc/demo/ds/obs030")>
+<span id="obs030"resource="ds:obs030" typeof="qb:Observation" >
+  74.4</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-age">age</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-q3">q3</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs031" onclick=obsclick("http://www.example.org/dc/demo/ds/obs031")>
+<span id="obs031"resource="ds:obs031" typeof="qb:Observation" >
+  82.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs032" onclick=obsclick("http://www.example.org/dc/demo/ds/obs032")>
+<span id="obs032"resource="ds:obs032" typeof="qb:Observation" >
+  82.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs033" onclick=obsclick("http://www.example.org/dc/demo/ds/obs033")>
+<span id="obs033"resource="ds:obs033" typeof="qb:Observation" >
+  80.0</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-age">age</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-q1">q1</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs034" onclick=obsclick("http://www.example.org/dc/demo/ds/obs034")>
+<span id="obs034"resource="ds:obs034" typeof="qb:Observation" >
+  69.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs035" onclick=obsclick("http://www.example.org/dc/demo/ds/obs035")>
+<span id="obs035"resource="ds:obs035" typeof="qb:Observation" >
+  71.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs036" onclick=obsclick("http://www.example.org/dc/demo/ds/obs036")>
+<span id="obs036"resource="ds:obs036" typeof="qb:Observation" >
+  70.5</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-age">age</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-max">max</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs037" onclick=obsclick("http://www.example.org/dc/demo/ds/obs037")>
+<span id="obs037"resource="ds:obs037" typeof="qb:Observation" >
+  89.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs038" onclick=obsclick("http://www.example.org/dc/demo/ds/obs038")>
+<span id="obs038"resource="ds:obs038" typeof="qb:Observation" >
+  88.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs039" onclick=obsclick("http://www.example.org/dc/demo/ds/obs039")>
+<span id="obs039"resource="ds:obs039" typeof="qb:Observation" >
+  88.0</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-age">age</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-min">min</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs040" onclick=obsclick("http://www.example.org/dc/demo/ds/obs040")>
+<span id="obs040"resource="ds:obs040" typeof="qb:Observation" >
+  52.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs041" onclick=obsclick("http://www.example.org/dc/demo/ds/obs041")>
+<span id="obs041"resource="ds:obs041" typeof="qb:Observation" >
+  51.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs042" onclick=obsclick("http://www.example.org/dc/demo/ds/obs042")>
+<span id="obs042"resource="ds:obs042" typeof="qb:Observation" >
+  56.0</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_NONMISS_ "> _NONMISS_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs043" onclick=obsclick("http://www.example.org/dc/demo/ds/obs043")>
+<span id="obs043"resource="ds:obs043" typeof="qb:Observation" >
+    86</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs046" onclick=obsclick("http://www.example.org/dc/demo/ds/obs046")>
+<span id="obs046"resource="ds:obs046" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs044" onclick=obsclick("http://www.example.org/dc/demo/ds/obs044")>
+<span id="obs044"resource="ds:obs044" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs047" onclick=obsclick("http://www.example.org/dc/demo/ds/obs047")>
+<span id="obs047"resource="ds:obs047" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs045" onclick=obsclick("http://www.example.org/dc/demo/ds/obs045")>
+<span id="obs045"resource="ds:obs045" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs048" onclick=obsclick("http://www.example.org/dc/demo/ds/obs048")>
+<span id="obs048"resource="ds:obs048" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_65 "> <65 </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs049" onclick=obsclick("http://www.example.org/dc/demo/ds/obs049")>
+<span id="obs049"resource="ds:obs049" typeof="qb:Observation" >
+    14</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs052" onclick=obsclick("http://www.example.org/dc/demo/ds/obs052")>
+<span id="obs052"resource="ds:obs052" typeof="qb:Observation" >
+  16.3</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs050" onclick=obsclick("http://www.example.org/dc/demo/ds/obs050")>
+<span id="obs050"resource="ds:obs050" typeof="qb:Observation" >
+     8</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs053" onclick=obsclick("http://www.example.org/dc/demo/ds/obs053")>
+<span id="obs053"resource="ds:obs053" typeof="qb:Observation" >
+   9.5</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs051" onclick=obsclick("http://www.example.org/dc/demo/ds/obs051")>
+<span id="obs051"resource="ds:obs051" typeof="qb:Observation" >
+    11</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs054" onclick=obsclick("http://www.example.org/dc/demo/ds/obs054")>
+<span id="obs054"resource="ds:obs054" typeof="qb:Observation" >
+  13.1</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-65-80 "> 65-80 </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs055" onclick=obsclick("http://www.example.org/dc/demo/ds/obs055")>
+<span id="obs055"resource="ds:obs055" typeof="qb:Observation" >
+    42</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs058" onclick=obsclick("http://www.example.org/dc/demo/ds/obs058")>
+<span id="obs058"resource="ds:obs058" typeof="qb:Observation" >
+  48.8</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs056" onclick=obsclick("http://www.example.org/dc/demo/ds/obs056")>
+<span id="obs056"resource="ds:obs056" typeof="qb:Observation" >
+    47</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs059" onclick=obsclick("http://www.example.org/dc/demo/ds/obs059")>
+<span id="obs059"resource="ds:obs059" typeof="qb:Observation" >
+  56.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs057" onclick=obsclick("http://www.example.org/dc/demo/ds/obs057")>
+<span id="obs057"resource="ds:obs057" typeof="qb:Observation" >
+    55</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs060" onclick=obsclick("http://www.example.org/dc/demo/ds/obs060")>
+<span id="obs060"resource="ds:obs060" typeof="qb:Observation" >
+  65.5</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_80 "> >80 </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs061" onclick=obsclick("http://www.example.org/dc/demo/ds/obs061")>
+<span id="obs061"resource="ds:obs061" typeof="qb:Observation" >
+    30</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs064" onclick=obsclick("http://www.example.org/dc/demo/ds/obs064")>
+<span id="obs064"resource="ds:obs064" typeof="qb:Observation" >
+  34.9</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs062" onclick=obsclick("http://www.example.org/dc/demo/ds/obs062")>
+<span id="obs062"resource="ds:obs062" typeof="qb:Observation" >
+    29</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs065" onclick=obsclick("http://www.example.org/dc/demo/ds/obs065")>
+<span id="obs065"resource="ds:obs065" typeof="qb:Observation" >
+  34.5</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs063" onclick=obsclick("http://www.example.org/dc/demo/ds/obs063")>
+<span id="obs063"resource="ds:obs063" typeof="qb:Observation" >
+    18</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs066" onclick=obsclick("http://www.example.org/dc/demo/ds/obs066")>
+<span id="obs066"resource="ds:obs066" typeof="qb:Observation" >
+  21.4</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_NONMISS_ "> _NONMISS_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs067" onclick=obsclick("http://www.example.org/dc/demo/ds/obs067")>
+<span id="obs067"resource="ds:obs067" typeof="qb:Observation" >
+    86</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs070" onclick=obsclick("http://www.example.org/dc/demo/ds/obs070")>
+<span id="obs070"resource="ds:obs070" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs068" onclick=obsclick("http://www.example.org/dc/demo/ds/obs068")>
+<span id="obs068"resource="ds:obs068" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs071" onclick=obsclick("http://www.example.org/dc/demo/ds/obs071")>
+<span id="obs071"resource="ds:obs071" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs069" onclick=obsclick("http://www.example.org/dc/demo/ds/obs069")>
+<span id="obs069"resource="ds:obs069" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs072" onclick=obsclick("http://www.example.org/dc/demo/ds/obs072")>
+<span id="obs072"resource="ds:obs072" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-WHITE "> WHITE </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs073" onclick=obsclick("http://www.example.org/dc/demo/ds/obs073")>
+<span id="obs073"resource="ds:obs073" typeof="qb:Observation" >
+    78</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs076" onclick=obsclick("http://www.example.org/dc/demo/ds/obs076")>
+<span id="obs076"resource="ds:obs076" typeof="qb:Observation" >
+  90.7</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs074" onclick=obsclick("http://www.example.org/dc/demo/ds/obs074")>
+<span id="obs074"resource="ds:obs074" typeof="qb:Observation" >
+    78</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs077" onclick=obsclick("http://www.example.org/dc/demo/ds/obs077")>
+<span id="obs077"resource="ds:obs077" typeof="qb:Observation" >
+  92.9</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs075" onclick=obsclick("http://www.example.org/dc/demo/ds/obs075")>
+<span id="obs075"resource="ds:obs075" typeof="qb:Observation" >
+    74</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs078" onclick=obsclick("http://www.example.org/dc/demo/ds/obs078")>
+<span id="obs078"resource="ds:obs078" typeof="qb:Observation" >
+  88.1</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-BLACK_OR_AFRICAN_AMERICAN "> BLACK OR AFRICAN AMERICAN </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs079" onclick=obsclick("http://www.example.org/dc/demo/ds/obs079")>
+<span id="obs079"resource="ds:obs079" typeof="qb:Observation" >
+     8</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs082" onclick=obsclick("http://www.example.org/dc/demo/ds/obs082")>
+<span id="obs082"resource="ds:obs082" typeof="qb:Observation" >
+   9.3</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs080" onclick=obsclick("http://www.example.org/dc/demo/ds/obs080")>
+<span id="obs080"resource="ds:obs080" typeof="qb:Observation" >
+     6</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs083" onclick=obsclick("http://www.example.org/dc/demo/ds/obs083")>
+<span id="obs083"resource="ds:obs083" typeof="qb:Observation" >
+   7.1</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs081" onclick=obsclick("http://www.example.org/dc/demo/ds/obs081")>
+<span id="obs081"resource="ds:obs081" typeof="qb:Observation" >
+     9</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs084" onclick=obsclick("http://www.example.org/dc/demo/ds/obs084")>
+<span id="obs084"resource="ds:obs084" typeof="qb:Observation" >
+  10.7</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-AMERICAN_INDIAN_OR_ALASKA_NATIVE "> AMERICAN INDIAN OR ALASKA NATIVE </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs085" onclick=obsclick("http://www.example.org/dc/demo/ds/obs085")>
+<span id="obs085"resource="ds:obs085" typeof="qb:Observation" >
+     0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs088" onclick=obsclick("http://www.example.org/dc/demo/ds/obs088")>
+<span id="obs088"resource="ds:obs088" typeof="qb:Observation" >
+   0.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs086" onclick=obsclick("http://www.example.org/dc/demo/ds/obs086")>
+<span id="obs086"resource="ds:obs086" typeof="qb:Observation" >
+     0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs089" onclick=obsclick("http://www.example.org/dc/demo/ds/obs089")>
+<span id="obs089"resource="ds:obs089" typeof="qb:Observation" >
+   0.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs087" onclick=obsclick("http://www.example.org/dc/demo/ds/obs087")>
+<span id="obs087"resource="ds:obs087" typeof="qb:Observation" >
+     1</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs090" onclick=obsclick("http://www.example.org/dc/demo/ds/obs090")>
+<span id="obs090"resource="ds:obs090" typeof="qb:Observation" >
+   1.2</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-weightbl">weightbl</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-std">std</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs091" onclick=obsclick("http://www.example.org/dc/demo/ds/obs091")>
+<span id="obs091"resource="ds:obs091" typeof="qb:Observation" >
+  12.8</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs092" onclick=obsclick("http://www.example.org/dc/demo/ds/obs092")>
+<span id="obs092"resource="ds:obs092" typeof="qb:Observation" >
+  14.1</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs093" onclick=obsclick("http://www.example.org/dc/demo/ds/obs093")>
+<span id="obs093"resource="ds:obs093" typeof="qb:Observation" >
+  14.7</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-weightbl">weightbl</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-n">n</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs094" onclick=obsclick("http://www.example.org/dc/demo/ds/obs094")>
+<span id="obs094"resource="ds:obs094" typeof="qb:Observation" >
+    86</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs095" onclick=obsclick("http://www.example.org/dc/demo/ds/obs095")>
+<span id="obs095"resource="ds:obs095" typeof="qb:Observation" >
+    83</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs096" onclick=obsclick("http://www.example.org/dc/demo/ds/obs096")>
+<span id="obs096"resource="ds:obs096" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-weightbl">weightbl</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-median">median</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs097" onclick=obsclick("http://www.example.org/dc/demo/ds/obs097")>
+<span id="obs097"resource="ds:obs097" typeof="qb:Observation" >
+  60.5</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs098" onclick=obsclick("http://www.example.org/dc/demo/ds/obs098")>
+<span id="obs098"resource="ds:obs098" typeof="qb:Observation" >
+  64.9</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs099" onclick=obsclick("http://www.example.org/dc/demo/ds/obs099")>
+<span id="obs099"resource="ds:obs099" typeof="qb:Observation" >
+  69.2</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-weightbl">weightbl</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-mean">mean</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs100" onclick=obsclick("http://www.example.org/dc/demo/ds/obs100")>
+<span id="obs100"resource="ds:obs100" typeof="qb:Observation" >
+  62.8</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs101" onclick=obsclick("http://www.example.org/dc/demo/ds/obs101")>
+<span id="obs101"resource="ds:obs101" typeof="qb:Observation" >
+  67.3</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs102" onclick=obsclick("http://www.example.org/dc/demo/ds/obs102")>
+<span id="obs102"resource="ds:obs102" typeof="qb:Observation" >
+  70.0</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-weightbl">weightbl</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-q3">q3</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs103" onclick=obsclick("http://www.example.org/dc/demo/ds/obs103")>
+<span id="obs103"resource="ds:obs103" typeof="qb:Observation" >
+  74.4</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs104" onclick=obsclick("http://www.example.org/dc/demo/ds/obs104")>
+<span id="obs104"resource="ds:obs104" typeof="qb:Observation" >
+  77.8</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs105" onclick=obsclick("http://www.example.org/dc/demo/ds/obs105")>
+<span id="obs105"resource="ds:obs105" typeof="qb:Observation" >
+  80.3</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-weightbl">weightbl</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-q1">q1</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs106" onclick=obsclick("http://www.example.org/dc/demo/ds/obs106")>
+<span id="obs106"resource="ds:obs106" typeof="qb:Observation" >
+  53.5</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs107" onclick=obsclick("http://www.example.org/dc/demo/ds/obs107")>
+<span id="obs107"resource="ds:obs107" typeof="qb:Observation" >
+  55.8</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs108" onclick=obsclick("http://www.example.org/dc/demo/ds/obs108")>
+<span id="obs108"resource="ds:obs108" typeof="qb:Observation" >
+  56.8</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-weightbl">weightbl</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-max">max</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs109" onclick=obsclick("http://www.example.org/dc/demo/ds/obs109")>
+<span id="obs109"resource="ds:obs109" typeof="qb:Observation" >
+  86.2</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs110" onclick=obsclick("http://www.example.org/dc/demo/ds/obs110")>
+<span id="obs110"resource="ds:obs110" typeof="qb:Observation" >
+ 106.1</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs111" onclick=obsclick("http://www.example.org/dc/demo/ds/obs111")>
+<span id="obs111"resource="ds:obs111" typeof="qb:Observation" >
+ 108.0</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-weightbl">weightbl</a>,  </td><td> <a href="http://www.example.org/dc/code/procedure-min">min</a>,  </td><td><a title="http://www.example.org/dc/demo/ds/obs112" onclick=obsclick("http://www.example.org/dc/demo/ds/obs112")>
+<span id="obs112"resource="ds:obs112" typeof="qb:Observation" >
+  34.0</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs113" onclick=obsclick("http://www.example.org/dc/demo/ds/obs113")>
+<span id="obs113"resource="ds:obs113" typeof="qb:Observation" >
+  45.4</span>
+</a>
+</td>
+<td><td><a title="http://www.example.org/dc/demo/ds/obs114" onclick=obsclick("http://www.example.org/dc/demo/ds/obs114")>
+<span id="obs114"resource="ds:obs114" typeof="qb:Observation" >
+  41.7</span>
+</a>
+</td>
+<td></tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-_NONMISS_ "> _NONMISS_ </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs115" onclick=obsclick("http://www.example.org/dc/demo/ds/obs115")>
+<span id="obs115"resource="ds:obs115" typeof="qb:Observation" >
+    86</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs118" onclick=obsclick("http://www.example.org/dc/demo/ds/obs118")>
+<span id="obs118"resource="ds:obs118" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs116" onclick=obsclick("http://www.example.org/dc/demo/ds/obs116")>
+<span id="obs116"resource="ds:obs116" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs119" onclick=obsclick("http://www.example.org/dc/demo/ds/obs119")>
+<span id="obs119"resource="ds:obs119" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs117" onclick=obsclick("http://www.example.org/dc/demo/ds/obs117")>
+<span id="obs117"resource="ds:obs117" typeof="qb:Observation" >
+    84</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs120" onclick=obsclick("http://www.example.org/dc/demo/ds/obs120")>
+<span id="obs120"resource="ds:obs120" typeof="qb:Observation" >
+ 100.0</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-NOT_HISPANIC_OR_LATINO "> NOT HISPANIC OR LATINO </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs121" onclick=obsclick("http://www.example.org/dc/demo/ds/obs121")>
+<span id="obs121"resource="ds:obs121" typeof="qb:Observation" >
+    83</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs124" onclick=obsclick("http://www.example.org/dc/demo/ds/obs124")>
+<span id="obs124"resource="ds:obs124" typeof="qb:Observation" >
+  96.5</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs122" onclick=obsclick("http://www.example.org/dc/demo/ds/obs122")>
+<span id="obs122"resource="ds:obs122" typeof="qb:Observation" >
+    78</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs125" onclick=obsclick("http://www.example.org/dc/demo/ds/obs125")>
+<span id="obs125"resource="ds:obs125" typeof="qb:Observation" >
+  92.9</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs123" onclick=obsclick("http://www.example.org/dc/demo/ds/obs123")>
+<span id="obs123"resource="ds:obs123" typeof="qb:Observation" >
+    81</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs126" onclick=obsclick("http://www.example.org/dc/demo/ds/obs126")>
+<span id="obs126"resource="ds:obs126" typeof="qb:Observation" >
+  96.4</span>
+</a>
+</td>
+</tr> 
+<tr><td> <a href=" http://www.example.org/dc/code/agegr1-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/race-_ALL_ "> _ALL_ </a> </td><td> <a href=" http://www.example.org/dc/code/ethnic-HISPANIC_OR_LATINO "> HISPANIC OR LATINO </a> </td><td> <a href=" http://www.example.org/dc/code/sex-_ALL_ "> _ALL_ </a> </td><td> <a href="http://www.example.org/dc/code/factor-quantity">quantity</a>, <a href="http://www.example.org/dc/code/factor-proportion">proportion</a> </td><td> <a href="http://www.example.org/dc/code/procedure-count">count</a>, <a href="http://www.example.org/dc/code/procedure-percent">percent</a> </td><td><a title="http://www.example.org/dc/demo/ds/obs127" onclick=obsclick("http://www.example.org/dc/demo/ds/obs127")>
+<span id="obs127"resource="ds:obs127" typeof="qb:Observation" >
+     3</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs130" onclick=obsclick("http://www.example.org/dc/demo/ds/obs130")>
+<span id="obs130"resource="ds:obs130" typeof="qb:Observation" >
+   3.5</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs128" onclick=obsclick("http://www.example.org/dc/demo/ds/obs128")>
+<span id="obs128"resource="ds:obs128" typeof="qb:Observation" >
+     6</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs131" onclick=obsclick("http://www.example.org/dc/demo/ds/obs131")>
+<span id="obs131"resource="ds:obs131" typeof="qb:Observation" >
+   7.1</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs129" onclick=obsclick("http://www.example.org/dc/demo/ds/obs129")>
+<span id="obs129"resource="ds:obs129" typeof="qb:Observation" >
+     3</span>
+</a>
+</td>
+<td><a title="http://www.example.org/dc/demo/ds/obs132" onclick=obsclick("http://www.example.org/dc/demo/ds/obs132")>
+<span id="obs132"resource="ds:obs132" typeof="qb:Observation" >
+   3.6</span>
+</a>
+</td>
+</tr> 
+</table>
+</div>
+
+</div>
+</body>
+</html>

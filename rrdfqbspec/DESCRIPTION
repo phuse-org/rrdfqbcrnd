@@ -1,0 +1,23 @@
+Package: rrdfqbspec
+Title: Plot subgraphs in the AR&M RDF Data qube Tech Spec documentation
+Version: 0.0.1
+Authors@R: person("Tim", "Williams", email = "Tim.Williams@ucb.com", role = c("aut", "cre"))
+Description: Plot the indivdual subgraphs for use in the Tech Spec documentatio.
+Depends:
+    R (>= 3.2.5),
+    xlsx,
+    plyr,
+    reshape2,
+    visNetwork,
+    xlsx
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests:
+    shiny,
+    shinythemes
+VignetteBuilder: knitr
+BuildVignettes: no
+Author: Tim Williams [aut, cre]
+Maintainer: Tim Williams <tim.williams@ucb.com>
+RoxygenNote: 5.0.1

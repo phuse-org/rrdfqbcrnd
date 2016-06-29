@@ -1,0 +1,39 @@
+---
+title: "SPARQL update example"
+author: "mja@statgroup.dk"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SPARQL update example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+
+# SPARQL update example
+
+```{r, eval=TRUE}
+library(rrdf)
+library(rrdfancillary)
+store <- new.rdf()
+add.data.triple(store,
+                subject="http://example.org/Subject",
+                predicate="http://example.org/Predicate",
+                data="Value")
+cat(asString.rdf(store),"\n")
+
+SPARQLinsert<- '
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+INSERT DATA
+{ 
+  <http://example/book1> dc:title "A new book" ;
+                         dc:creator "A.N.Other" .
+}
+'
+
+update.rdf( store, SPARQLinsert )
+
+cat(asString.rdf(store), "\n")
+
+```
+

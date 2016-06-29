@@ -1,0 +1,117 @@
+---
+title: "Two dimensional representation of RDF data cube"
+author: "PhuseSubTeamAnalysisResults@example.org"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    theme: united
+  pdf_document:
+    toc: true
+    highlight: zenburn
+  md_document:
+    variant: markdown_github
+---
+
+# Setup
+
+First load the package.
+```{r, eval=TRUE}
+library(rrdf)
+library(rrdfqb)
+library(rrdfqbcrnd0)
+library(rrdfqbcrndex)
+devtools::load_all(pkg="../..")
+```
+
+
+# Current - 08-may-2015
+
+The following code is under development. It creates HTML files
+under extdata/sample-cfg showing a two dimensional representation
+of the RDF data cube.
+
+Here are some the features that are evaluated
+- drag and drop of measure - could be used for creating a new table from existing
+- store RDF as RDFa - could be used to embed the whole cube in the file; looks like it gets to big
+
+Pending: including the rest of the cube into the
+html. Consider if in each cell only the observation and measure should
+be referenced and not all properties and objects for the observation.
+
+
+## Using with RDFa
+
+The function `MakeHTMLfromQb` is used to create the HTML file. When invoked with `useRDFa=TRUE` the generated HTML will contain RDFa markup.
+
+The HTML includes green-turtle
+(https://github.com/alexmilowski/green-turtle), jquery
+(http://jquery.com/) and jqueryUI (http://jqueryui.com/).
+
+In my setup I store the project under packages, and can symlink to the
+files from the extdata/sample-cfg directory.
+
+    cd extdata/sample-cfg
+    ln -s ~/packages/green-turtle/build/RDFa.min.1.4.0.js 
+    ln -s ~/packages/green-turtle/build/RDFaProcessor.min.1.4.0.js 
+    ln -s ~/packages/jquery-2.1.3.min/jquery-2.1.3.min.js .
+    ln -s ~/packages/jquery-ui-1.11.3.custom .
+
+
+## Utility function
+
+```{r, echo=TRUE}
+MakeTable<- function( dataCubeFile, htmlfile, rowdim, coldim, idrow, idcol ) {
+    store <- new.rdf()  # Initialize
+    cat("Loading ", dataCubeFile, "\n")
+    temp<-load.rdf(dataCubeFile, format="TURTLE", appendTo= store)
+    summarize.rdf(store)
+    dsdName<- GetDsdNameFromCube( store )
+    domainName<- GetDomainNameFromCube( store )
+    forsparqlprefix<- GetForSparqlPrefix( domainName )
+
+    dimensions<- sparql.rdf(store, GetDimensionsSparqlQuery( forsparqlprefix ) )
+    attributesDf<- sparql.rdf(store, GetAttributesSparqlQuery( forsparqlprefix ))
+
+    outhtmlfile<- MakeHTMLfromQb( store, forsparqlprefix, dsdName, domainName,
+                                 dimensions, rowdim, coldim, idrow, idcol,
+                                 htmlfile, useRDFa=TRUE, compactDimColumns=FALSE,
+                                 debug=FALSE)
+
+    outhtmlfile
+}
+```
+
+## Create AE html example
+
+```{r, echo=TRUE}
+dataCubeFile<- system.file("extdata/sample-rdf", "DC-AE-sample.ttl", package="rrdfqbcrndex")
+# ToDo(mja): write to a temporary file  or move this to extdata
+htmlfile<- file.path(system.file("extdata/sample-html", package="rrdfqbpresent"), "DC-AE-sample.html")
+rowdim<- c("crnd-attribute:rowno", "crnd-dimension:aesoc", "crnd-dimension:aedecod" )
+coldim<- c("crnd-attribute:colno", "crnd-attribute:cellpartno", "crnd-dimension:trta",
+           "crnd-dimension:factor", "crnd-dimension:procedure" )
+# idrow is a function of rowdim; writing it directly is easier for now
+idrow<-  c( "aesocvalue", "aedecodvalue" )
+idcol<-  c( "crnd-dimension:trta" )
+resHtmlFile<- MakeTable( dataCubeFile, htmlfile, rowdim, coldim, idrow, idcol )
+cat("HTML stored as: ", normalizePath(resHtmlFile), "\n")
+```
+
+## Create DEMO html example
+
+```{r, echo=TRUE}
+dataCubeFile<- system.file("extdata/sample-rdf", "DC-DEMO-sample.ttl", package="rrdfqbcrndex")
+# ToDo(mja): write to a temporary file  or move this to extdata
+htmlfile<- file.path(system.file("extdata/sample-html", package="rrdfqbpresent"), "DC-DEMO-sample.html")
+coldim<- c("crnd-attribute:colno", "crnd-attribute:cellpartno", "crnd-dimension:trt01a",
+           "crnd-dimension:factor", "crnd-dimension:procedure" )
+rowdim<- c("crnd-attribute:rowno", "crnd-dimension:agegr1", "crnd-dimension:race",
+           "crnd-dimension:ethnic", "crnd-dimension:sex" )
+idrow<-  c( "agegr1value", "racevalue", "ethnicvalue", "sexvalue" )
+idcol<-  c( "crnd-dimension:trt01a" )
+resHtmlFile<- MakeTable( dataCubeFile, htmlfile, rowdim, coldim, idrow, idcol )
+cat("HTML stored as: ", normalizePath(resHtmlFile), "\n")
+```
+
+

@@ -1,0 +1,33 @@
+Package: rrdfqb
+Title: RDF data cube R interface  -
+    Development
+Version: 0.2.5
+Authors@R: c(
+    person("Marc", "Andersen", email="mja@statgroup.dk", role=c("aut", "cre") ),
+    person("Tim", "Williams", email="tim.williams@ucb.com", role=c("aut", "cre") )
+    )
+Depends: 
+    R (>= 3.0.2),
+    xlsx,
+    RCurl,
+    rJava,
+    rrdf(>= 2.0.4),
+    rrdfancillary
+Imports: 
+    tools
+License: MIT + file LICENSE
+LazyData: true
+Suggests: 
+    knitr,
+    testthat,
+    foreign,
+    shiny,
+    XML,
+    rmarkdown
+VignetteBuilder: knitr
+BuildVignettes: no
+Author: Marc Andersen [aut, cre],
+    Tim Williams [aut, cre]
+Maintainer: Marc Andersen <mja@statgroup.dk>,
+    Tim Williams <tim.williams@ucb.com>
+RoxygenNote: 5.0.1

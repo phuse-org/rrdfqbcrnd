@@ -1,0 +1,48 @@
+---
+title: How to create vignette"
+author: "PhuseSubTeamAnalysisResults@example.org"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to create vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+
+### How to run from command prompt when developing
+
+Start in the package root directory
+
+Devtools should reply reply Loading rrdfqbcrnd0.
+
+The knit command should generate .md file in the present work directory - the package root directory
+
+
+```{r, eval=FALSE}
+library(devtools)
+devtools::load_all()
+
+library(knitr)
+knit("vignettes/cube-from-workbook.Rmd")
+```
+
+Generate the pdf file using the following command
+```{r makepdf.sh, eval=FALSE, engine='bash'}
+pandoc qube-from-workbook.md -o qube-from-workbook.pdf
+```
+
+The knitr::knit2html should generate a .html file in the present work directory - the package root directory
+
+Generating HTML works nicely
+```{r, eval=FALSE} 
+knitr::knit2html("vignettes/qube-from-workbook.Rmd")
+```
+
+The following does not work as the texi2dvi can not handle the dollar signs in the bash code above.
+I suppose some other options have to be given. The work around is to use pandoc on the .md file generated as mentioned above.
+
+```{r, eval=FALSE}
+knitr::knit2pdf("vignettes/qube-from-workbook.Rmd")
+```
+

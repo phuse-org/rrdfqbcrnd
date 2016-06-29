@@ -1,0 +1,49 @@
+Create prefixes for use with CDISC standards in RDF
+===================================================
+
+Setup
+-----
+
+``` r
+library(rrdfancillary)
+library(devtools)
+devtools::load_all(pkg="../..")
+```
+
+    ## Loading rrdfcdisc
+
+Prefixes for the package
+========================
+
+This script creates a list with the prefix used for the package. The prefix corresponds to the usual values.
+
+``` r
+## qbCDISCprefixes<-  list(
+##  "rdf"= "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+##  "skos"="http://www.w3.org/2004/02/skos/core#" ,
+##  "prov"="http://www.w3.org/ns/prov#" ,
+##  "rdfs"="http://www.w3.org/2000/01/rdf-schema#" ,
+##  "dcat"="http://www.w3.org/ns/dcat#" ,
+##  "owl"= "http://www.w3.org/2002/07/owl#" ,
+##  "xsd"= "http://www.w3.org/2001/XMLSchema#" ,
+##  "qb"=  "http://purl.org/linked-data/cube#" ,
+##  "pav"= "http://purl.org/pav" ,
+##  "dct"= "http://purl.org/dc/terms/" ,
+##  "mms"= "http://rdf.cdisc.org/mms#" ,
+##  "cts"= "http://rdf.cdisc.org/ct/schema#",
+##  "sdtm"="http://rdf.cdisc.org/sdtm-terminology#",
+##  "rrdfqbcrnd0"="http://www.example.org/rrdfqbcrnd0/"
+## ) 
+
+qbCDISCprefixes<- env[["qbCDISCprefixes"]]
+```
+
+ToDo(mja): The rrdfqbcrnd0 prefix should be moved to package rrdfqbcrnd0
+
+ToDo(mja): the `qbCDISCprefixes` is obsolete, as the `env[["qbCDISCprefixes"]]` in `zzz.R` has the same function.
+
+``` r
+devtools::use_data(qbCDISCprefixes,overwrite=TRUE)
+```
+
+    ## Saving qbCDISCprefixes as qbCDISCprefixes.rda to /home/ma/projects/rrdfqbcrnd/rrdfcdisc/data

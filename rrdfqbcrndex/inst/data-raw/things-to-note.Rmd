@@ -1,0 +1,680 @@
+<---
+title: "Tings that does not fit any where else"
+author: "mja@statgroup.dk"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    theme: united
+  pdf_document:
+    toc: true
+    highlight: zenburn
+  md_document:
+    variant: markdown_github
+---
+
+# Code snippets that may be of use.
+
+```{r}
+library(devtools)
+devtools::load_all(pkg="../..")
+```
+```{r setup}
+```
+
+## Comment on earlier setup, delete if not needed.
+
+When developing, the script is intented to run from the package root as
+```{r, results='asis', eval=FALSE}
+knit("inst/data-raw/things-to-note.Rmd")
+```
+
+knit runs the script in the data-raw directory, so it would be
+expected to use pkg=".." to store the qbIClist in the data directory
+However, it did not work - hence the setwd below.
+
+```{r, results='asis', eval=FALSE}
+setwd("inst/data-raw/")
+knit("things-to-note.Rmd")
+```
+
+
+Data are stored in the data directory, following [R packages by Hadley Wickham](http://r-pkgs.had.co.nz/data.html) and [Writing R Extensions](http://cran.r-project.org/doc/manuals/R-exts.pdf).
+
+### Installating pandoc on windows
+
+pandoc is needed when using `rmarkdown::render("thing-to-note.Rmd")`-
+
+Install from (https://github.com/jgm/pandoc/releases)
+
+Verify installation from a command prompt by `pandoc --version`.
+
+## Installing highlight on windows
+
+Highlight is using for syntax highlighting, see below for examples.
+
+(http://www.andre-simon.de/doku/highlight/en/install.php)
+
+Install using from (http://www.andre-simon.de/zip/download.php)
+
+## Check RRDF works
+
+```r
+library(rrdf)
+store<- new.rdf(ontology=FALSE)
+add.prefix(store, prefix="dc", namespace="http://www.example.org/")
+add.triple(store,"ex:aa","ex:i1","9876")
+add.triple(store,"ex:bb","ex:i2","1234")
+add.triple(store,"http://www.example.org/aa","ex:i3","24543")
+store
+sparql.rdf(store, "select * where { ?s ?p ?o }")
+
+```
+
+
+## SPARQL queries for cube
+
+```{r, eval=FALSE}
+forsparqlprefix<-"
+prefix prov:  <http://www.w3.org/ns/prov#>
+prefix mms:   <http://rdf.cdisc.org/mms#>
+prefix crnd-dimension:	<http://www.example.org/dc/dimension#>
+prefix crnd-attribute:	<http://www.example.org/dc/attribute#>
+prefix crnd-measure:	<http://www.example.org/dc/measure#>
+prefix code:  <http://www.example.org/dc/code/>
+prefix qb:    <http://purl.org/linked-data/cube#>
+prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+prefix dccs:  <http://www.example.org/dc/demo/dccs/>
+prefix dcat:  <http://www.w3.org/ns/dcat#>
+prefix pav:   <http://purl.org/pav>
+prefix dct:   <http://purl.org/dc/terms/>
+prefix xsd:   <http://www.w3.org/2001/XMLSchema#>
+prefix owl:   <http://www.w3.org/2002/07/owl#>
+prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix cts:   <http://rdf.cdisc.org/ct/schema#>
+prefix skos:  <http://www.w3.org/2004/02/skos/core#>
+prefix rrdfqbcrnd0: <http://www.example.org/rrdfqbcrnd0/>
+prefix ds:    <http://www.example.org/dc/demo/ds/>
+"
+
+dsdname.rq<- "
+select ?s
+where {
+?s a qb:DataStructureDefinition
+} 
+"
+DataStructureDefinition<- data.frame(sparql.rdf(store, paste( forsparqlprefix, dsdname.rq)), stringsAsFactors=FALSE )
+knitr::kable(DataStructureDefinition)
+
+dimensions.rq<- "
+select *
+where {
+?s a qb:DataStructureDefinition .
+?s qb:component [ qb:dimension ?qbdimension ] .
+OPTIONAL { ?s qb:component [ qb:order ?qborder] . }
+
+} 
+"
+dimensions<- data.frame(sparql.rdf(store, paste( forsparqlprefix, dimensions.rq)), stringsAsFactors=FALSE )
+knitr::kable(dimensions)
+
+rq<-  paste( forsparqlprefix,
+'
+select ?dsd ?obs ?qborder ?qbdimension ?dimvalue ?dimvalueLabel
+where { 
+?obs a qb:Observation ; 
+?qbdimension ?dimvalue ;
+.
+{ select * where {
+?dsd a qb:DataStructureDefinition .
+?dsd qb:component [ qb:dimension ?qbdimension ] .
+OPTIONAL {?dsd qb:component [ qb:order ?qborder] .}
+} }
+
+OPTIONAL { ?dimvalue skos:prefLabel ?dimvalueLabel}
+
+values (?dsd ?obs) {
+(ds:dsd-DEMO ds:obs114)
+}
+}
+order by ?dsd ?obs ?qborder ?qbdimension 
+# limit 30
+',
+"\n"                               
+)
+
+cube.observations<- sparql.rdf(store, rq)
+knitr::kable(cube.observations)
+
+## Identify which dimensions are used for selection
+rq<-  paste( forsparqlprefix,
+'
+select ?dsd ?obs ?qborder ?qbdimension ?dimvalue ?dimvalueLabel ?subsetting ?factorvalueLabel ?procedurevalue ?procedureLabel ?variable
+where { 
+?obs a qb:Observation ; 
+?qbdimension ?dimvalue ;
+.
+{ select * where {
+?dsd a qb:DataStructureDefinition .
+?dsd qb:component [ qb:dimension ?qbdimension ] .
+OPTIONAL {?dsd qb:component [ qb:order ?qborder] .}
+} }
+
+OPTIONAL { ?obs crnd-dimension:factor ?factorvalue . ?factorvalue skos:prefLabel ?factorvalueLabel }
+OPTIONAL { ?obs crnd-dimension:procedure ?procedurevalue . ?procedurevalue skos:prefLabel ?procedureLabel }
+
+OPTIONAL { ?dimvalue skos:prefLabel ?dimvalueLabel}
+
+
+BIND( (?qbdimension NOT IN (crnd-dimension:procedure, crnd-dimension:factor) &&  ?dimvalueLabel != "_ALL_" ) AS ?subsetting )
+
+BIND( replace(  str(?qbdimension), str(crnd-dimension:), " " )  AS ?variable )
+
+values (?dsd ?obs) {
+(ds:dsd-DEMO ds:obs29)
+}
+}
+order by ?dsd ?obs ?qborder ?qbdimension 
+# limit 30
+',
+"\n"                               
+)
+
+cube.observations<- data.frame(sparql.rdf(store, rq),stringsAsFactors=FALSE)
+knitr::kable(cube.observations)
+
+cat(
+paste(
+paste( "Variable", cube.observations$factorvalueLabel[1], sep=" ", collapse=""),
+paste( "Statistics ", cube.observations$procedureLabel[1], sep=" ", collapse=""),
+paste( "Selection criteria ", cube.observations$variable[cube.observations$subsetting=="true"], "=", cube.observations$dimvalueLabel[cube.observations$subsetting=="true"], sep=" ", collapse="\n" ),
+"",
+sep="\n", collapse="\n")
+)
+
+dsname<-"adsl"
+
+## using list for key-value lookup to function for descriptive statistic
+univfunc<- list(
+  "code:procedure-mean"         =function(x){mean(x,na.rm=TRUE)},
+  "code:procedure-stddev"       =function(x){sd(x,na.rm=TRUE)},
+  "code:procedure-median"       =function(x){median(x,na.rm=TRUE)},
+  "code:procedure-min"          =function(x){min(x,na.rm=TRUE)},
+  "code:procedure-max"          =function(x){max(x,na.rm=TRUE)},
+  "code:procedure-count"        =length,
+  "code:procedure-countdistinct"=function(x){length(unique(x))}
+  )
+
+cat(
+univfunc[[locase(cube.observations$procedurevalue[1])]], "(", dsname, "$", cube.observations$factorvalueLabel[1],
+"[", 
+paste(
+paste0( dsname, "$", gsub(" *", "", cube.observations$variable[cube.observations$subsetting=="true"]),
+"==",
+'"',cube.observations$dimvalueLabel[cube.observations$subsetting=="true"], '"',sep=""),
+sep=" & ", collapse="\n"),
+"]",
+")",
+sep="", collapse="\n")
+
+
+
+paste(
+paste( "Variable", cube.observations$factorvalueLabel[1], sep=" ", collapse=""),
+
+paste( "Selection criteria ", cube.observations$variable[cube.observations$subsetting=="true"], "=", cube.observations$dimvalueLabel[cube.observations$subsetting=="true"], sep=" ", collapse="\n" ),
+"",
+sep="\n", collapse="\n")
+)
+
+require(foreign)
+xptdirectory<- tempdir()
+
+fnadsl<- system.file("extdata/sample-xpt", "adsl.xpt", package="rrdfqbcrnd0")
+adsl<-read.xport(fnadsl)
+names(adsl)<- tolower(names(adsl))
+
+min(adsl$weightbl[adsl$trt01a =="Xanomeline High Dose" & adsl$weightbl])
+
+## sprintf("%4.0f", min(adsl$weightbl[adsl$trt01a =="Xanomeline High Dose" & adsl$weightbl]))
+
+```
+
+
+## Compare results from SQL with the input / previously generated
+
+
+```{r, eval=FALSE}
+
+colorder<- c( "saffl", "trt01a", "race", "sex", "procedure", "factor", "denominator", "unit", "measure")
+
+# dmtablecompareFile<- system.file("extdata/sample-cfg", "dm-prev.AR.csv", package="rrdfqbcrnd0")
+dmtablecompareFile<- system.file("extdata/sample-cfg", "dm.AR.csv", package="rrdfqbcrnd0")
+
+dmtable<- read.csv(dmtablecompareFile,stringsAsFactors=FALSE)
+names(dmtable)<-tolower(names(dmtable))
+## str(dmtable)
+Sort <- function(DF) DF[do.call(order, DF),]
+fromCSV.for.all.equal<- Sort(dmtable[,colorder])
+## str(adsl.summ.stat)
+xadsl.summ.stat<- adsl.summ.stat[,colorder]
+fromSQL.for.all.equal<- Sort(xadsl.summ.stat[ , intersect(names(fromCSV.for.all.equal),names(xadsl.summ.stat)) ])
+all.equal(fromCSV.for.all.equal, fromSQL.for.all.equal, check.attributes = FALSE)
+compare<-merge(fromSQL.for.all.equal, fromCSV.for.all.equal,by=setdiff(colorder,"measure"),all=TRUE)
+## simple criteria - should also include relative difference
+compare$isequal<- abs(compare$measure.x - compare$measure.y ) < 1e-6
+compare
+
+```
+
+## Make graph of dependencies in Makefile
+
+The DAG defined in the Makefile could be usefull to show.
+See (http://stackoverflow.com/questions/2376837/creating-a-directed-acyclic-graph-out-of-recursive-nmake-makefile).
+
+Essentailly _make -n -p_ gives the relevant output, which then could be parsed and displayed.
+
+## Writing to other formats
+
+```{r, eval=FALSE}
+library(rrdf)
+library(rrdfqbcrnd0)
+store<- new.rdf()
+dataCubeFile<- system.file("extdata/sample-rdf", "DC-DEMO-sample.ttl", package="rrdfqbcrnd0")
+print(dataCubeFile)
+load.rdf(dataCubeFile, format="TURTLE", appendTo= store)
+summarize.rdf(store)
+
+format<-"RDF/JSON"
+filename<-"DC-demo.json"
+.jcall("com/github/egonw/rrdf/RJenaHelper", "V", "saveRdf", store, filename, format)
+
+## This does not work - maybe due mising jar in rrdf
+## Error in .jcall("com/github/egonw/rrdf/RJenaHelper", "V", "saveRdf", store,  :
+##  java.lang.NoClassDefFoundError: com/github/jsonldjava/core/JsonLdError
+## ttps://jena.apache.org/documentation/io/rdf-output.html
+format<-"JSON-LD"
+filename<-"DC-demo.json-ld"
+.jcall("com/github/egonw/rrdf/RJenaHelper", "V", "saveRdf", store, filename, format)
+```
+
+## Debugging adding triples
+
+Below is a function replacing _add.triples_
+
+```{r, eval=FALSE}
+debug.add.data.triple<- function( cubeData,
+subject,
+predicate,
+data, type) {
+
+print(cbind(subject=subject,predicate=predicate,data=data,type=type))
+      
+add.data.triple( cubeData,
+subject=subject,
+predicate=predicate,
+data=data, type=type)
+
+} 
+```
+
+
+## Text for note note on how to generate html version
+
+At the end of each scipt
+
+Add the following - note it should be possible to generate it automatically.
+
+
+How to compile this file into HTML
+
+Start an R-session in the same directory as the file and issue:
+```{r, eval=FALSE}
+library(knitr)
+knit2html("XX.Rmd")
+```
+Alternatively, use invoke R from the command line with parameters for executing knit2html.
+
+# Highlightning in knitr
+
+https://gist.github.com/yihui/3114112
+
+Options for highlight engine
+http://www.andre-simon.de/doku/highlight/en/highlight.php
+
+Polyglot in knit
+https://raw.githubusercontent.com/yihui/knitr-examples/master/106-polyglot.Rmd
+
+R-markdown
+http://rmarkdown.rstudio.com/html_document_format.html#html-fragments
+
+Example 
+https://gist.github.com/yihui/3422133
+
+% http://stackoverflow.com/questions/21660673/styling-r-output-with-knitr
+% http://tex.stackexchange.com/questions/100088/r-code-linebreaks-and-code-highlighting-in-knitr
+% https://github.com/yihui/knitr/blob/master/inst/examples/knitr-listings.Rnw
+% http://tex.stackexchange.com/questions/14927/listing-syntax-highlighting-for-sparql-query
+% https://github.com/yihui/knitr/blob/master/inst/examples/knitr-themes.Rnw
+% https://github.com/yihui/knitr-examples/blob/master/098-highlight-python.Rnw
+% https://www.overleaf.com/latex/examples/syntax-highlighting-in-latex-with-the-listings-package/jxnppmxxvsvk
+% https://www.sharelatex.com/learn/Code_Highlighting_with_minted#Reference_guide
+% http://www.andre-simon.de/
+
+Here is a skeleton for getting output highlighted.
+
+This show how to call the highlight engine.
+```{r sp1, engine='highlight', engine.opts='-l -S n3 --inline-css -O md'}
+select * where {?s ?p ?o}
+```
+
+To make this work in markdown two blanks has to be added at the end of line according to markdown syntax.
+```{r mksp1}
+forsparqlprefix<- GetForSparqlPrefix( "$myQbName" )
+sparql.rq<- GetAttributesSparqlQuery( forsparqlprefix )
+fn<- file.path(tempdir(), "sp1.rq" )
+cat( "## @knitr sp1", gsub("\\n", "  \n", sparql.rq), sep="  \n", file=fn)
+knitr::read_chunk( fn, from=c(1))
+readLines(fn)
+```
+
+```{r sp1, asis=TRUE, engine='highlight', engine.opts='-l -S n3 --inline-css -O md'}
+```
+
+The
+(http://www.andre-simon.de/doku/highlight/en/highlight.php)[highlight]
+package can take a input file and output it many formats with the code
+highlighted. Below is one-liner example showing highlighting of a
+short SPARQL query as html. The option --inline-css embeds the CSS in
+the html file. If the option is not present, the CSS is written to
+file highlight.css and reffered to in the generated html. The second
+line opens the file in the default browser.  ``` echo -e "prefix a:
+<bb.bb>\\nselect * where {?s ?p ?o}" | highlight --inline-css -S n3 >
+highlight-simple-example.html xdg-open highlight-simple-example.html
+```
+
+```{r engine='bash'}
+echo -e "prefix a: <bb.bb>\\nselect * where {?s ?p ?o}" | highlight --inline-css -S n3
+```
+
+## Generating markdown files from Rmd
+
+Rmd files contains a YAML header. The code below identifies the YAML
+header. A possible use is to make a copy of the file without the YAML
+header. Revisiting this, I found this is adressed in
+(https://github.com/yihui/knitr/issues/965)[Proposed function:
+knitr::custom_knit #965] and
+(http://stackoverflow.com/questions/23622307/strip-yaml-from-child-docs-in-knitr)[Strip
+YAML from child docs in knitr].
+
+```{r, eval=FALSE}
+library(yaml)
+rmdFiles<-list.files("vignettes",pattern=".*\\.Rmd$",full.names=TRUE)
+rmdFiles
+lines<- readLines( rmdFiles[1] )
+if (any(yamlHeaderLno<- which( lines == "---")) ) {
+  fromLno<- yamlHeaderLno[1]
+  toLno<- yamlHeaderLno[2]
+  message("Has YAML header from ", fromLno, " to ", toLno)
+  print( yaml.load(
+    paste(lines[ (fromLno+1) : (toLno-1) ], collapse="\n")
+    ))
+  }
+knit(rmdFiles[1])
+
+```
+
+# SPARQL queries with path
+
+Path trick from
+(http://stackoverflow.com/questions/22210295/arbitrary-path-length-query-in-sparql/22210531#22210531)
+(http://stackoverflow.com/questions/5198889/calculate-length-of-path-between-nodes)
+(http://stackoverflow.com/questions/17523804/is-it-possible-to-get-the-position-of-an-element-in-an-rdf-collection-in-sparql)
+
+Main example:
+(http://stackoverflow.com/questions/26698675/sparql-property-path-queries-with-arbitrary-properties?rq=1)
+
+(http://www.w3.org/TR/sparql11-query/#propertypath-examples)
+
+```{r, eval=FALSE}
+library(rrdf)
+library(rrdfqbcrnd0)
+store<- new.rdf()
+dataCubeFile<- system.file("extdata/sample-rdf", "DC-DEMO-sample.ttl", package="rrdfqbcrnd0")
+cat("Reading from ", normalizePath(dataCubeFile),"\n")
+load.rdf(dataCubeFile, format="TURTLE", appendTo= store)
+summarize.rdf(store)
+
+prefixes<-"
+prefix prov:  <http://www.w3.org/ns/prov#>
+prefix mms:   <http://rdf.cdisc.org/mms#>
+prefix crnd-dimension: <http://www.example.org/dc/dimension#>
+prefix crnd-measure: <http://www.example.org/dc/measure#>
+prefix code:  <http://www.example.org/dc/code/>
+prefix qb:    <http://purl.org/linked-data/cube#>
+prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+prefix dccs:  <http://www.example.org/dc/demo/dccs/>
+prefix dcat:  <http://www.w3.org/ns/dcat#>
+prefix pav:   <http://purl.org/pav>
+prefix dct:   <http://purl.org/dc/terms/>
+prefix xsd:   <http://www.w3.org/2001/XMLSchema#>
+prefix owl:   <http://www.w3.org/2002/07/owl#>
+prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix cts:   <http://rdf.cdisc.org/ct/schema#>
+prefix skos:  <http://www.w3.org/2004/02/skos/core#>
+prefix rrdfqbcrnd0: <http://www.example.org/rrdfqbcrnd0/>
+prefix ds:    <http://www.example.org/dc/demo/ds/>
+prefix crnd-attribute: <http://www.example.org/dc/attribute#>
+"
+
+rq<-"
+select * where { ?x !(rdf:type|^rdf:type)+ ?y .
+values (?x) {(ds:dataset-DEMO)}
+} limit 100
+"
+res<- data.frame(sparql.rdf(store, paste0(prefixes,rq)),stringsAsFactors=FALSE)
+knitr::kable(res)
+
+
+```
+
+## Extracting information from Rd files
+
+Also, I have considered dumping all R documentation to RDF an see what could come out of that.
+
+
+The documentation is stored internally in Rd format (http://developer.r-project.org/parseRd.pdf); which  have some sort of resemblance with TeX.
+The rrdfqbcrnd0 package  attempts to use the R documentation facility extensively (see http://r-pkgs.had.co.nz/man.html#man)– so I have been interested in not use making the documentation, but also use it.
+
+There are some good questions/answers on stackoverflow:
+    How to access the help/documentation .rd source files in R? http://stackoverflow.com/questions/7495685/how-to-access-the-help-documentation-rd-source-files-in-r
+    Access elements from R's Rd file? http://stackoverflow.com/questions/17909081/access-elements-from-rs-rd-file?lq=1
+
+```{r, eval=FALSE}
+library(tools)
+db <- Rd_db("stats")
+# grep("median.Rd",names(db),value=TRUE)
+# medianRD<-db[grep("median.Rd",names(db))]
+# medianRD
+# str(medianRD)
+# str(medianRD[[1]])
+
+rdlistttl<- function( ll,level=0,fn="" ) {
+  if (is.atomic(ll)) {
+    cat( paste0( '"""', gsub("\\\\","\\\\\\\\", gsub('"', '#x22', ll)), '""" '), sep="\n", file=fn )
+  } else {
+      hasTAG<- FALSE
+    if (!is.null(attr(ll,"Rd_tag"))) {
+      hasTAG<- TRUE
+      cat( "[", " ", ":has", gsub("\\\\","",attr(ll,"Rd_tag")), " ( \n", sep="", file=fn )
+    }
+    if (is.list(ll)) {
+      if (length(ll)>0) {
+      for (i in seq(length(ll))) {
+        rdlistttl(ll[[i]],level+1, fn=fn )
+      }
+      }
+    }
+    if (hasTAG) {
+      cat(  ") ]\n",sep="", file=fn )
+    }
+  } 
+}
+
+library(rrdf)
+store<- new.rdf()
+ttlname<- "stats.ttl"
+ottl <- file(ttlname, "w")  # open an output file connection
+cat("@prefix : <http://example.org/Rd/0.1/> .", "\n", file=ottl)
+for (i in seq(length(db))) {
+# for (i in 1:4) {
+message("Processing ", i, "/", length(db), " ", names(db)[i] )
+cat( ":stats_", gsub("^ +","",gsub("\\.", "_", names(db)[i])), " ", ":RdDoc", " (", "\n", sep="", file=ottl)
+rdlistttl(db[i], fn=ottl)
+cat(" ) .\n", file=ottl)
+}
+close(ottl)
+
+load.rdf(ttlname, format = "TURTLE", appendTo=store)
+check<- sparql.rdf( store, "select distinct ?p where {?s ?p ?o}")
+
+keywords<- data.frame(sparql.rdf( store, "
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix : <http://example.org/Rd/0.1/>
+select distinct ?keyword
+where {?s :haskeyword [ rdf:first ?keyword ]}
+order by ?keyword
+"))
+
+knitr::kable(keywords)
+
+```
+
+This gives a list of the functions withs keyword "univar".
+```{r, eval=FALSE}
+univar.name.title.keyword<- data.frame(sparql.rdf( store, "
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix : <http://example.org/Rd/0.1/>
+select distinct ?name ?title ?keyword
+where {
+?s :RdDoc ?col.
+ ?col rdf:rest*/rdf:first ?sname .
+?sname :hasname [ rdf:first ?name ] . 
+?col rdf:rest*/rdf:first ?stitle .
+?stitle :hastitle [ rdf:first ?title ] . 
+ ?col rdf:rest*/rdf:first ?skeyword .
+?skeyword :haskeyword [ rdf:first ?keyword ] . 
+values (?keyword) { ('univar') }
+}
+order by ?name
+"))
+
+knitr::kable(univar.name.title.keyword)
+
+```
+
+This gives a list of the functions with the keywords combined.
+```{r, eval=FALSE}
+univar.name.title.keyword.comb<- data.frame(sparql.rdf( store, "
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix : <http://example.org/Rd/0.1/>
+select distinct ?name ?title (group_concat(?keyword ; separator = ', ') as ?allkeywords)
+where {
+?s :RdDoc ?col.
+?col rdf:rest*/rdf:first ?sname .
+?sname :hasname [ rdf:first ?name ] . 
+OPTIONAL { ?col rdf:rest*/rdf:first ?stitle .
+?stitle :hastitle [ rdf:first ?title ] . }
+OPTIONAL { ?col rdf:rest*/rdf:first ?skeyword .
+?skeyword :haskeyword [ rdf:first ?keyword ] . }
+}
+group by ?name ?title
+order by ?name
+"))
+
+knitr::kable(univar.name.title.keyword.comb)
+
+```
+
+The following executes very slow and/or give "java.lang.OutOfMemoryError: GC overhead limit exceeded".
+
+Each .Rd file is represented as nested collections. So the name, title and keyword can appears any where. This got me trying to use paths to identify the them. Turns out it does not work in first attemps.
+
+```{r, eval=FALSE}
+doc.entries.1<- data.frame(sparql.rdf( store, "
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix : <http://example.org/Rd/0.1/>
+select distinct ?s ?s1
+where {
+?s :RdDoc ?s1 .
+}
+"))
+knitr::kable(doc.entries.1)
+
+slow.1<- data.frame(sparql.rdf( store, "
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix : <http://example.org/Rd/0.1/>
+select distinct ?s ?name ?title
+where {
+?s :RdDoc ?s1 .
+?s1 !(rdf:type)+/:hasname [ rdf:first ?name ] .
+?s1 !(rdf:type)+/:hastitle [ rdf:first ?title ] .
+values(?s) {(:stats_median_Rd)}
+}
+order by ?name
+"))
+knitr::kable(slow.1)
+
+
+slow.2<- data.frame(sparql.rdf( store, "
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix : <http://example.org/Rd/0.1/>
+select distinct ?s ?name ?title
+where {
+{select distinct ?s ?s1 where {?s :RdDoc ?s1 .} limit 2}
+?s1 !(rdf:type)+/:hasname [ rdf:first ?name ] .
+?s1 !(rdf:type)+/:hastitle [ rdf:first ?title ] .
+}
+order by ?name
+"))
+knitr::kable(slow.2)
+
+sparql.rdf( store, "
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix : <http://example.org/Rd/0.1/>
+select distinct *
+where {
+?s :RdDoc/!(rdf:type)+/:hasname [ rdf:first ?name ] .
+?s :RdDoc/!(rdf:type)+/:hastitle [ rdf:first ?title ] .
+}
+order by ?name
+")
+```
+
+
+
+This is what I would like to be able to do; but it was to slow.
+
+```{r, eval=FALSE}
+sparql.rdf( store, '
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix : <http://example.org/Rd/0.1/>
+select distinct *
+where {
+?s :RdDoc/!(rdf:type)+/:hasname [ rdf:first ?name ] .
+?s :RdDoc/!(rdf:type)+/:hastitle [ rdf:first ?title ] .
+?s :RdDoc/!(rdf:type)+/:haskeyword [ rdf:first "ts" ] .
+}
+order by ?name
+')
+```
+
+```{r, eval=FALSE}
+sparql.rdf( store, '
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix : <http://example.org/Rd/0.1/>
+select distinct ?name ?title where {?s :hasname [ rdf:first ?name ]; :hastitle [ rdf:first ?title ] }
+')
+
+
+```

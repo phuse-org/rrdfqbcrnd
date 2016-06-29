@@ -1,0 +1,229 @@
+---
+title: "RRDF gotcha"
+author: "mja@statgroup.dk"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    theme: united
+  pdf_document:
+    toc: true
+    highlight: zenburn
+  md_document:
+    variant: markdown_github
+---
+
+# Setup
+
+First load the package.
+```{r, eval=TRUE}
+library(rrdf)
+library(rrdfancillary)
+```
+
+# Getting information out from a store
+
+```{r, eval=TRUE}
+storeex<- new.rdf(ontology=FALSE)
+query.rq<- '
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX ex:   <http://example.org/>
+SELECT ?s (isIRI(?s) as ?isiri_s) ?p (isIRI(?p) as ?isiri_p)  ?o (isIRI(?o) as ?isiri_o)  (lang(?o) as ?olang) (datatype(?o) as ?idatatype)
+where {
+values (?s ?p ?o) {
+(ex:a ex:p 1)
+(ex:a ex:p 1.0)
+(ex:a ex:p "1.00"^^xsd:float)
+(ex:a ex:p "1.000"^^xsd:double)
+(ex:a ex:p "NaN"^^xsd:float)
+(ex:a ex:p "NaN"^^xsd:double)
+(ex:b ex:p "a")
+(ex:b ex:p "a"@en)
+(ex:b ex:p "a"^^xsd:string)
+("a" "b" "c")
+}
+}
+'
+
+query.res<- sparql.rdf( storeex, query.rq )
+knitr::kable(query.res)
+```
+
+# `sparql.rdf` return result is a character matrix
+
+```{r, eval=TRUE}
+storeex2<- new.rdf(ontology=FALSE)
+query2.rq<- '
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX ex:   <http://example.org/>
+SELECT ?s ?p  ?o  (datatype(?o) as ?idatatype)
+where {
+values (?s ?p ?o) {
+(ex:a ex:p 1)
+(ex:a ex:p 1.0)
+(ex:a ex:p 1.0E0)
+(ex:a ex:p "NaN"^^xsd:double )
+}
+}
+'
+
+query2.res<- sparql.rdf( storeex2, query2.rq )
+knitr::kable(query2.res)
+
+query2.df<- as.data.frame(query2.res, stringsAsFactors=FALSE)
+knitr::kable(query2.df)
+str(query2.df)
+```
+
+So, if the numeric columns are needed, they must explicitely be made by coversion. Below a new column `on` contains the numeric representation of the `o` column.
+```{r, eval=TRUE}
+query21.df<- query2.df
+query21.df$on <- as.numeric(query21.df$o)
+knitr::kable(query21.df)
+Map(mode,query21.df)
+```
+
+
+# Same triple repeated: difference between Apache/Jena Store and SPARQL insert using Apache/Jena
+
+When the exactly same triples are inserted - only one triple remains.
+
+```{r, eval=TRUE}
+store1<- new.rdf(ontology=FALSE)
+
+sparql.rdf( store1, "select ?s ?p ?o (lang(?o) as ?lang) (datatype(?o) as ?datatype) where {?s ?p ?o  }"  )
+
+SPARQLinsert<- '
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+INSERT DATA
+{ 
+  <http://example.org/subject1>  <http://example.org/property1> "mytext"^^xsd:string .
+  <http://example.org/subject1>  <http://example.org/property1> "mytext"^^xsd:string .
+}
+'
+cat(SPARQLinsert,"\n")
+update.rdf( store1, SPARQLinsert )
+sparql.rdf( store1, "select ?s ?p ?o (lang(?o) as ?lang) (datatype(?o) as ?datatype) where {?s ?p ?o  }"  )
+```
+
+Now, of course, it is always better only to store the values once, when it is intended to store one copy.
+
+However, as I thougth that only one trippel is stored, so I was less carefull in some of the code.
+
+Here is what Apache/Jena does when using the RRDF interface.
+```{r, eval=TRUE}
+store2<- new.rdf(ontology=FALSE)
+add.data.triple(
+    store2,
+    subject="http://example.org/subject1",
+    predicate="http://example.org/property1",
+    data="mytext",
+    lang="en"
+)
+
+add.data.triple(
+    store2,
+    subject="http://example.org/subject1",
+    predicate="http://example.org/property1",
+    data="mytext",
+    type="string"
+)
+```
+
+Now query the store:
+```{r, eval=TRUE}
+sparql.rdf( store2, "select ?s ?p ?o where {?s ?p ?o}"  )
+```
+The two rows look identical. The next query also show language and datatype associate with the object.
+```{r, eval=TRUE}
+sparql.rdf( store2, "select ?s ?p ?o (lang(?o) as ?lang) (datatype(?o) as ?datatype) where {?s ?p ?o  }"  )
+```
+The same tripel appears twice! That learned me that the language and data type are important. They make a difference, so to speak.
+
+
+Now using the same datatype, `string`, gives two triples again.
+```{r, eval=TRUE}
+store3<- new.rdf(ontology=FALSE)
+add.data.triple(
+    store3,
+    subject="http://example.org/subject1",
+    predicate="http://example.org/property1",
+    data="mytext",
+    type="string"
+)
+
+add.data.triple(
+    store3,
+    subject="http://example.org/subject1",
+    predicate="http://example.org/property1",
+    data="mytext",
+    type="string"
+)
+
+sparql.rdf( store3, "select ?s ?p ?o where {?s ?p ?o}"  )
+sparql.rdf( store3, "select ?s ?p ?o (lang(?o) as ?lang) (datatype(?o) as ?datatype) where {?s ?p ?o  }"  )
+```
+
+
+Mixing `INSERT DATA` and RRDF `add.data.triple gives` same result - two triples.
+
+```{r, eval=TRUE}
+store4<- new.rdf(ontology=FALSE)
+
+SPARQLinsert<- '
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+INSERT DATA
+{ 
+  <http://example.org/subject1>  <http://example.org/property1> "mytext"^^xsd:string .
+}
+'
+update.rdf( store4, SPARQLinsert )
+sparql.rdf( store4, "select ?s ?p ?o (lang(?o) as ?lang) (datatype(?o) as ?datatype) where {?s ?p ?o  }"  )
+```
+One triple inserted, one triple in the store. Fine!
+
+Now add one triple - exactly the same as the previos.
+```{r, eval=TRUE}
+add.data.triple(
+    store4,
+    subject="http://example.org/subject1",
+    predicate="http://example.org/property1",
+    data="mytext",
+    type="string"
+)
+
+sparql.rdf( store4, "select ?s ?p ?o (lang(?o) as ?lang) (datatype(?o) as ?datatype) where {?s ?p ?o  }"  )
+
+```
+Two triples in the store.
+
+What if doing two `INSERT DATA`?
+```{r, eval=TRUE}
+store5<- new.rdf(ontology=FALSE)
+
+sparql.rdf( store5, "select ?s ?p ?o (lang(?o) as ?lang) (datatype(?o) as ?datatype) where {?s ?p ?o  }"  )
+
+SPARQLinsert<- '
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+INSERT DATA
+{ 
+  <http://example.org/subject1>  <http://example.org/property1> "mytext"^^xsd:string .
+}
+'
+update.rdf( store5, SPARQLinsert )
+sparql.rdf( store5, "select ?s ?p ?o (lang(?o) as ?lang) (datatype(?o) as ?datatype) where {?s ?p ?o  }"  )
+```
+One triple - as expected, only triple was inserted.
+
+```{r, eval=TRUE}
+update.rdf( store5, SPARQLinsert )
+sparql.rdf( store5, "select ?s ?p ?o (lang(?o) as ?lang) (datatype(?o) as ?datatype) where {?s ?p ?o  }"  )
+```
+One triple - as expected, as the triple already existed.
+
+
+Lessons learned:
+
+* Apache/Jena interface R to Java behaves differently than Apache Jena handling of Update Scripts.
+
+* Be carefull when changing code.

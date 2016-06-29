@@ -1,0 +1,183 @@
+---
+title: "SPARQL scripts for RDF data cubes"
+author: "mja@statgroup.dk"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    theme: united
+  pdf_document:
+    toc: true
+    highlight: zenburn
+  md_document:
+    variant: markdown_github
+---
+
+# SPARQL scripts for the demographics cube (DC-DEMO-sample.ttl)
+
+## Setup
+
+First load the package.
+```{r, eval=TRUE}
+library(knitr)
+library(rrdfancillary)
+devtools::load_all(pkg="../..")
+```
+
+## Internals
+
+The display of SPARQL script in markdown is done by first creating a chunk, and then using the chunk with the highlight engine in knitr. The advantage of this approach is that all formatting is handled by external packages. To make the highlight output work in markdown two blanks has to be added at the end of line according to markdown syntax.
+```{r helperfunction}
+mdwrite<- function( sparqlStatements, refname ) {
+# fn<- file.path(tempdir(), paste0( refname, ".rq" ) )
+fn<- file.path(system.file("extdata/sample-rdf", package="rrdfqbcrndex"), paste0( refname, ".rq" ) )
+cat( paste0("## @knitr ", refname), gsub("\\n", "  \n", sparqlStatements), sep="  \n", file=fn)
+knitr::read_chunk( fn, from=c(1))
+invisible(fn)
+}
+```
+
+```{r, eval=FALSE, echo=FALSE}
+knitr::knit("vignettes/SPARQL-scripts-for-qb.Rmd")
+markdown::markdownToHTML("SPARQL-scripts-for-qb.md",output="SPARQL-scripts-for-qb.html")
+
+# makes very large file, and does not show # at end of < >.
+rmarkdown::render("vignettes/SPARQL-scripts-for-qb.Rmd", rmarkdown::html_document())
+# the > at end of lines are shown as latex commands 
+rmarkdown::render("vignettes/SPARQL-scripts-for-qb.Rmd", rmarkdown::pdf_document())
+
+```
+
+## SPARQL scripts
+
+SPARQL scripts can be used to access the RDF triple store.
+In the package the scripts are made by a function generating the SPARQL
+script. The generated SPARQL scripts are shown here for the
+demographics cube in DC-DEMO-sample.ttl.
+
+The turtle file and the scrips are stored in
+```{r}
+system.file("extdata/sample-xpt", package="rrdfqbcrndex")
+```
+
+## Setup for generating SPARQL scripts for the demographics cube (DC-DEMO-sample.TTL)
+
+The DEMO data exists as a turtle file in the sample-rdf directory.
+
+```{r}
+dataCubeFile<- system.file("extdata/sample-rdf", "DC-DEMO-sample.ttl", package="rrdfqbcrndex")
+store <- new.rdf()  # Initialize
+cat("Loading ", dataCubeFile, "\n")
+temp<-load.rdf(dataCubeFile, format="TURTLE", appendTo= store)
+summarize.rdf(store)
+```
+
+For the functions in the package the datasets definition in the cube is needed.
+```{r}
+dsdName<- GetDsdNameFromCube( store )
+domainName<- GetDomainNameFromCube( store )
+forsparqlprefix<- GetForSparqlPrefix( domainName )
+```
+
+## SPARQL query for codelists in RDF data cube
+
+The SPARQL query for the dimensions is made by the function GetDimensionsSparqlQuery.
+```{r}
+codelistRq <- GetCodeListSparqlQuery( forsparqlprefix, dsdName )
+mdwrite( codelistRq, "DEMOcodelist" )
+```
+
+```{r DEMOcodelist, results='asis', engine='highlight', engine.opts='-S n3 --inline-css'}
+```    
+
+Executing the SPARQL query gives:
+
+```{r}
+codelists<- sparql.rdf(store, codelistRq)
+knitr::kable(codelists,caption="Codelists")
+```
+
+
+## SPARQL query for dimensions in RDF data cube
+
+The SPARQL query for the dimensions is made by the function GetDimensionsSparqlQuery.
+```{r}
+dimensionsRq <- GetDimensionsSparqlQuery( forsparqlprefix )
+mdwrite( dimensionsRq, "DEMOdimensions" )
+```
+
+```{r DEMOdimensions, results='asis', engine='highlight', engine.opts='-S n3 --inline-css'}
+```    
+
+Executing the SPARQL query gives:
+
+```{r}
+dimensions<- sparql.rdf(store, dimensionsRq)
+knitr::kable(dimensions,col.names=c("dimension"),caption="Dimensions")
+```
+
+
+## SPARQL query for attributes in RDF data cube
+
+The SPARQL query for the attributes is made by the function GetAttributesSparqlQuery.
+```{r}
+attributesRq<- GetAttributesSparqlQuery( forsparqlprefix )
+mdwrite( attributesRq, "DEMOattributes" )
+```
+
+```{r DEMOattributes, results='asis', engine='highlight', engine.opts='-S n3 --inline-css'}
+```    
+
+Executing the SPARQL query gives:
+
+```{r}
+attributes<- sparql.rdf(store, attributesRq)
+knitr::kable(attributes,col.names=c("attribute"),caption="Attributes")
+```
+
+## SPARQL query for observations from RDF data cube in workbook format
+
+The SPARQL query for the attributes is made by the function
+GetAttributesSparqlQuery, where the domainName, dimensions and
+attributes for the cube is passed as parameters.
+
+```{r}
+observationsRq<- GetObservationsSparqlQuery( forsparqlprefix, domainName, dimensions, attributes )
+mdwrite( observationsRq, "DEMOobservations" )
+```
+
+```{r DEMOobservations, results='asis', engine='highlight', engine.opts='-S n3 --inline-css'}
+```    
+
+The first 2 rows of result of the query is:
+
+```{r}
+observations<- data.frame(sparql.rdf(store, observationsRq),stringsAsFactors=FALSE)
+knitr::kable(head(observations,2),caption="Observations (only 2)")
+```
+
+# TODO(mja): SPARQL scripts parametrised
+
+This vignettes shows the contents of the scripts. Some of the scripts
+are parametrised by one or more parameters. The parameter are shown
+with as $p, $q etc, following the same convention as in the
+(http://www.w3.org/TR/vocab-data-cube/#ic-20)[RDF Data Cube Vocabulary]. This
+does not really work here, as some of the parameters in the R
+functions are intended for vectors with more than one parameter.
+
+# TODO(mja): Generating this output using the information in the documentation
+
+TODO(mja): enter the commands here as example in each of the .Rd files.
+Then the output here can be generated from the .Rd files.
+
+```{r, eval=FALSE, echo=FALSE}
+db <- Rd_db("rrdfqbcrndex")
+keywords <- lapply(db, tools:::.Rd_get_metadata, "keyword")
+db$qbIClist.Rd
+tools:::RdTags(db$qbIClist.Rd)
+titles <- lapply(db, tools:::.Rd_get_metadata, "title")
+arguments <- lapply(db, tools:::.Rd_get_metadata, "arguments")
+names <- lapply(db, tools:::.Rd_get_metadata, "name")
+dofor<-grep("sparql",titles,ignore.case=TRUE) 
+cbind(titles[dofor],arguments[dofor])
+```

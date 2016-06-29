@@ -1,0 +1,206 @@
+---
+title: "Show the procedure codelist"
+author: "PhuseSubTeamAnalysisResults@example.org"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    theme: united
+  pdf_document:
+    toc: true
+    highlight: zenburn
+  md_document:
+    variant: markdown_github
+---
+
+## Introduction
+This vignette shows
+- the procedure codelist
+
+# Setup
+
+```{r}
+library(rrdfancillary)
+devtools::load_all(pkg="../..")
+library(rrdfqb)
+```
+
+# Create RDF data cube
+The RDF data cube will be created from two data.frames containing data and metadata.
+
+## Define data
+The data are defined as data frame, and the data frame is displayed.
+```{r}
+thisGetDescrStatProcedure<- GetDescrStatProcedure()
+procedureName<- gsub( "code:procedure-", "", names(thisGetDescrStatProcedure))
+obsData<- data.frame(
+  category=rep( "AA-group", length(procedureName)),
+  procedure=procedureName,
+  factor=rep( "VARA", length(procedureName)),
+  unit=rep( "Not given", length(procedureName)),
+  denominator=rep( " ", length(procedureName)),
+  measure=seq(length(procedureName)),
+  stringsAsFactors=FALSE  )
+knitr::kable(obsData)
+```
+
+## Define meta data
+The metadata used for generating the RDF data cube are also defined as data frame and displayed.
+```{r}
+cubeMetadata<- data.frame(
+  compType=c("dimension", "dimension", "dimension", "unit", "denominator", "measure", "metadata"),
+  compName=c("category", "procedure", "factor", "attribute", "attribute", "measure", "domainName"),
+  codeType=c("DATA", "DATA", "DATA", " ", " ", "<NA>","<NA>"),
+  nciDomainValue=c(" "," "," "," ", " ", " "," "),
+  compLabel=c("Category", "Statistical procedure", "Type of procedure", "Result", "Unit", "Denominator", "EXAMPLE"),
+  Comment=c(" "," "," "," "," "," "," "),
+  stringsAsFactors=FALSE  )
+knitr::kable(cubeMetadata)
+```
+
+## Create RDF data cube
+
+The RDF data cube for the data above is created using
+```{r}
+outcube<- BuildCubeFromDataFrames(cubeMetadata, obsData )
+```
+This shows a simple use of the BuildCubeFromDataFrames function. 
+The warning message from log4j can be ignored.
+
+The RDF data cube is serialized in turtle format and stored as a text file in
+```{r}
+cat(normalizePath(outcube),"\n")
+```
+
+# Query the cube using SPARQL
+
+Now take a look at the generated cubes by loading the turle file.
+
+```{r}
+dataCubeFile<- outcube
+```
+
+The rest of the code only depends on the value of dataCubeFile.
+The code demonstrates the use of the rrdf library.
+
+```{r}
+cube <- new.rdf()  # Initialize
+temp<-load.rdf(dataCubeFile, format="TURTLE", appendTo= cube)
+summarize.rdf(cube)
+```
+
+The next statements are needed for the current implementation of the cube, and may change in future versions.
+```{r}
+## TODO: reconsider the use of domain specific prefixes
+dsdName<- GetDsdNameFromCube( cube )
+domainName<- GetDomainNameFromCube( cube )
+cat("dsdName ", dsdName, ", domainName ", domainName, "\n" )
+
+prefixlist<- Get.prefixlist.from.df(GetForSparqlPrefix.as.df(domainName=domainName))
+forsparqlprefix<- GetForSparqlPrefix( domainName )
+cat(forsparqlprefix,"\n")
+```
+
+The variable forsparqlprefix contains the prefix statements applicable
+for the present data cube. The use of prefixes makes the SPARQL query
+shorter, and more readable. The present version of the package defines
+namespaces dccs: and ds: where the domainname is included.
+TODO: Consider other approach for including the domainname, or use other concept.
+
+## Add `rdfs:seeAlso` for descriptive statistics
+
+```{r}
+        add.triple(cube,
+                   paste0(prefixlist$prefixCODE, "procedure-median"),
+                   paste0(prefixlist$prefixRDFS,"seeAlso" ),
+                   "purl.obolibrary.org/obo/OBI_0200119")
+        add.triple(cube,
+                   paste0(prefixlist$prefixCODE, "procedure-stddev"),
+                   paste0(prefixlist$prefixRDFS,"seeAlso" ),
+                   "purl.obolibrary.org/obo/STATO_0000037")
+        add.triple(cube,
+                   paste0(prefixlist$prefixCODE, "procedure-mean"),
+                   paste0(prefixlist$prefixRDFS,"seeAlso" ),
+                   "purl.obolibrary.org/obo/IAO_0000125")
+```
+
+
+## Getting all codelists as data.frame
+
+The SPARQL query for codelists are shown in the next output.
+```{r, echo=FALSE}
+codelists.rq<- GetCodeListSparqlQuery( forsparqlprefix, dsdName )
+cat(codelists.rq)
+```
+
+Executing the SPARQL query gives the code list as a data frame.
+```{r, echo=FALSE}
+cube.codelists<- as.data.frame(sparql.rdf(cube, codelists.rq), stringsAsFactors=FALSE)
+
+## TODO instead of gsub make a more straightforward way
+## TODO this involves a new version of the ph.recode function
+## TODO(mja): change the GetCodeListSparqlQuery to plain text versions of the clc also
+cube.codelists$clc<- gsub("code:","",cube.codelists$cl)
+knitr::kable(print(cube.codelists[,c("vn", "clc", "clprefLabel")]))
+
+```
+
+## Getting the procedure codelist as data.frame
+
+```{r, echo=FALSE}
+procedure.codelists.rq<- paste( forsparqlprefix,
+'
+select ?s ?p ?o
+where { 
+?s ?p ?o .
+?s a code:Procedure
+ }    
+',
+"\n"
+)
+
+cat(procedure.codelists.rq)
+```
+
+Executing the SPARQL query gives the code list as a data frame.
+```{r, echo=FALSE}
+cube.procedure.codelists<- as.data.frame(sparql.rdf(cube, procedure.codelists.rq), stringsAsFactors=FALSE)
+knitr::kable(print(cube.procedure.codelists))
+
+```
+
+## Get the procedure codelist as turtle with Stato References
+
+```{r, echo=FALSE}
+construct.codelists.rq<- paste( forsparqlprefix,
+'
+construct { ?s ?p ?o } 
+where { 
+{ ?s ?p ?o . ?s a code:Procedure. }
+union
+{ ?s ?p ?o . values(?s) {(code:Procedure)} }
+ } 
+',
+"\n"
+)
+
+cat(construct.codelists.rq)
+```
+
+```{r, echo=FALSE}
+procedure.codelist.store<- construct.rdf(cube, construct.codelists.rq)
+targetDir<- system.file("extdata/sample-rdf", package="rrdfqbcrnd0")
+procedure.codelist.fn <- file.path(targetDir,"procedure-code-list.ttl" ) # Full path to file
+outcodelist<- save.rdf(procedure.codelist.store, procedure.codelist.fn, format="TURTLE")
+```
+
+The RDF data cube is serialized in turtle format and stored as a text file in
+```{r}
+cat(normalizePath(outcodelist),"\n")
+```
+
+The triples are:
+```{r}
+cat(readLines(procedure.codelist.fn),"\n")
+```
+

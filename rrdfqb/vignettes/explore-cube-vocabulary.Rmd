@@ -1,0 +1,227 @@
+---
+title: "Explore RDF data cube vocabulary"
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{Explore RDF data cube vocabulary}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+output:
+  html_document:
+    toc: true
+    theme: united
+  pdf_document:
+    toc: true
+    highlight: zenburn
+  md_document:
+    variant: markdown_github
+---
+
+
+# Explore RDF data cube vocabulary 
+
+This script explores the RDF data cube vocabulary.
+
+## Setup 
+```{r}
+library(rrdfancillary)
+library(rrdfqb)
+library("DiagrammeR")
+```
+
+The following is just a test for Mermaid.
+Mermaid can also include links - see (http://knsv.github.io/mermaid/#interaction)
+```{r, eval=FALSE}
+mermaid.commands<- '
+graph TB
+ qb:Attachable("Attachable(abstract)")
+ qb:Observation(Observation)
+ qb:Attachable-->|text|qb:Observation
+'
+DiagrammeR( mermaid.commands )
+```
+
+# Load the vocabulary
+
+The vocabulary is loaded in to a `rrdf` store with support for inferencing (`ontology=TRUE`).
+Enabeling the inferencing is an advantage when loading an ontology/vocabulary like the RRDF data cube, as the vocabulary may be made expecting inferencing being used.
+
+```{r, results='asis', eval=TRUE}
+qb.fn <- file.path(system.file("extdata/cube-vocabulary-rdf", package="rrdfqb"), "cube.ttl" )
+empty.rdf <- new.rdf(ontology=TRUE)
+cat("Loading from ", normalizePath(qb.fn), "\n" )
+qb.rdf<- load.rdf(qb.fn,"TURTLE",empty.rdf)
+dump.qb.rq<- paste(
+  "SELECT  ?s ?p ?o ",
+  "WHERE { ?s ?p ?o }", sep="\n", collapse="\n"
+)
+cat(dump.qb.rq,"\n")
+cube.triples<- data.frame(sparql.rdf(qb.rdf, dump.qb.rq ), stringsAsFactors=FALSE)
+knitr::kable(cube.triples)
+```
+
+### Classes
+
+First the data are loaded into a `rrdf` store. The code below uses `ontology=FALSE` as only the directly stated triples are of interest for this. 
+
+```{r, results='asis', eval=TRUE}
+empty.rdf <- new.rdf(ontology=FALSE)
+qb.rdf<- load.rdf(qb.fn,"TURTLE",empty.rdf)
+qb.prefix<- '
+PREFIX rdf:            <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX owl:            <http://www.w3.org/2002/07/owl#> 
+PREFIX xsd:            <http://www.w3.org/2001/XMLSchema#> 
+PREFIX skos:           <http://www.w3.org/2004/02/skos/core#> 
+PREFIX foaf:           <http://xmlns.com/foaf/0.1/> 
+PREFIX scovo:          <http://purl.org/NET/scovo#> 
+PREFIX void:           <http://rdfs.org/ns/void#> 
+PREFIX qb:             <http://purl.org/linked-data/cube#> 
+PREFIX dcterms:        <http://purl.org/dc/terms/> 
+'
+```
+
+Getting an overview of the classes is done as shown below, as suggested in "Learning SPARQL".
+
+```{r, results='asis', eval=TRUE}
+dump.classes.all.rq<- '
+SELECT * 
+WHERE 
+{ 
+  ?class a rdfs:Class .
+  ?class a ?classType
+}
+'
+cat(dump.classes.all.rq,"\n")
+classes.all.df<- data.frame(sparql.rdf(qb.rdf, paste( qb.prefix, dump.classes.all.rq, sep="\n" )), stringsAsFactors=FALSE)
+knitr::kable(classes.all.df)
+```
+
+For the present purpose only the class names are of interest.
+```{r, results='asis', eval=TRUE}
+dump.classes.distinct.rq<- '
+SELECT DISTINCT ?class ?label
+WHERE 
+{ 
+  ?class a rdfs:Class .
+  ?class a ?classType .
+  OPTIONAL {?class rdfs:label ?label}
+}
+'
+cat(dump.classes.distinct.rq,"\n")
+classes.distinct.df<- data.frame(sparql.rdf(qb.rdf, paste( qb.prefix, dump.classes.distinct.rq, sep="\n" )), stringsAsFactors=FALSE)
+knitr::kable(classes.distinct.df)
+```
+
+For the present purpose only the class names are of interest.
+```{r, results='asis', eval=TRUE}
+dump.classes.subClassOf.rq<- '
+SELECT DISTINCT ?class ?subClassOf 
+WHERE 
+{ 
+  ?class a rdfs:Class .
+  ?class rdfs:subClassOf ?subClassOf .
+FILTER ( ?subClassOf != rdf:Property )
+}
+'
+cat(dump.classes.subClassOf.rq,"\n")
+classes.subClassOf.df<- data.frame(sparql.rdf(qb.rdf, paste( qb.prefix, dump.classes.subClassOf.rq, sep="\n" )), stringsAsFactors=FALSE)
+knitr::kable(classes.subClassOf.df)
+```
+
+Finally, generate the `mermaid` commands for showing the class structure.
+```{r, eval=TRUE}
+mermaid.commands<- paste(
+           "graph TB", 
+           paste( classes.distinct.df$class,'("', classes.distinct.df$label, '")', sep="", collapse=";\n" ),
+          paste( classes.subClassOf.df$subClassOf, "-->", classes.subClassOf.df$class, sep="", collapse=";\n" ),
+          sep=" \n", collapse="\n")
+cat(mermaid.commands,"\n")
+```
+
+Then display the graph.
+```{r, eval=TRUE}
+DiagrammeR( mermaid.commands )
+
+```
+
+## Domain and range with properties
+
+The query below removes the blank nodes, as it only occurs for the `qb:codeList`.
+```{r, results='asis', eval=TRUE}
+dump.drp.rq<- '
+SELECT DISTINCT ?domain ?property ?range # ( !isBlank(?range) as ?b)
+WHERE 
+{ 
+  ?property a rdf:Property .
+  ?property rdfs:domain ?domain .
+  ?property rdfs:range ?range .
+FILTER (  !isBlank(?range) )
+}
+'
+cat(dump.drp.rq,"\n")
+drp.df<- data.frame(sparql.rdf(qb.rdf, paste( qb.prefix, dump.drp.rq, sep="\n" )), stringsAsFactors=FALSE)
+knitr::kable(drp.df)
+```
+
+Finally, generate the `mermaid` commands for showing the class structure.
+```{r, eval=TRUE}
+mermaid.commands<- paste(
+           "graph TB", 
+           paste( drp.df$domain,'("', drp.df$domain, '")', sep="", collapse=";\n" ),
+           paste( drp.df$range,'("', drp.df$range, '")', sep="", collapse=";\n" ),
+          paste( drp.df$domain, "-->", '|"', drp.df$property, '"|', drp.df$range, sep="", collapse=";\n" ),
+          sep=" \n", collapse="\n")
+cat(mermaid.commands,"\n")
+```
+
+Then display the graph.
+```{r, eval=TRUE}
+DiagrammeR( mermaid.commands )
+
+```
+
+
+
+```{r, eval=FALSE}
+mermaid.commands<- '
+graph TB 
+qb:Slice("qb:Slice");
+rdf:Property("rdf:Property");
+qb:HierarchicalCodeList("qb:HierarchicalCodeList");
+qb:HierarchicalCodeList-->|"qb:parentChildProperty"|rdf:Property;
+qb:DataSet("qb:DataSet");
+qb:Observation("qb:Observation");
+qb:ComponentProperty("qb:ComponentProperty");
+qb:ObservationGroup("qb:ObservationGroup");
+qb:DataSet("qb:DataSet");
+qb:ComponentSpecification("qb:ComponentSpecification");
+qb:DataStructureDefinition("qb:DataStructureDefinition");
+qb:ComponentSet("qb:ComponentSet") 
+qb:SliceKey("qb:SliceKey");
+rdfs:Class("rdfs:Class");
+qb:DataStructureDefinition("qb:DataStructureDefinition");
+xsd:int("xsd:int");
+qb:DataSet("qb:DataSet");
+skos:Concept("skos:Concept");
+qb:Observation("qb:Observation");
+qb:Slice("qb:Slice");
+xsd:boolean("xsd:boolean");
+qb:SliceKey("qb:SliceKey");
+qb:ComponentProperty("qb:ComponentProperty") 
+qb:Slice-->|"qb:sliceStructure"|qb:SliceKey;
+qb:ComponentSpecification-->|"qb:componentAttachment"|rdfs:Class;
+qb:DataSet-->|"qb:structure"|qb:DataStructureDefinition;
+qb:ComponentSpecification-->|"qb:order"|xsd:int;
+qb:Observation-->|"qb:dataSet"|qb:DataSet;
+qb:ComponentProperty-->|"qb:concept"|skos:Concept;
+qb:ObservationGroup-->|"qb:observation"|qb:Observation;
+qb:DataSet-->|"qb:slice"|qb:Slice;
+qb:ComponentSpecification-->|"qb:componentRequired"|xsd:boolean;
+qb:DataStructureDefinition-->|"qb:component"|qb:ComponentSpecification;
+qb:DataStructureDefinition-->|"qb:sliceKey"|qb:SliceKey;
+qb:ComponentSet-->|"qb:componentProperty"|qb:ComponentProperty
+'
+
+DiagrammeR( mermaid.commands )
+
+```

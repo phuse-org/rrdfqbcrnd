@@ -1,0 +1,336 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.hsqldb.jdbc.JDBCDriver";
+	d2rq:jdbcDSN "jdbc:hsqldb:mem:temp";
+	d2rq:startupSQLScript <file:/tmp/RtmpkOrkzf/file699e1a9d76c8>;
+	.
+
+# Table ADSL
+map:ADSL a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ADSL/@@ADSL.USUBJID|urlify@@";
+	d2rq:class vocab:ADSL;
+	d2rq:classDefinitionLabel "ADSL";
+	.
+map:ADSL__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ADSL #@@ADSL.USUBJID@@";
+	.
+map:ADSL_AGE a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_AGE;
+	d2rq:propertyDefinitionLabel "ADSL AGE";
+	d2rq:column "ADSL.AGE";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_AGEGR1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_AGEGR1;
+	d2rq:propertyDefinitionLabel "ADSL AGEGR1";
+	d2rq:column "ADSL.AGEGR1";
+	.
+map:ADSL_AGEGR1N a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_AGEGR1N;
+	d2rq:propertyDefinitionLabel "ADSL AGEGR1N";
+	d2rq:column "ADSL.AGEGR1N";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_AGEU a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_AGEU;
+	d2rq:propertyDefinitionLabel "ADSL AGEU";
+	d2rq:column "ADSL.AGEU";
+	.
+map:ADSL_ARM a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_ARM;
+	d2rq:propertyDefinitionLabel "ADSL ARM";
+	d2rq:column "ADSL.ARM";
+	.
+map:ADSL_AVGDD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_AVGDD;
+	d2rq:propertyDefinitionLabel "ADSL AVGDD";
+	d2rq:column "ADSL.AVGDD";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_BMIBL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_BMIBL;
+	d2rq:propertyDefinitionLabel "ADSL BMIBL";
+	d2rq:column "ADSL.BMIBL";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_BMIBLGR1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_BMIBLGR1;
+	d2rq:propertyDefinitionLabel "ADSL BMIBLGR1";
+	d2rq:column "ADSL.BMIBLGR1";
+	.
+map:ADSL_COMP16FL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_COMP16FL;
+	d2rq:propertyDefinitionLabel "ADSL COMP16FL";
+	d2rq:column "ADSL.COMP16FL";
+	.
+map:ADSL_COMP24FL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_COMP24FL;
+	d2rq:propertyDefinitionLabel "ADSL COMP24FL";
+	d2rq:column "ADSL.COMP24FL";
+	.
+map:ADSL_COMP8FL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_COMP8FL;
+	d2rq:propertyDefinitionLabel "ADSL COMP8FL";
+	d2rq:column "ADSL.COMP8FL";
+	.
+map:ADSL_CUMDOSE a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_CUMDOSE;
+	d2rq:propertyDefinitionLabel "ADSL CUMDOSE";
+	d2rq:column "ADSL.CUMDOSE";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_DCDECOD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_DCDECOD;
+	d2rq:propertyDefinitionLabel "ADSL DCDECOD";
+	d2rq:column "ADSL.DCDECOD";
+	.
+map:ADSL_DCREASCD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_DCREASCD;
+	d2rq:propertyDefinitionLabel "ADSL DCREASCD";
+	d2rq:column "ADSL.DCREASCD";
+	.
+map:ADSL_DISCONFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_DISCONFL;
+	d2rq:propertyDefinitionLabel "ADSL DISCONFL";
+	d2rq:column "ADSL.DISCONFL";
+	.
+map:ADSL_DISONSDT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_DISONSDT;
+	d2rq:propertyDefinitionLabel "ADSL DISONSDT";
+	d2rq:column "ADSL.DISONSDT";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_DSRAEFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_DSRAEFL;
+	d2rq:propertyDefinitionLabel "ADSL DSRAEFL";
+	d2rq:column "ADSL.DSRAEFL";
+	.
+map:ADSL_DTHFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_DTHFL;
+	d2rq:propertyDefinitionLabel "ADSL DTHFL";
+	d2rq:column "ADSL.DTHFL";
+	.
+map:ADSL_DURDIS a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_DURDIS;
+	d2rq:propertyDefinitionLabel "ADSL DURDIS";
+	d2rq:column "ADSL.DURDIS";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_DURDSGR1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_DURDSGR1;
+	d2rq:propertyDefinitionLabel "ADSL DURDSGR1";
+	d2rq:column "ADSL.DURDSGR1";
+	.
+map:ADSL_EDUCLVL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_EDUCLVL;
+	d2rq:propertyDefinitionLabel "ADSL EDUCLVL";
+	d2rq:column "ADSL.EDUCLVL";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_EFFFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_EFFFL;
+	d2rq:propertyDefinitionLabel "ADSL EFFFL";
+	d2rq:column "ADSL.EFFFL";
+	.
+map:ADSL_ETHNIC a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_ETHNIC;
+	d2rq:propertyDefinitionLabel "ADSL ETHNIC";
+	d2rq:column "ADSL.ETHNIC";
+	.
+map:ADSL_HEIGHTBL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_HEIGHTBL;
+	d2rq:propertyDefinitionLabel "ADSL HEIGHTBL";
+	d2rq:column "ADSL.HEIGHTBL";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_ITTFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_ITTFL;
+	d2rq:propertyDefinitionLabel "ADSL ITTFL";
+	d2rq:column "ADSL.ITTFL";
+	.
+map:ADSL_MMSETOT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_MMSETOT;
+	d2rq:propertyDefinitionLabel "ADSL MMSETOT";
+	d2rq:column "ADSL.MMSETOT";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_RACE a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_RACE;
+	d2rq:propertyDefinitionLabel "ADSL RACE";
+	d2rq:column "ADSL.RACE";
+	.
+map:ADSL_RACEN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_RACEN;
+	d2rq:propertyDefinitionLabel "ADSL RACEN";
+	d2rq:column "ADSL.RACEN";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_RFENDT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_RFENDT;
+	d2rq:propertyDefinitionLabel "ADSL RFENDT";
+	d2rq:column "ADSL.RFENDT";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_RFENDTC a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_RFENDTC;
+	d2rq:propertyDefinitionLabel "ADSL RFENDTC";
+	d2rq:column "ADSL.RFENDTC";
+	.
+map:ADSL_RFSTDTC a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_RFSTDTC;
+	d2rq:propertyDefinitionLabel "ADSL RFSTDTC";
+	d2rq:column "ADSL.RFSTDTC";
+	.
+map:ADSL_SAFFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_SAFFL;
+	d2rq:propertyDefinitionLabel "ADSL SAFFL";
+	d2rq:column "ADSL.SAFFL";
+	.
+map:ADSL_SEX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_SEX;
+	d2rq:propertyDefinitionLabel "ADSL SEX";
+	d2rq:column "ADSL.SEX";
+	.
+map:ADSL_SITEGR1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_SITEGR1;
+	d2rq:propertyDefinitionLabel "ADSL SITEGR1";
+	d2rq:column "ADSL.SITEGR1";
+	.
+map:ADSL_SITEID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_SITEID;
+	d2rq:propertyDefinitionLabel "ADSL SITEID";
+	d2rq:column "ADSL.SITEID";
+	.
+map:ADSL_STUDYID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_STUDYID;
+	d2rq:propertyDefinitionLabel "ADSL STUDYID";
+	d2rq:column "ADSL.STUDYID";
+	.
+map:ADSL_SUBJID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_SUBJID;
+	d2rq:propertyDefinitionLabel "ADSL SUBJID";
+	d2rq:column "ADSL.SUBJID";
+	.
+map:ADSL_TRT01A a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_TRT01A;
+	d2rq:propertyDefinitionLabel "ADSL TRT01A";
+	d2rq:column "ADSL.TRT01A";
+	.
+map:ADSL_TRT01AN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_TRT01AN;
+	d2rq:propertyDefinitionLabel "ADSL TRT01AN";
+	d2rq:column "ADSL.TRT01AN";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_TRT01P a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_TRT01P;
+	d2rq:propertyDefinitionLabel "ADSL TRT01P";
+	d2rq:column "ADSL.TRT01P";
+	.
+map:ADSL_TRT01PN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_TRT01PN;
+	d2rq:propertyDefinitionLabel "ADSL TRT01PN";
+	d2rq:column "ADSL.TRT01PN";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_TRTDUR a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_TRTDUR;
+	d2rq:propertyDefinitionLabel "ADSL TRTDUR";
+	d2rq:column "ADSL.TRTDUR";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_TRTEDT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_TRTEDT;
+	d2rq:propertyDefinitionLabel "ADSL TRTEDT";
+	d2rq:column "ADSL.TRTEDT";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_TRTSDT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_TRTSDT;
+	d2rq:propertyDefinitionLabel "ADSL TRTSDT";
+	d2rq:column "ADSL.TRTSDT";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_USUBJID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_USUBJID;
+	d2rq:propertyDefinitionLabel "ADSL USUBJID";
+	d2rq:column "ADSL.USUBJID";
+	.
+map:ADSL_VISIT1DT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_VISIT1DT;
+	d2rq:propertyDefinitionLabel "ADSL VISIT1DT";
+	d2rq:column "ADSL.VISIT1DT";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_VISNUMEN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_VISNUMEN;
+	d2rq:propertyDefinitionLabel "ADSL VISNUMEN";
+	d2rq:column "ADSL.VISNUMEN";
+	d2rq:datatype xsd:double;
+	.
+map:ADSL_WEIGHTBL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADSL;
+	d2rq:property vocab:ADSL_WEIGHTBL;
+	d2rq:propertyDefinitionLabel "ADSL WEIGHTBL";
+	d2rq:column "ADSL.WEIGHTBL";
+	d2rq:datatype xsd:double;
+	.
+

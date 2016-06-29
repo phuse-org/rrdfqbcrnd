@@ -1,0 +1,69 @@
+"trt01a","race","factor","procedure","sex","saffl","unit","denominator","measure"
+"_ALL_","_ALL_","quantity","count","F","Y","_NULL_","_ALL_",143
+"_ALL_","_ALL_","quantity","count","M","Y","_NULL_","_ALL_",111
+"_ALL_","AMERICAN INDIAN OR ALASKA NATIVE","quantity","count","_ALL_","Y","_NULL_","_ALL_",1
+"_ALL_","BLACK OR AFRICAN AMERICAN","quantity","count","_ALL_","Y","_NULL_","_ALL_",23
+"_ALL_","WHITE","quantity","count","_ALL_","Y","_NULL_","_ALL_",230
+"Placebo","_ALL_","AGE","max","_ALL_","Y","YEARS","_NULL_",89
+"Placebo","_ALL_","AGE","mean","_ALL_","Y","YEARS","_NULL_",75.2093023255814
+"Placebo","_ALL_","AGE","median","_ALL_","Y","YEARS","_NULL_",76
+"Placebo","_ALL_","AGE","min","_ALL_","Y","YEARS","_NULL_",52
+"Placebo","_ALL_","AGE","stdev","_ALL_","Y","YEARS","_NULL_",8.59016712714194
+"Placebo","_ALL_","proportion","percent","F","Y","_NULL_","SEX",61.6279069767442
+"Placebo","_ALL_","proportion","percent","M","Y","_NULL_","SEX",38.3720930232558
+"Placebo","_ALL_","quantity","count","_ALL_","Y","_NULL_","_ALL_",86
+"Placebo","_ALL_","quantity","count","F","Y","_NULL_","_ALL_",53
+"Placebo","_ALL_","quantity","count","M","Y","_NULL_","_ALL_",33
+"Placebo","_ALL_","WEIGHTBL","max","_ALL_","Y","KG","_NULL_",86.2
+"Placebo","_ALL_","WEIGHTBL","mean","_ALL_","Y","KG","_NULL_",62.7593023255814
+"Placebo","_ALL_","WEIGHTBL","median","_ALL_","Y","KG","_NULL_",60.55
+"Placebo","_ALL_","WEIGHTBL","min","_ALL_","Y","KG","_NULL_",34
+"Placebo","_ALL_","WEIGHTBL","stdev","_ALL_","Y","KG","_NULL_",12.7715435329253
+"Placebo","AMERICAN INDIAN OR ALASKA NATIVE","proportion","percent","_ALL_","Y","_NULL_","RACE",0
+"Placebo","AMERICAN INDIAN OR ALASKA NATIVE","quantity","count","_ALL_","Y","_NULL_","_ALL_",0
+"Placebo","BLACK OR AFRICAN AMERICAN","proportion","percent","_ALL_","Y","_NULL_","RACE",9.30232558139535
+"Placebo","BLACK OR AFRICAN AMERICAN","quantity","count","_ALL_","Y","_NULL_","_ALL_",8
+"Placebo","WHITE","proportion","percent","_ALL_","Y","_NULL_","RACE",90.6976744186046
+"Placebo","WHITE","quantity","count","_ALL_","Y","_NULL_","_ALL_",78
+"Xanomeline High Dose","_ALL_","AGE","max","_ALL_","Y","YEARS","_NULL_",88
+"Xanomeline High Dose","_ALL_","AGE","mean","_ALL_","Y","YEARS","_NULL_",74.3809523809524
+"Xanomeline High Dose","_ALL_","AGE","median","_ALL_","Y","YEARS","_NULL_",76
+"Xanomeline High Dose","_ALL_","AGE","min","_ALL_","Y","YEARS","_NULL_",56
+"Xanomeline High Dose","_ALL_","AGE","stdev","_ALL_","Y","YEARS","_NULL_",7.88609384869824
+"Xanomeline High Dose","_ALL_","proportion","percent","F","Y","_NULL_","SEX",47.6190476190476
+"Xanomeline High Dose","_ALL_","proportion","percent","M","Y","_NULL_","SEX",52.3809523809524
+"Xanomeline High Dose","_ALL_","quantity","count","_ALL_","Y","_NULL_","_ALL_",84
+"Xanomeline High Dose","_ALL_","quantity","count","F","Y","_NULL_","_ALL_",40
+"Xanomeline High Dose","_ALL_","quantity","count","M","Y","_NULL_","_ALL_",44
+"Xanomeline High Dose","_ALL_","WEIGHTBL","max","_ALL_","Y","KG","_NULL_",108
+"Xanomeline High Dose","_ALL_","WEIGHTBL","mean","_ALL_","Y","KG","_NULL_",70.0047619047619
+"Xanomeline High Dose","_ALL_","WEIGHTBL","median","_ALL_","Y","KG","_NULL_",69.2
+"Xanomeline High Dose","_ALL_","WEIGHTBL","min","_ALL_","Y","KG","_NULL_",41.7
+"Xanomeline High Dose","_ALL_","WEIGHTBL","stdev","_ALL_","Y","KG","_NULL_",14.6534333717795
+"Xanomeline High Dose","AMERICAN INDIAN OR ALASKA NATIVE","proportion","percent","_ALL_","Y","_NULL_","RACE",1.19047619047619
+"Xanomeline High Dose","AMERICAN INDIAN OR ALASKA NATIVE","quantity","count","_ALL_","Y","_NULL_","_ALL_",1
+"Xanomeline High Dose","BLACK OR AFRICAN AMERICAN","proportion","percent","_ALL_","Y","_NULL_","RACE",10.7142857142857
+"Xanomeline High Dose","BLACK OR AFRICAN AMERICAN","quantity","count","_ALL_","Y","_NULL_","_ALL_",9
+"Xanomeline High Dose","WHITE","proportion","percent","_ALL_","Y","_NULL_","RACE",88.0952380952381
+"Xanomeline High Dose","WHITE","quantity","count","_ALL_","Y","_NULL_","_ALL_",74
+"Xanomeline Low Dose","_ALL_","AGE","max","_ALL_","Y","YEARS","_NULL_",88
+"Xanomeline Low Dose","_ALL_","AGE","mean","_ALL_","Y","YEARS","_NULL_",75.6666666666667
+"Xanomeline Low Dose","_ALL_","AGE","median","_ALL_","Y","YEARS","_NULL_",77.5
+"Xanomeline Low Dose","_ALL_","AGE","min","_ALL_","Y","YEARS","_NULL_",51
+"Xanomeline Low Dose","_ALL_","AGE","stdev","_ALL_","Y","YEARS","_NULL_",8.28605059954093
+"Xanomeline Low Dose","_ALL_","proportion","percent","F","Y","_NULL_","SEX",59.5238095238095
+"Xanomeline Low Dose","_ALL_","proportion","percent","M","Y","_NULL_","SEX",40.4761904761905
+"Xanomeline Low Dose","_ALL_","quantity","count","_ALL_","Y","_NULL_","_ALL_",84
+"Xanomeline Low Dose","_ALL_","quantity","count","F","Y","_NULL_","_ALL_",50
+"Xanomeline Low Dose","_ALL_","quantity","count","M","Y","_NULL_","_ALL_",34
+"Xanomeline Low Dose","_ALL_","WEIGHTBL","max","_ALL_","Y","KG","_NULL_",106.1
+"Xanomeline Low Dose","_ALL_","WEIGHTBL","mean","_ALL_","Y","KG","_NULL_",67.2795180722892
+"Xanomeline Low Dose","_ALL_","WEIGHTBL","median","_ALL_","Y","KG","_NULL_",64.9
+"Xanomeline Low Dose","_ALL_","WEIGHTBL","min","_ALL_","Y","KG","_NULL_",45.4
+"Xanomeline Low Dose","_ALL_","WEIGHTBL","stdev","_ALL_","Y","KG","_NULL_",14.1235986486909
+"Xanomeline Low Dose","AMERICAN INDIAN OR ALASKA NATIVE","proportion","percent","_ALL_","Y","_NULL_","RACE",0
+"Xanomeline Low Dose","AMERICAN INDIAN OR ALASKA NATIVE","quantity","count","_ALL_","Y","_NULL_","_ALL_",0
+"Xanomeline Low Dose","BLACK OR AFRICAN AMERICAN","proportion","percent","_ALL_","Y","_NULL_","RACE",7.14285714285714
+"Xanomeline Low Dose","BLACK OR AFRICAN AMERICAN","quantity","count","_ALL_","Y","_NULL_","_ALL_",6
+"Xanomeline Low Dose","WHITE","proportion","percent","_ALL_","Y","_NULL_","RACE",92.8571428571429
+"Xanomeline Low Dose","WHITE","quantity","count","_ALL_","Y","_NULL_","_ALL_",78

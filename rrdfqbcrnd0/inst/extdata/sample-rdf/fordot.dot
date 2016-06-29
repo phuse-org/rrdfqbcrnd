@@ -1,0 +1,50 @@
+digraph {
+	rankdir = LR;
+	charset="utf-8";
+
+	"Rds:obs014" -> "Rqb:Observation" [ label="rdf:type" ];
+	"Rds:obs014" -> "LStatistic for number of records/Statistics for factor with the dimensions XX|Language: en" [ label="rdfs:comment" ];
+	"Rds:obs014" -> "L14" [ label="rdfs:label" ];
+	"Rds:obs014" -> "Rds:dataset-DEMO" [ label="qb:dataSet" ];
+	"Rds:obs014" -> "L1" [ label="crnd-attribute:cellpartno" ];
+	"Rds:obs014" -> "L2" [ label="crnd-attribute:colno" ];
+	"Rds:obs014" -> "L" [ label="crnd-attribute:denominator" ];
+	"Rds:obs014" -> "L%6.0f" [ label="crnd-attribute:measurefmt" ];
+	"Rds:obs014" -> "L3" [ label="crnd-attribute:rowno" ];
+	"Rds:obs014" -> "LNA" [ label="crnd-attribute:unit" ];
+	"Rds:obs014" -> "Rcode:agegr1-_ALL_" [ label="crnd-dimension:agegr1" ];
+	"Rds:obs014" -> "Rcode:ethnic-_ALL_" [ label="crnd-dimension:ethnic" ];
+	"Rds:obs014" -> "Rcode:factor-quantity" [ label="crnd-dimension:factor" ];
+	"Rds:obs014" -> "Rcode:procedure-count" [ label="crnd-dimension:procedure" ];
+	"Rds:obs014" -> "Rcode:race-_ALL_" [ label="crnd-dimension:race" ];
+	"Rds:obs014" -> "Rcode:sex-M" [ label="crnd-dimension:sex" ];
+	"Rds:obs014" -> "Rcode:trt01a-Xanomeline_Low_Dose" [ label="crnd-dimension:trt01a" ];
+	"Rds:obs014" -> "L34|Datatype: xsd:double" [ label="crnd-measure:measure" ];
+
+	// Resources
+	"Rds:obs014" [ label="ds:obs014", shape = ellipse, color = blue ];
+	"Rqb:Observation" [ label="qb:Observation", shape = ellipse, color = blue ];
+	"Rds:dataset-DEMO" [ label="ds:dataset-DEMO", shape = ellipse, color = blue ];
+	"Rcode:agegr1-_ALL_" [ label="code:agegr1-_ALL_", shape = ellipse, color = blue ];
+	"Rcode:ethnic-_ALL_" [ label="code:ethnic-_ALL_", shape = ellipse, color = blue ];
+	"Rcode:factor-quantity" [ label="code:factor-quantity", shape = ellipse, color = blue ];
+	"Rcode:procedure-count" [ label="code:procedure-count", shape = ellipse, color = blue ];
+	"Rcode:race-_ALL_" [ label="code:race-_ALL_", shape = ellipse, color = blue ];
+	"Rcode:sex-M" [ label="code:sex-M", shape = ellipse, color = blue ];
+	"Rcode:trt01a-Xanomeline_Low_Dose" [ label="code:trt01a-Xanomeline_Low_Dose", shape = ellipse, color = blue ];
+
+	// Anonymous nodes
+
+	// Literals
+	"LStatistic for number of records/Statistics for factor with the dimensions XX|Language: en" [ label="Statistic for number of records/Statistics for factor with the dimensions XX|Language: en", shape = record ];
+	"L14" [ label="14", shape = record ];
+	"L1" [ label="1", shape = record ];
+	"L2" [ label="2", shape = record ];
+	"L" [ label="", shape = record ];
+	"L%6.0f" [ label="%6.0f", shape = record ];
+	"L3" [ label="3", shape = record ];
+	"LNA" [ label="NA", shape = record ];
+	"L34|Datatype: xsd:double" [ label="34|Datatype: xsd:double", shape = record ];
+
+	label="\n\nModel:\n(Unknown)\n\nNamespaces:\ncrnd-measure: http://www.example.org/dc/measure#\ndccs: http://www.example.org/dc/demo/dccs/\ncode: http://www.example.org/dc/code/\ncts: http://rdf.cdisc.org/ct/schema#\npav: http://purl.org/pav\nowl: http://www.w3.org/2002/07/owl#\nxsd: http://www.w3.org/2001/XMLSchema#\nskos: http://www.w3.org/2004/02/skos/core#\nrdfs: http://www.w3.org/2000/01/rdf-schema#\ncrnd-attribute: http://www.example.org/dc/attribute#\nds: http://www.example.org/dc/demo/ds/\nqb: http://purl.org/linked-data/cube#\nmms: http://rdf.cdisc.org/mms#\ncrnd-dimension: http://www.example.org/dc/dimension#\ndct: http://purl.org/dc/terms/\nrdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#\nrrdfqbcrnd0: http://www.example.org/rrdfqbcrnd0/\ndcat: http://www.w3.org/ns/dcat#\nprov: http://www.w3.org/ns/prov#\n";
+}

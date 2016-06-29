@@ -1,0 +1,255 @@
+---
+title: "Create simple RDF data qube"
+author: "PhuseSubTeamAnalysisResults@example.org"
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{Create simple RDF data qube}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Introduction
+This vignette shows how to 
+- create a very simple RDF data cube from data and metadata  
+- query the cube using SPARQL
+- execute the RDF data cube integrity checks
+
+# Setup
+
+The next command is not needed if the package have been loaded throug devtools::load_all().
+```{r}
+library(rrdfcdisc)
+library(rrdfqb)
+library(rrdfqbcrnd0)
+```
+
+# Create RDF data cube
+The RDF data cube will be created from two data.frames containing data and metadata.
+
+## Define data
+The data are defined as data frame, and the data frame is displayed.
+```{r}
+obsData<- data.frame(
+  category=c("AA-group", "BB-group"),
+  procedure=c("count", "count" ),
+  factor=c("quantity", "quantity" ),
+  unit=c("subject", "subject" ),
+  denominator=c(" ", " "),
+  measure=c( 123, 456 ),
+  stringsAsFactors=FALSE  )
+knitr::kable(obsData)
+```
+
+## Define meta data
+The metadata used for generating the RDF data cube are also defined as data frame and displayed.
+```{r}
+cubeMetadata<- data.frame(
+  compType=c("dimension", "dimension", "dimension", "unit", "denominator", "measure", "metadata"),
+  compName=c("category", "procedure", "factor", "attribute", "attribute", "measure", "domainName"),
+  codeType=c("DATA", "DATA", "DATA", " ", " ", "<NA>","<NA>"),
+  nciDomainValue=c(" "," "," "," ", " ", " "," "),
+  compLabel=c("Category", "Statistical procedure", "Type of procedure", "Result", "Unit", "Denominator", "EXAMPLE"),
+  Comment=c(" "," "," "," "," "," "," "),
+  stringsAsFactors=FALSE  )
+knitr::kable(cubeMetadata)
+```
+
+## Create RDF data cube
+
+The RDF data cube for the data above is created using
+```{r}
+outcube<- BuildCubeFromDataFrames(cubeMetadata, obsData )
+```
+This shows a simple use of the BuildCubeFromDataFrames function. 
+The warning message from log4j can be ignored.
+
+The RDF data cube is serialized in turtle format and stored as a text file in
+```{r}
+cat(normalizePath(outcube),"\n")
+```
+
+# Query the cube using SPARQL
+
+Now take a look at the generated cubes by loading the turle file.
+
+
+```{r}
+dataCubeFile<- outcube
+```
+
+The rest of the code only depends on the value of dataCubeFile.
+The code demonstrates the use of the rrdf library.
+
+```{r}
+cube <- new.rdf()  # Initialize
+temp<- load.rdf(dataCubeFile, format="TURTLE", appendTo= cube) # work around to not get it printed
+summarize.rdf(cube)
+```
+
+The next statements are needed for the current implementation of the cube, and may change in future versions.
+```{r}
+## TODO: reconsider the use of domain specific prefixes
+dsdName<- GetDsdNameFromCube( cube )
+domainName<- GetDomainNameFromCube( cube )
+cat("dsdName ", dsdName, ", domainName ", domainName, "\n" )
+forsparqlprefix<- GetForSparqlPrefix( domainName )
+cat(forsparqlprefix,"\n")
+```
+
+The variable forsparqlprefix contains the prefix statements applicable
+for the present data cube. The use of prefixes makes the SPARQL query
+shorter, and more readable. The present version of the package defines
+namespaces dccs: and ds: where the domainname is included.
+TODO: Consider other approach for including the domainname, or use other concept.
+
+The next statement shows the first 10 triples in the cube. This will
+most often not be of interest, as the RDF cube contain general
+definition and not the specific cube triples.
+
+```{r, echo=FALSE}
+
+cube.observations1.rq<- paste( forsparqlprefix,
+'
+select *
+where {?s ?p ?o .}
+limit 10
+',
+"\n"
+)
+
+cube.observations1<- sparql.rdf(cube, cube.observations1.rq  )
+knitr::kable(head(cube.observations1, 10))
+```
+
+The next statement gets the first 30 triples in the cube where 
+the subject is a qb:Observation, and shows the first 15 triples.
+```{r}
+
+cube.observations2.rq<-  paste( forsparqlprefix,
+'
+select *
+where { ?s a qb:Observation ; ?p ?o .}
+limit 30
+',
+"\n"                               
+)
+
+cube.observations2<- sparql.rdf(cube, cube.observations2.rq)
+knitr::kable(head(cube.observations2, 15))
+
+```
+
+The SPARQL query for codelists are shown in the next output.
+```{r, echo=FALSE}
+codelists.rq<- GetCodeListSparqlQuery( forsparqlprefix, dsdName )
+cat(codelists.rq)
+```
+
+Executing the SPARQL query gives the code list as a data frame.
+```{r, echo=FALSE}
+cube.codelists<- as.data.frame(sparql.rdf(cube, codelists.rq), stringsAsFactors=FALSE)
+
+## TODO instead of gsub make a more straightforward way
+## TODO this involves a new version of the ph.recode function
+## TODO(mja): change the GetCodeListSparqlQuery to plain text versions of the clc also
+cube.codelists$clc<- gsub("code:","",cube.codelists$cl)
+knitr::kable(print(cube.codelists[,c("vn", "clc", "prefLabel")]))
+
+```
+
+The dimensions are shown in the next output.
+```{r}
+
+cube.dimensions.rq<- paste(forsparqlprefix,
+'
+select * where
+{ [] qb:dimension ?p .  }
+',
+"\n"
+)
+cube.dimensions<- as.data.frame(sparql.rdf(cube, cube.dimensions.rq), stringsAsFactors=FALSE)
+knitr::kable(cube.dimensions)
+
+```
+
+And finally the SPARQL query for observations.
+```{r, echo=FALSE}
+
+cube.dimensionsattr<- sparql.rdf(cube,
+  paste(forsparqlprefix,
+"select * where { {[] qb:dimension ?p . } union {  ?p a qb:AttributeProperty . } }"
+))
+
+cube.observations.rq<-  paste( forsparqlprefix,
+    "select * where {",
+    "     ?s a qb:Observation  ;",
+    paste("     qb:dataSet",  paste0( "ds:", "dataset", "-", domainName), " ;", sep=" ", collapse="\n"), 
+    paste0( "     ", cube.dimensionsattr, " ", 
+            sub("crnd-dimension:|crnd-attribute:|crnd-measure:", "?", cube.dimensionsattr), ";", collapse="\n"),
+    "     crnd-measure:measure      ?measure ;",
+    paste0( "     optional{ ", sub("crnd-dimension:|crnd-attribute:|crnd-measure:", "?", cube.dimensionsattr), " ",
+           "skos:prefLabel",
+           " ",
+           sub("crnd-dimension:|crnd-attribute:|crnd-measure:", "?", cube.dimensionsattr), "value" ,
+           " . ", "}",
+           collapse="\n"),
+    "} ",
+    sep="\n"
+   )
+
+```
+
+This is the query for getting the observations
+```{r}
+cat(cube.observations.rq)
+```
+
+And finally the observations, which is expected be the same as the starting data set.
+```{r}
+cube.observations<- as.data.frame(sparql.rdf(cube, cube.observations.rq ), stringsAsFactors=FALSE)
+knitr::kable(cube.observations[,c(paste0(sub("crnd-dimension:|crnd-attribute:|crnd-measure:", "", cube.dimensionsattr), "value"),"measure")])
+```
+
+# Evaluating RDF data cube integrity constraints 
+
+The cube conformance with the integrity constraints can be checked
+using the RunQbIC function. The integrity checks are SPARQL queries
+are stored in the list qbIClist.  The checks uses the RDF data cube
+vocabulary. Therefore the RDF model must contain the RDF data cube
+vocabulary.
+
+```{r} 
+cubeVocabularyFn<- system.file("extdata/cube-vocabulary-rdf","cube.ttl", package="rrdfqb")
+cubeVocabulary<- load.rdf(cubeVocabularyFn,format="TURTLE")
+cubeData<- combine.rdf( cubeVocabulary, cube)
+```
+
+Note, this is not very interesting, as the cube is small.
+The evaluation of the integrity contraints takes a while.
+```{r}
+icres<- RunQbIC( cubeData, forsparqlprefix )
+knitr::kable(icres)
+```
+
+Here we remove one of the dimensions from the cube in observationo
+ds:obs1. Note: for the remove.triple function the components must be
+given as the full qualified URI. The expected result is that IC-11
+fails.
+
+```{r}
+remove.triple(cubeData,
+  subject="http://www.example.org/dc/example/ds/obs1",
+  predicate="http://www.example.org/dc/dimension#category",
+  object="http://www.example.org/dc/code/category-AA-group")
+icres<- RunQbIC( cubeData, forsparqlprefix )
+knitr::kable(icres)
+```        
+
+IC-12 also fails; examining the SPARQL query shows why.
+
+```{r}
+cat(qbIClist[["ic-12"]]$rq,"\n")
+```
+
+As RRDF does not support the ASK query, the IC queries are changed 
+to a SELECT query returning the number of triples selected.

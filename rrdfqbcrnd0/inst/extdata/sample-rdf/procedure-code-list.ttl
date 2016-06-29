@@ -1,0 +1,126 @@
+@prefix dccs:  <http://www.example.org/dc/example/dccs/> .
+@prefix sdtms-1-3: <http://rdf.cdisc.org/sdtm-1-3/schema#> .
+@prefix code:  <http://www.example.org/dc/code/> .
+@prefix adam-2-1: <http://rdf.cdisc.org/std/adam-2-1#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix cdash-1-1: <http://rdf.cdisc.org/std/cdash-1-1#> .
+@prefix sdtm-1-3: <http://rdf.cdisc.org/std/sdtm-1-3#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix adamvr-1-2: <http://rdf.cdisc.org/std/adamvr-1-2#> .
+@prefix crnd-attribute: <http://www.example.org/dc/attribute#> .
+@prefix sdtm-1-2: <http://rdf.cdisc.org/std/sdtm-1-2#> .
+@prefix sdtmct: <http://rdf.cdisc.org/sdtm-terminology#> .
+@prefix ds:    <http://www.example.org/dc/example/ds/> .
+@prefix qb:    <http://purl.org/linked-data/cube#> .
+@prefix mms:   <http://rdf.cdisc.org/mms#> .
+@prefix crnd-dimension: <http://www.example.org/dc/dimension#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix cdiscs: <http://rdf.cdisc.org/std/schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+@prefix cdashct: <http://rdf.cdisc.org/cdash-terminology#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix sdtmig-3-1-3: <http://rdf.cdisc.org/std/sdtmig-3-1-3#> .
+@prefix adamig-1-0: <http://rdf.cdisc.org/std/adamig-1-0#> .
+@prefix crnd-measure: <http://www.example.org/dc/measure#> .
+@prefix cts:   <http://rdf.cdisc.org/ct/schema#> .
+@prefix pav:   <http://purl.org/pav> .
+@prefix sdtmig-3-1-2: <http://rdf.cdisc.org/std/sdtmig-3-1-2#> .
+@prefix sendig-3-0: <http://rdf.cdisc.org/std/sendig-3-0#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix adamct: <http://rdf.cdisc.org/adam-terminology#> .
+@prefix sendct: <http://rdf.cdisc.org/send-terminology#> .
+@prefix rrdfqbcrnd0: <http://www.example.org/rrdfqbcrnd0/> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+
+code:procedure-q3  a       rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics q3"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "q3"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:Procedure  a        rdfs:Resource , rdfs:Class , owl:Class ;
+        rdfs:comment     "Specifies the procedure for each observation"@en ;
+        rdfs:label       "Class for code list: procedure"@en ;
+        rdfs:seeAlso     code:procedure ;
+        rdfs:subClassOf  code:Procedure , skos:Concept , rdfs:Resource .
+
+code:procedure-q1  a       rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics q1"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "q1"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-stddev
+        a                  rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics stddev"@en ;
+        rdfs:seeAlso       <purl.obolibrary.org/obo/STATO_0000037> ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "stddev"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-mean  a     rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics mean"@en ;
+        rdfs:seeAlso       <purl.obolibrary.org/obo/IAO_0000125> ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "mean"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-max  a      rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics max"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "max"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-stdev  a    rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics stdev"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "stdev"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-median
+        a                  rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics median"@en ;
+        rdfs:seeAlso       <purl.obolibrary.org/obo/OBI_0200119> ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "median"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-std  a      rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics std"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "std"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-count  a    rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics count"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "count"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-countdistinct
+        a                  rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics countdistinct"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "countdistinct"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-n  a        rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics n"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "n"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-min  a      rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics min"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "min"^^xsd:string ;
+        skos:topConceptOf  code:procedure .
+
+code:procedure-percent
+        a                  rdfs:Resource , code:Procedure , skos:Concept ;
+        rdfs:comment       "Descriptive statistics percent"@en ;
+        skos:inScheme      code:procedure ;
+        skos:prefLabel     "percent"^^xsd:string ;
+        skos:topConceptOf  code:procedure .

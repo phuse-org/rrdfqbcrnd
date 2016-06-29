@@ -1,0 +1,36 @@
+# RStudio files
+rrdfqbcrnd0/.Rproj.user
+rrdfqbcrnd0/.Rproj.user/
+# History files
+.Rhistory
+.RData
+# inst/doc
+rrdfqbcrnd0/build/
+*.Rmd~
+*.R~
+.#*
+*~
+^*.tar.gz$
+^*/inst/data-raw/*.md$
+^*/inst/data-raw/*.html$
+rrdfqbcrnd0/inst/extdata/sample-workflow/demo-export-csv.log
+rrdfqbcrnd0/inst/extdata/sample-workflow/demo-export-csv.lst
+rrdfqbcrnd0/inst/extdata/sample-workflow/demo.log
+rrdfqbcrnd0.Rcheck/
+rrdfqbcrnd0/R/TAGS
+rrdfqbcrnd0/inst/extdata/sample-cfg/RDFa.min.1.4.0.js
+rrdfqbcrnd0/inst/extdata/sample-cfg/RDFaProcessor.min.1.4.0.js
+rrdfqbcrnd0/inst/extdata/sample-cfg/jquery-2.1.3.min.js
+rrdfqbcrnd0/inst/extdata/sample-cfg/jquery-ui-1.11.3.custom
+rrdfqbcrnd0/vignettes/auto/
+rrdfqbcrnd0/vignettes/cube-from-workbook.html
+rrdfqbcrnd0/vignettes/first-cube.html
+rrdfqbcrnd0/inst/extdata/sample-workflow/demo-tabulate-qube.log
+rrdfqbcrnd0/inst/extdata/sample-workflow/demo-tabulate-qube.lst
+rrdfqbcrnd0/vignettes/.build.timestamp
+README.html
+mdrendered.html
+overview-md.md
+rrdfqbcrnd0/inst/extdata/sample-rdf/jquery-1.10.2.min.js
+
+

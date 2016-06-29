@@ -1,0 +1,375 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.hsqldb.jdbc.JDBCDriver";
+	d2rq:jdbcDSN "jdbc:hsqldb:mem:temp";
+	d2rq:startupSQLScript <file:/tmp/RtmpNbPO1j/file6a675be22e1b>;
+	.
+
+# Table ADAE
+map:ADAE a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ADAE/@@ADAE.USUBJID|urlify@@/@@ADAE.AESEQ@@";
+	d2rq:class vocab:ADAE;
+	d2rq:classDefinitionLabel "ADAE";
+	.
+map:ADAE__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ADAE #@@ADAE.USUBJID@@/@@ADAE.AESEQ@@";
+	.
+map:ADAE_ADURN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_ADURN;
+	d2rq:propertyDefinitionLabel "ADAE ADURN";
+	d2rq:column "ADAE.ADURN";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_ADURU a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_ADURU;
+	d2rq:propertyDefinitionLabel "ADAE ADURU";
+	d2rq:column "ADAE.ADURU";
+	.
+map:ADAE_AEACN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEACN;
+	d2rq:propertyDefinitionLabel "ADAE AEACN";
+	d2rq:column "ADAE.AEACN";
+	.
+map:ADAE_AEBODSYS a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEBODSYS;
+	d2rq:propertyDefinitionLabel "ADAE AEBODSYS";
+	d2rq:column "ADAE.AEBODSYS";
+	.
+map:ADAE_AEDECOD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEDECOD;
+	d2rq:propertyDefinitionLabel "ADAE AEDECOD";
+	d2rq:column "ADAE.AEDECOD";
+	.
+map:ADAE_AEHLGT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEHLGT;
+	d2rq:propertyDefinitionLabel "ADAE AEHLGT";
+	d2rq:column "ADAE.AEHLGT";
+	.
+map:ADAE_AEHLGTCD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEHLGTCD;
+	d2rq:propertyDefinitionLabel "ADAE AEHLGTCD";
+	d2rq:column "ADAE.AEHLGTCD";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AEHLT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEHLT;
+	d2rq:propertyDefinitionLabel "ADAE AEHLT";
+	d2rq:column "ADAE.AEHLT";
+	.
+map:ADAE_AEHLTCD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEHLTCD;
+	d2rq:propertyDefinitionLabel "ADAE AEHLTCD";
+	d2rq:column "ADAE.AEHLTCD";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AELLT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AELLT;
+	d2rq:propertyDefinitionLabel "ADAE AELLT";
+	d2rq:column "ADAE.AELLT";
+	.
+map:ADAE_AELLTCD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AELLTCD;
+	d2rq:propertyDefinitionLabel "ADAE AELLTCD";
+	d2rq:column "ADAE.AELLTCD";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AENDT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AENDT;
+	d2rq:propertyDefinitionLabel "ADAE AENDT";
+	d2rq:column "ADAE.AENDT";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AENDY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AENDY;
+	d2rq:propertyDefinitionLabel "ADAE AENDY";
+	d2rq:column "ADAE.AENDY";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AEOUT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEOUT;
+	d2rq:propertyDefinitionLabel "ADAE AEOUT";
+	d2rq:column "ADAE.AEOUT";
+	.
+map:ADAE_AEPTCD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEPTCD;
+	d2rq:propertyDefinitionLabel "ADAE AEPTCD";
+	d2rq:column "ADAE.AEPTCD";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AEREL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AEREL;
+	d2rq:propertyDefinitionLabel "ADAE AEREL";
+	d2rq:column "ADAE.AEREL";
+	.
+map:ADAE_AESCAN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESCAN;
+	d2rq:propertyDefinitionLabel "ADAE AESCAN";
+	d2rq:column "ADAE.AESCAN";
+	.
+map:ADAE_AESCONG a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESCONG;
+	d2rq:propertyDefinitionLabel "ADAE AESCONG";
+	d2rq:column "ADAE.AESCONG";
+	.
+map:ADAE_AESDISAB a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESDISAB;
+	d2rq:propertyDefinitionLabel "ADAE AESDISAB";
+	d2rq:column "ADAE.AESDISAB";
+	.
+map:ADAE_AESDTH a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESDTH;
+	d2rq:propertyDefinitionLabel "ADAE AESDTH";
+	d2rq:column "ADAE.AESDTH";
+	.
+map:ADAE_AESEQ a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESEQ;
+	d2rq:propertyDefinitionLabel "ADAE AESEQ";
+	d2rq:column "ADAE.AESEQ";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AESER a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESER;
+	d2rq:propertyDefinitionLabel "ADAE AESER";
+	d2rq:column "ADAE.AESER";
+	.
+map:ADAE_AESEV a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESEV;
+	d2rq:propertyDefinitionLabel "ADAE AESEV";
+	d2rq:column "ADAE.AESEV";
+	.
+map:ADAE_AESHOSP a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESHOSP;
+	d2rq:propertyDefinitionLabel "ADAE AESHOSP";
+	d2rq:column "ADAE.AESHOSP";
+	.
+map:ADAE_AESLIFE a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESLIFE;
+	d2rq:propertyDefinitionLabel "ADAE AESLIFE";
+	d2rq:column "ADAE.AESLIFE";
+	.
+map:ADAE_AESOC a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESOC;
+	d2rq:propertyDefinitionLabel "ADAE AESOC";
+	d2rq:column "ADAE.AESOC";
+	.
+map:ADAE_AESOCCD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESOCCD;
+	d2rq:propertyDefinitionLabel "ADAE AESOCCD";
+	d2rq:column "ADAE.AESOCCD";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AESOD a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AESOD;
+	d2rq:propertyDefinitionLabel "ADAE AESOD";
+	d2rq:column "ADAE.AESOD";
+	.
+map:ADAE_AETERM a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AETERM;
+	d2rq:propertyDefinitionLabel "ADAE AETERM";
+	d2rq:column "ADAE.AETERM";
+	.
+map:ADAE_AGE a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AGE;
+	d2rq:propertyDefinitionLabel "ADAE AGE";
+	d2rq:column "ADAE.AGE";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AGEGR1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AGEGR1;
+	d2rq:propertyDefinitionLabel "ADAE AGEGR1";
+	d2rq:column "ADAE.AGEGR1";
+	.
+map:ADAE_AGEGR1N a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AGEGR1N;
+	d2rq:propertyDefinitionLabel "ADAE AGEGR1N";
+	d2rq:column "ADAE.AGEGR1N";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_AOCC01FL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AOCC01FL;
+	d2rq:propertyDefinitionLabel "ADAE AOCC01FL";
+	d2rq:column "ADAE.AOCC01FL";
+	.
+map:ADAE_AOCC02FL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AOCC02FL;
+	d2rq:propertyDefinitionLabel "ADAE AOCC02FL";
+	d2rq:column "ADAE.AOCC02FL";
+	.
+map:ADAE_AOCC03FL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AOCC03FL;
+	d2rq:propertyDefinitionLabel "ADAE AOCC03FL";
+	d2rq:column "ADAE.AOCC03FL";
+	.
+map:ADAE_AOCC04FL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AOCC04FL;
+	d2rq:propertyDefinitionLabel "ADAE AOCC04FL";
+	d2rq:column "ADAE.AOCC04FL";
+	.
+map:ADAE_AOCCFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AOCCFL;
+	d2rq:propertyDefinitionLabel "ADAE AOCCFL";
+	d2rq:column "ADAE.AOCCFL";
+	.
+map:ADAE_AOCCPFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AOCCPFL;
+	d2rq:propertyDefinitionLabel "ADAE AOCCPFL";
+	d2rq:column "ADAE.AOCCPFL";
+	.
+map:ADAE_AOCCSFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_AOCCSFL;
+	d2rq:propertyDefinitionLabel "ADAE AOCCSFL";
+	d2rq:column "ADAE.AOCCSFL";
+	.
+map:ADAE_ASTDT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_ASTDT;
+	d2rq:propertyDefinitionLabel "ADAE ASTDT";
+	d2rq:column "ADAE.ASTDT";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_ASTDTF a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_ASTDTF;
+	d2rq:propertyDefinitionLabel "ADAE ASTDTF";
+	d2rq:column "ADAE.ASTDTF";
+	.
+map:ADAE_ASTDY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_ASTDY;
+	d2rq:propertyDefinitionLabel "ADAE ASTDY";
+	d2rq:column "ADAE.ASTDY";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_CQ01NAM a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_CQ01NAM;
+	d2rq:propertyDefinitionLabel "ADAE CQ01NAM";
+	d2rq:column "ADAE.CQ01NAM";
+	.
+map:ADAE_RACE a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_RACE;
+	d2rq:propertyDefinitionLabel "ADAE RACE";
+	d2rq:column "ADAE.RACE";
+	.
+map:ADAE_RACEN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_RACEN;
+	d2rq:propertyDefinitionLabel "ADAE RACEN";
+	d2rq:column "ADAE.RACEN";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_SAFFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_SAFFL;
+	d2rq:propertyDefinitionLabel "ADAE SAFFL";
+	d2rq:column "ADAE.SAFFL";
+	.
+map:ADAE_SEX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_SEX;
+	d2rq:propertyDefinitionLabel "ADAE SEX";
+	d2rq:column "ADAE.SEX";
+	.
+map:ADAE_SITEID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_SITEID;
+	d2rq:propertyDefinitionLabel "ADAE SITEID";
+	d2rq:column "ADAE.SITEID";
+	.
+map:ADAE_STUDYID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_STUDYID;
+	d2rq:propertyDefinitionLabel "ADAE STUDYID";
+	d2rq:column "ADAE.STUDYID";
+	.
+map:ADAE_TRTA a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_TRTA;
+	d2rq:propertyDefinitionLabel "ADAE TRTA";
+	d2rq:column "ADAE.TRTA";
+	.
+map:ADAE_TRTAN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_TRTAN;
+	d2rq:propertyDefinitionLabel "ADAE TRTAN";
+	d2rq:column "ADAE.TRTAN";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_TRTEDT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_TRTEDT;
+	d2rq:propertyDefinitionLabel "ADAE TRTEDT";
+	d2rq:column "ADAE.TRTEDT";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_TRTEMFL a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_TRTEMFL;
+	d2rq:propertyDefinitionLabel "ADAE TRTEMFL";
+	d2rq:column "ADAE.TRTEMFL";
+	.
+map:ADAE_TRTSDT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_TRTSDT;
+	d2rq:propertyDefinitionLabel "ADAE TRTSDT";
+	d2rq:column "ADAE.TRTSDT";
+	d2rq:datatype xsd:double;
+	.
+map:ADAE_USUBJID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ADAE;
+	d2rq:property vocab:ADAE_USUBJID;
+	d2rq:propertyDefinitionLabel "ADAE USUBJID";
+	d2rq:column "ADAE.USUBJID";
+	.
+
