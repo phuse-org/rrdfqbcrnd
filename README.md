@@ -270,6 +270,7 @@ packageVersion("rrdf")
 |./rrdfqbcrndex|[using-arq-graphical-display](./rrdfqbcrndex/inst/doc/using-arq-graphical-display.md)| Graphical display of results from SPARQL scripts for the demographics cube (DC-DEMO-sample.ttl) |
 |./rrdfqbcrndex|[create-qb-examples-as-ttl](./rrdfqbcrndex/inst/doc/create-qb-examples-as-ttl.md)| Create turtle version of example files |
 |./rrdfqbpresent|[two-dim-representation-of-cube](./rrdfqbpresent/inst/doc/two-dim-representation-of-cube.md)| Setup |
+|./rrdfqbspec|[CubeStructureMetaDataFigures](./rrdfqbspec/inst/data-raw/CubeStructureMetaDataFigures.Rmd)| Plot the indivdual subgraphs for use in the Tech Spec documentation |
 
 
 ## Vignette documents
